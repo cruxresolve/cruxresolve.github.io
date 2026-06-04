@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GhostTune — ECU Tuning for iOS</title>
+  <meta name="description" content="GhostTune is the first professional ECU tuning app for iOS. Built for MegaSquirt MS2/Extra users." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0b;
+      --surface: #111114;
+      --surface2: #18181d;
+      --border: #2a2a32;
+      --purple: #7b5ea7;
+      --purple-bright: #9b78d4;
+      --purple-dim: #3d2e55;
+      --white: #f0f0f2;
+      --grey: #8888a0;
+      --grey-dim: #444458;
+      --mono: 'Share Tech Mono', monospace;
+      --head: 'Barlow Condensed', sans-serif;
+      --body: 'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--body);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.028;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,11,0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      font-family: var(--head);
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--purple-bright);
+    }
+
+    nav a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--grey);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      margin-left: 28px;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--white); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(123,94,167,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(123,94,167,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(123,94,167,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--purple-bright);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.2s;
+    }
+
+    .hero h1 {
+      font-family: var(--head);
+      font-weight: 900;
+      font-size: clamp(4rem, 12vw, 9rem);
+      line-height: 0.9;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--white);
+      max-width: 900px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.35s;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--purple-bright);
+      display: block;
+    }
+
+    .hero-sub {
+      margin-top: 32px;
+      font-size: 1.05rem;
+      color: var(--grey);
+      max-width: 480px;
+      font-weight: 400;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.5s;
+    }
+
+    .hero-actions {
+      margin-top: 44px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.65s;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--purple);
+      color: var(--white);
+      text-decoration: none;
+      font-family: var(--head);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border: 1px solid var(--purple-bright);
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--purple-bright);
+      border-color: var(--white);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--grey);
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--grey-dim);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-ghost:hover { color: var(--white); border-color: var(--white); }
+
+    .coming-soon-badge {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--purple-bright);
+      border: 1px solid var(--purple-dim);
+      padding: 4px 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: rgba(123,94,167,0.08);
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 0 40px;
+      display: flex;
+      overflow: hidden;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 28px 24px;
+      border-right: 1px solid var(--border);
+      min-width: 0;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-value {
+      font-family: var(--head);
+      font-weight: 900;
+      font-size: 2.2rem;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .stat-value span { color: var(--purple-bright); }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--grey);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* ── FEATURES ── */
+    .section {
+      padding: 100px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--purple-bright);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section h2 {
+      font-family: var(--head);
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      text-transform: uppercase;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      max-width: 600px;
+      margin-bottom: 60px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .feature {
+      background: var(--surface);
+      padding: 36px 32px;
+      transition: background 0.2s;
+    }
+
+    .feature:hover { background: var(--surface2); }
+
+    .feature-icon {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--purple-bright);
+      letter-spacing: 0.15em;
+      margin-bottom: 16px;
+    }
+
+    .feature h3 {
+      font-family: var(--head);
+      font-weight: 600;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+
+    .feature p {
+      font-size: 0.9rem;
+      color: var(--grey);
+      line-height: 1.65;
+    }
+
+    /* ── COMPATIBILITY ── */
+    .compat-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 40px;
+    }
+
+    .compat-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .compat-inner h2 {
+      font-family: var(--head);
+      font-weight: 700;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .compat-inner p {
+      color: var(--grey);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .compat-list {
+      list-style: none;
+      margin-top: 28px;
+    }
+
+    .compat-list li {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--grey);
+      letter-spacing: 0.06em;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .compat-list li::before {
+      content: '▸';
+      color: var(--purple-bright);
+      font-size: 0.6rem;
+    }
+
+    /* terminal block */
+    .terminal {
+      background: var(--black);
+      border: 1px solid var(--border);
+      padding: 28px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.8;
+      color: var(--grey);
+    }
+
+    .terminal .t-comment { color: var(--grey-dim); }
+    .terminal .t-key { color: var(--purple-bright); }
+    .terminal .t-val { color: #7ec8a0; }
+    .terminal .t-label { color: var(--white); }
+
+    /* ── BETA ── */
+    .beta-section {
+      padding: 100px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .beta-section h2 {
+      font-family: var(--head);
+      font-weight: 900;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 24px;
+    }
+
+    .beta-section h2 span { color: var(--purple-bright); }
+
+    .beta-section p {
+      color: var(--grey);
+      font-size: 1rem;
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-brand {
+      font-family: var(--head);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey-dim);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--grey-dim);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--grey-dim);
+      letter-spacing: 0.06em;
+      width: 100%;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      header { padding: 16px 20px; }
+      nav { display: none; }
+      .hero { padding: 100px 20px 60px; }
+      .stats-bar { flex-direction: column; padding: 0 20px; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .section { padding: 60px 20px; }
+      .compat-section { padding: 60px 20px; }
+      .compat-inner { grid-template-columns: 1fr; gap: 40px; }
+      .beta-section { padding: 60px 20px; }
+      footer { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="/" class="logo">Ghost<span>Tune</span></a>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#compatibility">Compatibility</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="eyebrow">// iOS ECU Tuning App — MS2/Extra</div>
+    <h1>Ghost<em>Tune</em></h1>
+    <p class="hero-sub">Professional MegaSquirt ECU tuning from your iPhone or iPad. Read, edit, and burn tune tables wirelessly — no laptop required.</p>
+    <div class="hero-actions">
+      <span class="coming-soon-badge">Coming to App Store</span>
+      <a href="support.html" class="btn-ghost">Contact Support →</a>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-value">MS2<span>/Extra</span></div>
+      <div class="stat-label">ECU Platform</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">WiFi<span> Bridge</span></div>
+      <div class="stat-label">Connection Type</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">iOS<span> Native</span></div>
+      <div class="stat-label">Platform</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">100<span>%</span></div>
+      <div class="stat-label">On-Device Processing</div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="section-label">// Capabilities</div>
+    <h2>Everything you need. On your phone.</h2>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">[ 01 ]</div>
+        <h3>VE Table Editing</h3>
+        <p>Read, edit, and burn your volumetric efficiency table directly from your device. Live RPM and TPS overlays show exactly where you are in the map.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">[ 02 ]</div>
+        <h3>Live Data Gauges</h3>
+        <p>Real-time engine data at a glance — AFR, MAP, RPM, coolant temp, TPS, and more. Configurable gauge screens built for the tuning bay.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">[ 03 ]</div>
+        <h3>Ignition &amp; AFR Tables</h3>
+        <p>Full read/write access to ignition timing and AFR target tables. Safe burn sequence with verify pass on every write.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">[ 04 ]</div>
+        <h3>Tune Manager</h3>
+        <p>Save, load, and manage complete tune files in GhostTune's native .gtune format. Full 7-page ECU snapshots with instant restore.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">[ 05 ]</div>
+        <h3>Cranking &amp; Idle</h3>
+        <p>Dedicated screens for cranking enrichment, rev limiter, and idle control — the parameters you actually need at startup.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">[ 06 ]</div>
+        <h3>Comms Diagnostics</h3>
+        <p>Built-in connection diagnostics with RTT stats, rolling protocol log, and live value verification. Know exactly what your ECU is saying.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPATIBILITY -->
+  <div class="compat-section" id="compatibility">
+    <div class="compat-inner">
+      <div>
+        <div class="section-label">// Compatibility</div>
+        <h2>Built for MegaSquirt MS2/Extra</h2>
+        <p>GhostTune is purpose-built for the MS2/Extra 3.4.x firmware platform — the most widely used aftermarket EFI system for enthusiast builds.</p>
+        <p>Connects wirelessly via an ESP32 WiFi bridge to your existing MS2 serial port. No hardware modifications to your ECU required.</p>
+        <ul class="compat-list">
+          <li>MicroSquirt / MicroSquirt AMP'd</li>
+          <li>MegaSquirt 2 (MS2/Extra 3.4.x)</li>
+          <li>ESP32 WiFi Bridge (NodeMCU ESP-32S)</li>
+          <li>iPhone &amp; iPad — iOS 15+</li>
+        </ul>
+      </div>
+      <div class="terminal">
+        <div class="t-comment">// Your tune. Your rules.</div>
+        <br/>
+        <div><span class="t-val">No laptop required.</span></div>
+        <br/>
+        <div style="color: var(--white); line-height: 2;">
+          GhostTune puts a full-featured tuning environment in your pocket — so you can tune in the garage, on the dyno, or on the side of the road.
+        </div>
+        <br/>
+        <div class="t-comment">// Professional tools. Zero excuses.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BETA CTA -->
+  <section class="beta-section">
+    <div class="section-label">// Early Access</div>
+    <h2>Coming to the<br/><span>App Store</span></h2>
+    <p>GhostTune is currently in beta testing. Have questions or want to get in touch? Reach out directly.</p>
+    <a href="support.html" class="btn-primary">Contact Us</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">GhostTune · Crux Resolve LLC</div>
+    <div class="footer-links">
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+    <div class="footer-copy">© 2026 Crux Resolve LLC — Series GhostTune. All rights reserved.</div>
+    <div class="footer-copy" style="margin-top:8px; font-size:0.58rem; opacity:0.6;">MegaSquirt and MS2 are products of Bowling &amp; Grippo. Crux Resolve LLC is not affiliated with or endorsed by Bowling &amp; Grippo.</div>
+  </footer>
+
+</body>
+</html>

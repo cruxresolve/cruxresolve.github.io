@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — GhostTune</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0b;
+      --surface: #111114;
+      --surface2: #18181d;
+      --border: #2a2a32;
+      --purple: #7b5ea7;
+      --purple-bright: #9b78d4;
+      --purple-dim: #3d2e55;
+      --white: #f0f0f2;
+      --grey: #8888a0;
+      --grey-dim: #444458;
+      --mono: 'Share Tech Mono', monospace;
+      --head: 'Barlow Condensed', sans-serif;
+      --body: 'Barlow', sans-serif;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--body);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.028;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,11,0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      font-family: var(--head);
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--purple-bright); }
+
+    nav a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--grey);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      margin-left: 28px;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--white); }
+
+    .page-hero {
+      padding: 130px 40px 60px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .page-hero .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--purple-bright);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .page-hero h1 {
+      font-family: var(--head);
+      font-weight: 700;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .page-hero p {
+      margin-top: 16px;
+      color: var(--grey);
+      font-size: 0.95rem;
+      max-width: 480px;
+    }
+
+    .content {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 72px 40px 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 36px;
+    }
+
+    .contact-card .card-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--purple-bright);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .contact-card h2 {
+      font-family: var(--head);
+      font-weight: 700;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+    }
+
+    .contact-card p {
+      font-size: 0.88rem;
+      color: var(--grey);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .contact-card a.email-link {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--purple-bright);
+      text-decoration: none;
+      border: 1px solid var(--purple-dim);
+      padding: 12px 20px;
+      letter-spacing: 0.06em;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      background: rgba(123,94,167,0.06);
+    }
+
+    .contact-card a.email-link:hover {
+      background: rgba(123,94,167,0.18);
+      border-color: var(--purple-bright);
+      color: var(--white);
+    }
+
+    .faq-block {
+      grid-column: 1 / -1;
+    }
+
+    .faq-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--purple-bright);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+    }
+
+    .faq-item:first-of-type { border-top: 1px solid var(--border); }
+
+    .faq-item h3 {
+      font-family: var(--head);
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+
+    .faq-item p {
+      font-size: 0.88rem;
+      color: var(--grey);
+      line-height: 1.7;
+    }
+
+    .faq-item a { color: var(--purple-bright); text-decoration: none; }
+    .faq-item a:hover { text-decoration: underline; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-brand {
+      font-family: var(--head);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey-dim);
+    }
+
+    .footer-links { display: flex; gap: 24px; }
+
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--grey-dim);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    @media (max-width: 700px) {
+      header { padding: 16px 20px; }
+      nav { display: none; }
+      .page-hero { padding: 100px 20px 40px; }
+      .content { grid-template-columns: 1fr; padding: 48px 20px 80px; }
+      .faq-block { grid-column: 1; }
+      footer { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo">Ghost<span>Tune</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <div class="eyebrow">// Support</div>
+    <h1>Get Help</h1>
+    <p>Have a question about GhostTune? We're here to help. Reach out and we'll get back to you.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="contact-card">
+      <div class="card-label">// General Support</div>
+      <h2>Contact Us</h2>
+      <p>For app support, bug reports, feature requests, or general questions about GhostTune.</p>
+      <a href="mailto:support@cruxresolve.com" class="email-link">support@cruxresolve.com</a>
+    </div>
+
+    <div class="contact-card">
+      <div class="card-label">// Privacy &amp; Legal</div>
+      <h2>Privacy Inquiries</h2>
+      <p>For questions about our data practices, privacy policy, or to submit a data request.</p>
+      <a href="mailto:privacy@cruxresolve.com" class="email-link">privacy@cruxresolve.com</a>
+    </div>
+
+    <div class="faq-block">
+      <div class="faq-label">// Frequently Asked Questions</div>
+
+      <div class="faq-item">
+        <h3>What ECUs does GhostTune support?</h3>
+        <p>GhostTune is built for MegaSquirt MS2/Extra 3.4.x firmware. This includes MicroSquirt and MicroSquirt AMP'd boards running MS2/Extra. Support for additional platforms is planned for future releases.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How does GhostTune connect to my ECU?</h3>
+        <p>GhostTune connects wirelessly via an ESP32 WiFi bridge (NodeMCU ESP-32S) attached to your ECU's serial port. No hardware modifications to the ECU are required.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Is my tune data sent to the cloud?</h3>
+        <p>No. All ECU data is processed locally on your device. We do not transmit your tune files or engine parameters to any server. See our <a href="privacy.html">Privacy Policy</a> for full details.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>When will GhostTune be available on the App Store?</h3>
+        <p>GhostTune is currently in beta testing. App Store release is coming soon. Contact us at <a href="mailto:support@cruxresolve.com">support@cruxresolve.com</a> if you're interested in beta access.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>I found a bug. How do I report it?</h3>
+        <p>Email <a href="mailto:support@cruxresolve.com">support@cruxresolve.com</a> with a description of the issue, your device model, iOS version, and ECU firmware version. Screenshots or screen recordings are always helpful.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-brand">GhostTune · Crux Resolve LLC</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </footer>
+  <div style="background:var(--black);padding:12px 40px;font-family:var(--mono);font-size:0.58rem;color:var(--grey-dim);letter-spacing:0.05em;">MegaSquirt and MS2 are products of Bowling &amp; Grippo. Crux Resolve LLC is not affiliated with or endorsed by Bowling &amp; Grippo.</div>
+
+</body>
+</html>
