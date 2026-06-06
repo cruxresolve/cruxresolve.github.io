@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — GhostTune</title>
+  <meta name="description" content="GhostTune Privacy Policy. Learn how GhostTune handles ECU data, tune files, crash reports, and support communications." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep:      #080b12;
+      --bg-panel:     #0e1420;
+      --bg-card:      #141c2e;
+      --steel:        #2a3244;
+      --steel-light:  #3a4458;
+      --orange:       #FF6A00;
+      --orange-glow:  #FFB347;
+      --orange-dim:   #cc5500;
+      --blue-eye:     #00BFFF;
+      --blue-dim:     #4FC3F7;
+      --text-primary: #e8eaf0;
+      --text-muted:   #8a9ab8;
+      --text-dim:     #5a6a88;
+      --border:       rgba(255,106,0,0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(8,11,18,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-icon { width: 36px; height: 36px; border-radius: 8px; box-shadow: 0 0 12px rgba(255,106,0,0.4); }
+    .nav-wordmark {
+      font-family: "Orbitron", monospace;
+      font-weight: 900;
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
+      background: linear-gradient(90deg, var(--orange), var(--orange-glow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--orange-glow); }
+    .page-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 100px 40px 80px;
+      position: relative;
+      z-index: 1;
+    }
+    .page-label {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+    .page-title {
+      font-family: "Orbitron", monospace;
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .page-meta {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .policy-section, .support-section {
+      margin-bottom: 40px;
+    }
+    .policy-section h2, .support-section h2 {
+      font-family: "Orbitron", monospace;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      color: var(--orange-glow);
+      margin-bottom: 12px;
+    }
+    .policy-section p, .support-section p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+    .policy-section ul, .support-section ul {
+      margin: 8px 0 12px 20px;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
+    .policy-section ul li, .support-section ul li {
+      margin-bottom: 6px;
+    }
+    .policy-section a, .support-section a {
+      color: var(--orange-glow);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,179,71,0.3);
+      transition: border-color 0.2s;
+    }
+    .policy-section a:hover, .support-section a:hover {
+      border-color: var(--orange-glow);
+    }
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,106,0,0.2), transparent);
+      margin: 0 0 40px;
+    }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,106,0,0.08);
+      border-radius: 6px;
+      padding: 24px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, var(--orange), transparent);
+    }
+    .faq-item:hover { border-color: rgba(255,106,0,0.22); }
+    .faq-item h3 {
+      font-family: "Orbitron", monospace;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+    .faq-item p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .faq-item a {
+      color: var(--orange-glow);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,179,71,0.3);
+    }
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,106,0,0.15);
+      border-radius: 6px;
+      padding: 28px 24px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .contact-label {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .contact-value {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+    .contact-value a {
+      color: var(--orange-glow);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,179,71,0.3);
+    }
+    .scanline {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(255,106,0,0.6), transparent);
+      animation: scan 8s linear infinite;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.3;
+    }
+    @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg-panel);
+      padding: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .footer-icon { width: 28px; height: 28px; border-radius: 6px; opacity: 0.7; }
+    .footer-name {
+      font-family: "Orbitron", monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--orange-glow); }
+    .footer-copy { font-size: 0.75rem; color: var(--text-dim); letter-spacing: 0.05em; }
+    .footer-disclaimer {
+      max-width: 1100px;
+      margin: 16px auto 0;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,106,0,0.08);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+    }
+    .footer-safety-note { margin-top: 12px; }
+    .tm-ref {
+      font-size: 0.65em;
+      vertical-align: super;
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+    @media (max-width: 760px) {
+      nav {
+        height: auto;
+        min-height: 64px;
+        padding: 10px 16px;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .nav-brand {
+        flex: 1 1 100%;
+        justify-content: center;
+      }
+      .nav-wordmark { font-size: 0.92rem; }
+      .nav-icon { width: 32px; height: 32px; }
+
+      .nav-links {
+        display: flex;
+        width: 100%;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-top: 2px;
+      }
+
+      .nav-links a {
+        font-size: 0.62rem;
+        letter-spacing: 0.08em;
+      }
+
+      .page-wrap { padding: 128px 20px 60px; }
+      .page-title { font-size: clamp(1.65rem, 8vw, 2.2rem); }
+      .page-meta { margin-bottom: 36px; }
+      .contact-card, .faq-item { padding: 22px 20px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-links { flex-wrap: wrap; gap: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scanline"></div>
+
+  <nav>
+    <a class="nav-brand" href="index.html">
+      <img class="nav-icon" src="assets/ghosttune-app-icon.png" alt="GhostTune icon" width="36" height="36" />
+      <span class="nav-wordmark">GHOSTTUNE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#howto">Setup</a></li>
+      <li><a href="index.html#compat">Compatibility</a></li>
+      <li><a href="index.html#beta">Beta</a></li>
+      <li><a href="support.html">Support</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-wrap">
+    <div class="page-label">// LEGAL</div>
+    <h1 class="page-title">Privacy Policy</h1>
+    <div class="page-meta">Crux Resolve LLC &nbsp;·&nbsp; GhostTune &nbsp;·&nbsp; Effective Date: June 5, 2026</div>
+
+    <div class="policy-section">
+      <h2>1. Overview</h2>
+      <p>This Privacy Policy describes how Crux Resolve LLC ("we," "us," or "our") handles information in connection with the GhostTune mobile application ("Application"). We are committed to protecting your privacy. This Policy applies to all users of the Application.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>2. Information We Do Not Collect</h2>
+      <p>GhostTune is designed to operate entirely on your local device and local network. We do not collect, transmit, store, or have access to:</p>
+      <ul>
+        <li>Your name, email address, or any account credentials</li>
+        <li>Your ECU data, tune files, or engine parameters</li>
+        <li>Your vehicle information or location data</li>
+        <li>Any data generated during tuning sessions</li>
+      </ul>
+      <p>All communication between GhostTune and your ECU occurs over your local WiFi network. No tuning data leaves your device.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>3. Information That May Be Collected Automatically</h2>
+      <p>The Application itself does not collect analytics or usage data. However, certain minimal technical information may be collected by the platforms through which the Application is distributed or operated:</p>
+      <ul>
+        <li><strong>Apple App Store:</strong> Apple may collect information related to your download and purchase of the Application under Apple's own Privacy Policy. We do not receive personally identifiable information from Apple beyond what is necessary to process a purchase.</li>
+        <li><strong>Crash Reports:</strong> If you have enabled crash reporting on your iOS device, Apple may forward anonymized crash data to us to help identify and fix bugs. This data does not include your tuning data or personal information.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>3a. Website and Support Communications</h2>
+      <p>If you contact us by email, submit a support request, or express interest in beta access, we may receive information you choose to provide — such as your email address, message contents, device model, iOS version, ECU firmware version, screenshots, or hardware setup details. We use this information only to respond to your request, manage beta access, and improve GhostTune. We do not sell or share this information with third parties.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>4. How We Use Information</h2>
+      <p>Any information we receive (such as crash reports) is used solely for the purpose of improving the Application — diagnosing bugs, improving stability, and enhancing the user experience. We do not sell, rent, or share any information with third parties for marketing or advertising purposes.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>5. Security</h2>
+      <p>We implement reasonable technical and organizational measures to protect any information we receive against unauthorized access, disclosure, alteration, or destruction. Because GhostTune does not transmit your tuning data or personal information over the internet, your ECU data remains on your device and local network at all times.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>6. Children's Privacy</h2>
+      <p>The Application is not directed to children under the age of 13, and we do not knowingly collect personal information from children under 13. If we become aware that we have collected personal information from a child under 13, we will take steps to delete such information promptly.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>7. Your Choices and Rights</h2>
+      <p>Depending on your jurisdiction, you may have the following rights with respect to your personal information:</p>
+      <ul>
+        <li>Access: request a copy of the information we hold about you</li>
+        <li>Correction: request correction of inaccurate information</li>
+        <li>Deletion: request deletion of your information</li>
+        <li>Opt-out: opt out of certain data collection or communications</li>
+      </ul>
+      <p>To exercise any of these rights, please contact us at <a href="mailto:privacy@cruxresolve.com">privacy@cruxresolve.com</a>.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>8. Apple App Store</h2>
+      <p>The Application is distributed through the Apple App Store. Apple may collect certain information in connection with your download and use of the Application pursuant to Apple's own Privacy Policy, available at <a href="https://www.apple.com/privacy" target="_blank" rel="noopener">apple.com/privacy</a>. We encourage you to review Apple's Privacy Policy.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>9. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. We will notify you of material changes by updating the effective date at the top of this Policy and, where appropriate, by posting a notice within the Application. Your continued use of the Application following any update constitutes your acceptance of the revised Policy.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>10. Contact</h2>
+      <p>If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:</p>
+      <p><a href="mailto:privacy@cruxresolve.com">privacy@cruxresolve.com</a></p>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <a class="footer-brand" href="index.html">
+        <img class="footer-icon" src="assets/ghosttune-app-icon.png" alt="GhostTune" width="28" height="28" loading="lazy" />
+        <span class="footer-name">CRUX RESOLVE LLC</span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="mailto:support@cruxresolve.com">Contact</a></li>
+      </ul>
+      <div class="footer-copy">© 2026 Crux Resolve LLC · All rights reserved</div>
+    </div>
+
+    <div class="footer-disclaimer" id="tm">
+      * MegaSquirt and MicroSquirt are registered trademarks of Bowling &amp; Grippo. MS2/Extra refers to the open-source firmware project. GhostTune is not affiliated with, endorsed by, or sponsored by Bowling &amp; Grippo or the MS2/Extra firmware project.
+    </div>
+    <div class="footer-disclaimer footer-safety-note">
+      For experienced tuners. Incorrect ECU changes can damage engines or create unsafe operating conditions. Always maintain a known-good tune backup before making changes.
+    </div>
+  </footer>
+
+</body>
+</html>
