@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /privacy.html
 
 Sitemap: https://cruxresolve.com/sitemap.xml
