@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GhostTune — ECU Tuning for iOS</title>
+  <meta name="description" content="GhostTune is a professional ECU tuning app for iPhone and iPad for MS2/Extra 3.4.4 ECU users. Full table editing, live data, and tune management. No laptop required." />
+  <link rel="canonical" href="https://cruxresolve.com/ghosttune-app.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/ghosttune-app-icon.png" />
+  <link rel="apple-touch-icon" href="/assets/ghosttune-app-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cruxresolve.com/ghosttune-app.html" />
+  <meta property="og:title" content="GhostTune — ECU Tuning for iOS" />
+  <meta property="og:description" content="Professional EFI tuning from your iPhone. Full table editing, live data gauges, and burn-to-ECU capability for MegaSquirt MS2/Extra users. No laptop required." />
+  <meta property="og:image" content="https://cruxresolve.com/assets/og-banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="GhostTune by Crux Resolve" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="GhostTune — ECU Tuning for iOS" />
+  <meta name="twitter:description" content="Professional EFI tuning from your iPhone. Full table editing, live data gauges, and burn-to-ECU capability for MegaSquirt MS2/Extra users. No laptop required." />
+  <meta name="twitter:image" content="https://cruxresolve.com/assets/og-banner.png" />
+
+  <!-- Additional SEO -->
+  <meta name="keywords" content="MegaSquirt iPhone app, MS2 tuning iOS, EFI tuning app iPhone, MicroSquirt mobile tuning, wireless EFI tuning, TunerStudio alternative iOS, MegaSquirt iPad, ECU tuning app, GhostTune, Crux Resolve" />
+  <meta name="author" content="Crux Resolve LLC" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep:      #080b12;
+      --bg-panel:     #0e1420;
+      --bg-card:      #141c2e;
+      --steel:        #2a3244;
+      --steel-light:  #3a4458;
+      --orange:       #FF6A00;
+      --orange-glow:  #FFB347;
+      --orange-dim:   #cc5500;
+      --blue-eye:     #00BFFF;
+      --blue-dim:     #4FC3F7;
+      --text-primary: #e8eaf0;
+      --text-muted:   #8a9ab8;
+      --text-dim:     #5a6a88;
+      --border:       rgba(255,106,0,0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(8,11,18,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(255,106,0,0.4);
+    }
+
+    .nav-wordmark {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
+      background: linear-gradient(90deg, var(--orange), var(--orange-glow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--orange-glow); }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 100px 40px 60px;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(255,106,0,0.08) 0%, rgba(0,191,255,0.04) 40%, transparent 70%);
+      animation: pulse 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: translate(-50%,-55%) scale(1); opacity:0.8; }
+      50%      { transform: translate(-50%,-55%) scale(1.08); opacity:1; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 32px;
+      max-width: 900px;
+    }
+
+    .hero-app-icon {
+      width: 140px;
+      height: 140px;
+      border-radius: 32px;
+      box-shadow:
+        0 0 0 1px rgba(255,106,0,0.2),
+        0 0 40px rgba(255,106,0,0.35),
+        0 0 80px rgba(255,106,0,0.12),
+        0 20px 60px rgba(0,0,0,0.6);
+      animation: iconFloat 5s ease-in-out infinite;
+    }
+
+    @keyframes iconFloat {
+      0%,100% { transform: translateY(0); box-shadow: 0 0 0 1px rgba(255,106,0,0.2), 0 0 40px rgba(255,106,0,0.35), 0 0 80px rgba(255,106,0,0.12), 0 20px 60px rgba(0,0,0,0.6); }
+      50%      { transform: translateY(-10px); box-shadow: 0 0 0 1px rgba(255,106,0,0.3), 0 0 60px rgba(255,106,0,0.45), 0 0 120px rgba(255,106,0,0.18), 0 30px 80px rgba(0,0,0,0.7); }
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--orange);
+      border: 1px solid rgba(255,106,0,0.3);
+      border-radius: 2px;
+      padding: 4px 14px;
+      background: rgba(255,106,0,0.06);
+    }
+
+    .hero-headline {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: clamp(2.2rem, 6vw, 4.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-headline span {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-glow) 60%, #ffe0a0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 580px;
+      line-height: 1.7;
+    }
+
+    .hero-sub strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, var(--orange), var(--orange-dim));
+      color: #fff;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 24px rgba(255,106,0,0.3), 0 4px 16px rgba(0,0,0,0.4);
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 40px rgba(255,106,0,0.5), 0 6px 24px rgba(0,0,0,0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: 'Orbitron', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 3px;
+      border: 1px solid var(--steel-light);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--orange);
+      color: var(--orange-glow);
+    }
+
+    .hero-disclaimer {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    .stats-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-panel);
+      padding: 24px 40px;
+      display: flex;
+      justify-content: center;
+      gap: 64px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stat-value {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--orange);
+      text-shadow: 0 0 20px rgba(255,106,0,0.4);
+    }
+
+    .stat-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    section {
+      position: relative;
+      padding: 80px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-body {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 600px;
+      margin-bottom: 48px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .feat-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,106,0,0.08);
+      border-radius: 6px;
+      padding: 28px 24px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, var(--orange), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .feat-card:hover { border-color: rgba(255,106,0,0.25); box-shadow: 0 0 30px rgba(255,106,0,0.07); }
+    .feat-card:hover::before { opacity: 1; }
+
+    .feat-icon { font-size: 1.6rem; margin-bottom: 14px; }
+
+    .feat-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .feat-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+
+    .compat-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+    }
+
+    .compat-table thead th {
+      text-align: left;
+      padding: 10px 16px;
+      color: var(--text-dim);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .compat-table tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+    }
+
+    .compat-table tbody tr:hover { background: rgba(255,106,0,0.03); }
+    .compat-table td { padding: 12px 16px; color: var(--text-muted); }
+    .compat-table td:first-child { color: var(--text-primary); }
+
+    .badge-yes {
+      display: inline-block;
+      padding: 2px 10px;
+      background: rgba(255,106,0,0.15);
+      color: var(--orange-glow);
+      border-radius: 2px;
+      font-size: 0.75rem;
+    }
+
+    .badge-testing {
+      display: inline-block;
+      padding: 2px 10px;
+      background: rgba(0,191,255,0.1);
+      color: var(--blue-dim);
+      border-radius: 2px;
+      font-size: 0.75rem;
+    }
+
+    .badge-roadmap {
+      display: inline-block;
+      padding: 2px 10px;
+      background: rgba(90,106,136,0.2);
+      color: var(--text-dim);
+      border-radius: 2px;
+      font-size: 0.75rem;
+    }
+
+    .workflow { display: flex; flex-direction: column; gap: 0; }
+
+    .workflow-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 24px;
+    }
+
+    .step-num { display: flex; flex-direction: column; align-items: center; }
+
+    .step-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--orange);
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 0.9rem;
+      color: var(--orange);
+      flex-shrink: 0;
+      box-shadow: 0 0 16px rgba(255,106,0,0.2);
+    }
+
+    .step-connector {
+      width: 2px;
+      flex: 1;
+      min-height: 40px;
+      background: linear-gradient(to bottom, rgba(255,106,0,0.3), rgba(255,106,0,0.05));
+      margin: 0 auto;
+    }
+
+    .step-body { padding: 8px 0 32px; }
+
+    .step-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .step-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,106,0,0.2), transparent);
+    }
+
+    .coming-soon-card {
+      max-width: 560px;
+      background: var(--bg-card);
+      border: 1px solid rgba(255,106,0,0.2);
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow: 0 0 60px rgba(255,106,0,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .coming-soon-card::after {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(255,106,0,0.1), transparent 70%);
+      pointer-events: none;
+    }
+
+    .coming-soon-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--orange);
+      text-shadow: 0 0 20px rgba(255,106,0,0.3);
+      margin: 0 0 8px;
+    }
+
+    .coming-soon-sub {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .coming-soon-body {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .email-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .email-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 16px;
+      background: var(--bg-panel);
+      border: 1px solid var(--steel-light);
+      border-radius: 3px;
+      color: var(--text-primary);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .email-input:focus { border-color: var(--orange); }
+    .email-input::placeholder { color: var(--text-dim); }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg-panel);
+      padding: 40px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .footer-icon { width: 28px; height: 28px; border-radius: 6px; opacity: 0.7; }
+
+    .footer-name {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--orange-glow); }
+    .footer-copy { font-size: 0.75rem; color: var(--text-dim); letter-spacing: 0.05em; }
+
+    .scanline {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(255,106,0,0.6), transparent);
+      animation: scan 8s linear infinite;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.3;
+    }
+
+    @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
+
+    .mono-tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--orange-glow);
+      background: rgba(255,106,0,0.08);
+      border: 1px solid rgba(255,106,0,0.15);
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+
+
+    .footer-safety-note { margin-top: 12px; }
+    .tm-ref {
+      font-size: 0.65em;
+      vertical-align: super;
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+
+    .footer-disclaimer {
+      max-width: 1100px;
+      margin: 16px auto 0;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,106,0,0.08);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+    }
+
+
+    .preview-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .phone-shot {
+      background: linear-gradient(180deg, #101827, #080b12);
+      border: 1px solid rgba(255,106,0,0.16);
+      border-radius: 28px;
+      padding: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45), 0 0 40px rgba(255,106,0,0.08);
+    }
+
+    .phone-screen {
+      min-height: 420px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--bg-panel);
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .shot-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,106,0,0.08);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .shot-status {
+      color: var(--orange-glow);
+    }
+
+    .shot-body {
+      padding: 18px;
+      flex: 1;
+    }
+
+    .shot-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .gauge-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .gauge-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,106,0,0.08);
+      border-radius: 8px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+
+    .gauge-value {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      color: var(--orange);
+      font-size: 1.05rem;
+    }
+
+    .gauge-label {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--text-dim);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .table-preview {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px;
+      margin-top: 14px;
+    }
+
+    .table-cell {
+      min-height: 34px;
+      border-radius: 4px;
+      background: rgba(255,106,0,0.12);
+      border: 1px solid rgba(255,106,0,0.08);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .table-cell.hot {
+      background: rgba(255,106,0,0.28);
+      color: var(--orange-glow);
+    }
+
+    .trace-line {
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(0,191,255,0.18);
+      margin: 12px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trace-line::after {
+      content: '';
+      position: absolute;
+      left: 18%; top: 0; bottom: 0;
+      width: 26%;
+      background: var(--blue-dim);
+      box-shadow: 0 0 20px rgba(0,191,255,0.35);
+    }
+
+    .preview-note {
+      margin-top: 18px;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    .proof-card {
+      margin-top: 24px;
+      background: rgba(255,106,0,0.05);
+      border: 1px solid rgba(255,106,0,0.12);
+      border-radius: 8px;
+      padding: 22px;
+    }
+
+    .proof-card strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    @media (max-width: 760px) {
+      nav {
+        height: auto;
+        min-height: 64px;
+        padding: 10px 16px;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .nav-brand {
+        flex: 1 1 100%;
+        justify-content: center;
+      }
+      .nav-wordmark { font-size: 0.92rem; }
+      .nav-icon { width: 32px; height: 32px; }
+
+      .nav-links {
+        display: flex;
+        width: 100%;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-top: 2px;
+      }
+
+      .nav-links a {
+        font-size: 0.62rem;
+        letter-spacing: 0.08em;
+      }
+
+      .hero { padding: 142px 20px 52px; min-height: auto; }
+      .hero-content { gap: 24px; }
+      .hero-app-icon { width: 112px; height: 112px; border-radius: 26px; }
+      .hero-sub { font-size: 1rem; }
+      .hero-cta-row { width: 100%; }
+      .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+
+      section { padding: 60px 20px; }
+      .stats-strip { padding: 20px; gap: 28px; }
+      .stat-value { font-size: 1.3rem; }
+      .preview-wrap { grid-template-columns: 1fr; }
+      .phone-screen { min-height: 360px; }
+      .gauge-row { grid-template-columns: 1fr; }
+      .compat-table { min-width: 620px; }
+      #compat { overflow-x: auto; }
+      .email-input { min-width: 100%; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-links { flex-wrap: wrap; gap: 18px; }
+    }
+
+    /* ── FAQ ── */
+    .faq-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-width: 860px;
+      margin: 48px auto 0;
+    }
+    .faq-item {
+      border: 1px solid rgba(255,106,0,0.1);
+      border-radius: 6px;
+      background: var(--bg-card);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item + .faq-item { margin-top: 6px; }
+    .faq-item:hover { border-color: rgba(255,106,0,0.25); }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-align: left;
+      padding: 20px 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-question:hover { color: var(--orange-glow); }
+    .faq-chevron { font-size: 0.75rem; color: var(--orange); transition: transform 0.2s; flex-shrink: 0; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-answer {
+      display: none;
+      padding: 0 24px 20px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+    .faq-answer a { color: var(--orange); text-decoration: none; }
+    .faq-item.open .faq-answer { display: block; }
+    .faq-more { text-align: center; margin-top: 24px; font-size: 0.85rem; color: var(--text-dim); }
+    .faq-more a { color: var(--orange); text-decoration: none; }
+    .faq-more a:hover { color: var(--orange-glow); }
+  </style>
+</head>
+<body>
+
+  <div class="scanline"></div>
+
+  <nav>
+    <a class="nav-brand" href="index.html">
+      <img class="nav-icon" src="assets/ghosttune-app-icon.png" alt="GhostTune icon" width="36" height="36" />
+      <span class="nav-wordmark">GHOSTTUNE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#howto">Setup</a></li>
+      <li><a href="#compat">Compatibility</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#beta">Beta</a></li>
+      <li><a href="ghostbridge.html">GhostBridge</a></li>
+      <li><a href="support.html">Support</a></li>
+      <li><a href="ghosttune.html">Media</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-badge">// COMING SOON — iOS ECU TUNING</div>
+
+      <img
+        class="hero-app-icon"
+        src="assets/ghosttune-app-icon.png"
+        alt="GhostTune App Icon"
+      />
+
+      <h1 class="hero-headline">
+        <span>Tune anywhere.</span><br />Compromise nothing.
+      </h1>
+
+      <p class="hero-sub">
+        GhostTune is a <strong>professional ECU tuning app for iPhone and iPad</strong> — built from the ground up for
+        <strong>MegaSquirt<a class="tm-ref" href="#tm">*</a> MS2/Extra<a class="tm-ref" href="#tm">*</a></strong> users. Full table editing, live data, and tune management.
+        No laptop. No wires.</p>
+
+      <div class="hero-cta-row">
+        <a class="btn-primary" href="#beta">
+          ✉ Join the Beta
+        </a>
+        <a class="btn-ghost" href="#features">
+          See Features →
+        </a>
+      </div>
+
+      <p class="hero-disclaimer">Currently in beta · App Store release coming soon · Requires MS2/Extra<a class="tm-ref" href="#tm">*</a> 3.4.4 firmware · Modern iOS · WiFi connection</p>
+    </div>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-value">MS2</div>
+      <div class="stat-label">ECU Platform</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">Verified</div>
+      <div class="stat-label">Writes</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">Live</div>
+      <div class="stat-label">ECU Data</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">3.4.4</div>
+      <div class="stat-label">MS2/Extra</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">iPhone + iPad</div>
+      <div class="stat-label">Platform</div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="section-label">// CAPABILITIES</div>
+    <h2 class="section-title">Professional tuning tools.<br />No laptop required.</h2>
+    <p class="section-body">
+      Every screen is purpose-built for real-world tuning workflows. Not a port. Not a web app.
+      Native iOS, built for the dyno, the garage, and everywhere in between.
+    </p>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">📊</div>
+        <div class="feat-title">VE Table Editor</div>
+        <div class="feat-desc">Full volumetric efficiency table editing with live gauge footer showing RPM, MAP, AFR, and advance. Pinch-zoom, tap-to-edit, and delta display mode. Includes an autotune engine with per-cell locking to protect cells you've dialed in.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⚡</div>
+        <div class="feat-title">Ignition Tables</div>
+        <div class="feat-desc">Complete ignition advance mapping. Read, edit, and burn directly from the ECU. Every write goes through a full verification sequence before returning control.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔥</div>
+        <div class="feat-title">AFR / Lambda Targets</div>
+        <div class="feat-desc">Edit your AFR target table across the full load-speed matrix. Live wideband EGO status displayed in the footer so you can see closed-loop activity as you tune.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📡</div>
+        <div class="feat-title">Live Gauge Dashboard</div>
+        <div class="feat-desc">Real-time RPM, TPS, MAP, CLT, AFR, IAT, battery voltage, and ignition advance — streaming live from the ECU over WiFi. Demo Mode lets you explore every screen without a connection.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔧</div>
+        <div class="feat-title">Cranking & Cold Start</div>
+        <div class="feat-desc">Dedicated screens for cranking enrichment, priming pulse, and afterstart enrichment. Full CLT-axis temperature table editing for precise cold-start behavior.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">💾</div>
+        <div class="feat-title">Tune Manager</div>
+        <div class="feat-desc">Save, load, and export complete tune snapshots in GhostTune's secure tune file format. Share tunes with other GhostTune users without touching a PC.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🛰</div>
+        <div class="feat-title">Connection Diagnostics</div>
+        <div class="feat-desc">Real-time connection health monitoring with round-trip latency stats, frame logging, and a values inspector. Know exactly how your wireless link is performing before you burn.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔒</div>
+        <div class="feat-title">Burn Guard System</div>
+        <div class="feat-desc">Every write to the ECU passes through an additional layer of safety logic designed to ensure data integrity from end to end. The result: accurate, verified writes every time — no partial burns, no corrupt tables.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📖</div>
+        <div class="feat-title">In-App Help — 31 Screens</div>
+        <div class="feat-desc">Every parameter explained in plain language, right where you need it. No hunting through a PDF while your engine is idling.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- SETUP -->
+  <section id="howto">
+    <div class="section-label">// SETUP GUIDE</div>
+    <h2 class="section-title">Up and running in minutes.</h2>
+    <p class="section-body">
+      GhostTune connects to your ECU over WiFi using a small hardware bridge wired to the diagnostic serial port.
+      No phone adapters. No Bluetooth. No proprietary cables.
+    </p>
+
+    <div class="workflow">
+      <div class="workflow-step">
+        <div class="step-num">
+          <div class="step-circle">01</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Build or obtain a WiFi bridge</div>
+          <div class="step-desc">GhostTune communicates over TCP via a WiFi-to-serial bridge connected to the ECU's diagnostic port. The in-app Setup Wizard walks you through what's needed. Supported bridge hardware and firmware requirements will be listed before launch.</div>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-num">
+          <div class="step-circle">02</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Connect the bridge to your ECU</div>
+          <div class="step-desc">Wire the bridge to your MegaSquirt<a class="tm-ref" href="#tm">*</a>'s RS232 diagnostic port and power it from an accessory circuit. It broadcasts its own WiFi access point on startup — no router required.</div>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-num">
+          <div class="step-circle">03</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Join the bridge network on iOS</div>
+          <div class="step-desc">Connect your iPhone or iPad to the bridge's access point in iOS Settings. Open GhostTune — it discovers the bridge automatically and establishes the connection.</div>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-num">
+          <div class="step-circle">04</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Tune</div>
+          <div class="step-desc">Live gauges appear automatically. Navigate to any table screen, read from the ECU, edit your cells, and burn — with full write verification on every change.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- COMPATIBILITY -->
+  <section id="compat">
+    <div class="section-label">// COMPATIBILITY</div>
+    <h2 class="section-title">Verified hardware.</h2>
+    <p class="section-body">
+      GhostTune is developed and tested against MS2/Extra<a class="tm-ref" href="#tm">*</a> 3.4.4. All other platforms are in active evaluation.
+      Compatibility status is updated as testing progresses.
+    </p>
+
+    <table class="compat-table">
+      <thead>
+        <tr>
+          <th>ECU / Firmware</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>MicroSquirt<a class="tm-ref" href="#tm">*</a> · MS2/Extra<a class="tm-ref" href="#tm">*</a> 3.4.4</td>
+          <td><span class="badge-yes">VERIFIED</span></td>
+          <td>Full read / write / burn — actively developed and tested</td>
+        </tr>
+        <tr>
+          <td>Other ECUs &amp; firmware versions</td>
+          <td><span class="badge-testing">IN TESTING</span></td>
+          <td>Compatibility evaluation in progress — more platforms coming</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="section-label">// COMMON QUESTIONS</div>
+    <h2 class="section-title">Got questions?</h2>
+    <p class="section-body">The ones we hear most, answered.</p>
+
+    <div class="faq-grid">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          What ECUs does GhostTune support?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          GhostTune is currently verified on MicroSquirt<a class="tm-ref" href="#tm">*</a> hardware running MS2/Extra<a class="tm-ref" href="#tm">*</a> 3.4.4 firmware. Compatibility testing for additional ECUs and firmware versions is ongoing — check the <a href="#compat">compatibility table</a> above for current status.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          What happens if my phone loses connection mid-burn?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          GhostTune's Burn Guard system monitors the connection throughout every write sequence. If a disruption is detected before the burn completes, the app alerts you and guides you through a safe recovery — your ECU is never left in a partial or unknown state.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          Does GhostTune work without a connected ECU?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          Yes — Demo Mode lets you explore every screen with simulated live data so you can learn the app before you're in the garage with your engine running.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          Is my tune data sent to the cloud?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          No. All ECU communication and tune data stays on your device and local network. GhostTune does not transmit your tune files or engine parameters to any server. See our <a href="privacy.html">Privacy Policy</a> for full details.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          Does it work with MS3 or other MegaSquirt variants?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          MS3 and other variants are in active evaluation. GhostTune v1.0 is built and verified on MS2/Extra 3.4.4. Expanded compatibility is on the roadmap — join the beta list to be notified as new platforms are confirmed.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          What WiFi bridge hardware do I need?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          GhostTune connects via a WiFi-to-serial bridge wired to the ECU's RS232 diagnostic port. A reference bridge design using an ESP32 module is available, and supported hardware details are listed in the in-app Setup Wizard. No proprietary cables or phone adapters required.
+        </div>
+      </div>
+
+    </div>
+
+    <p class="faq-more">More questions? <a href="support.html">Visit the full support page →</a></p>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- BETA -->
+  <section id="beta">
+    <div class="section-label">// BETA ACCESS</div>
+    <h2 class="section-title">Be the first to tune with it.</h2>
+    <p class="section-body">
+      GhostTune is currently in closed beta. If you're running MS2/Extra<a class="tm-ref" href="#tm">*</a> 3.4.4 and want early access,
+      get in touch.
+    </p>
+
+    <div class="coming-soon-card">
+      <div class="coming-soon-title">Coming to the App Store</div>
+      <div class="coming-soon-sub">Beta coming soon · App Store release TBD</div>
+      <p class="coming-soon-body">
+        GhostTune is gearing up for beta. If you're running MS2/Extra<a class="tm-ref" href="#tm">*</a> 3.4.4 and want to be among the
+        first testers — or just want to be on the lookout for when beta drops — leave your email and
+        we'll reach out when the time comes.
+      </p>
+      <form class="email-row" action="https://formspree.io/f/xqeveryb" method="POST" id="notify-form">
+        <input class="email-input" type="email" name="email" placeholder="your@email.com" required />
+        <input type="hidden" name="subject" value="GhostTune Beta Interest" />
+        <button type="submit" class="btn-primary">Notify Me</button>
+      </form>
+      <p class="email-confirm" id="email-thanks" style="display:none; color:#8a9ab8; font-size:0.85rem; margin-top:12px;">
+        ✓ Got it — we'll be in touch when beta opens.
+      </p>
+      <script>
+        document.getElementById('notify-form').addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const form = e.target;
+          const data = new FormData(form);
+          try {
+            const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+            if (res.ok) {
+              form.style.display = 'none';
+              document.getElementById('email-thanks').style.display = 'block';
+            }
+          } catch(err) {}
+        });
+      </script>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <a class="footer-brand" href="index.html">
+        <img class="footer-icon" src="assets/ghosttune-app-icon.png" alt="GhostTune" width="28" height="28" loading="lazy" />
+        <span class="footer-name">CRUX RESOLVE LLC</span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="mailto:support@cruxresolve.com">Contact</a></li>
+        <li><a href="ghosttune.html">Media</a></li>
+      </ul>
+      <div class="footer-copy">© 2026 Crux Resolve LLC · All rights reserved</div>
+    </div>
+
+    <div class="footer-disclaimer" id="tm">
+      * MegaSquirt and MicroSquirt are registered trademarks of Bowling &amp; Grippo. MS2/Extra refers to the open-source firmware project. GhostTune is not affiliated with, endorsed by, or sponsored by Bowling &amp; Grippo or the MS2/Extra firmware project.
+    </div>
+    <div class="footer-disclaimer footer-safety-note">
+      For experienced tuners. Incorrect ECU changes can damage engines or create unsafe operating conditions. Always maintain a known-good tune backup before making changes.
+    </div>
+  </footer>
+
+</body>
+</html>
