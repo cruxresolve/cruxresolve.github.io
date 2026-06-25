@@ -359,6 +359,28 @@
       font-size: 0.9em;
     }
 
+    /* ── PRODUCT PHOTOS ── */
+    .product-photos {
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .photo-hero {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(255,106,0,0.15);
+      box-shadow: 0 0 40px rgba(255,106,0,0.08), 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .photo-sheet {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid rgba(255,106,0,0.10);
+      opacity: 0.92;
+    }
+
     /* ── NOTIFY ── */
     .notify-card {
       background: var(--bg-card);
@@ -493,44 +515,10 @@
 
       <div class="hero-badge">// GHOSTBRIDGE — WIRELESS RS232 BRIDGE</div>
 
-      <svg class="bridge-diagram" viewBox="0 0 540 140" xmlns="http://www.w3.org/2000/svg" aria-label="GhostBridge: any serial device connects wirelessly to any WiFi device">
-        <defs>
-          <marker id="arr-o" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L8,3 z" fill="#FF6A00" opacity="0.7"/>
-          </marker>
-          <marker id="arr-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L8,3 z" fill="#00BFFF" opacity="0.7"/>
-          </marker>
-          <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-
-        <!-- Serial Device -->
-        <rect x="10" y="30" width="120" height="80" rx="6" fill="#141c2e" stroke="#FF6A00" stroke-width="1" stroke-opacity="0.35"/>
-        <text x="70" y="62" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="9" letter-spacing="1">RS232 DEVICE</text>
-        <text x="70" y="82" text-anchor="middle" fill="#e8eaf0" font-family="monospace" font-size="11" font-weight="bold">ECU / Equip.</text>
-        <text x="70" y="100" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="9">DB9 Serial</text>
-
-        <!-- Arrow left -->
-        <line x1="132" y1="70" x2="186" y2="70" stroke="#FF6A00" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr-o)" stroke-dasharray="4 3"/>
-        <text x="159" y="60" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="8">SERIAL</text>
-
-        <!-- GhostBridge -->
-        <rect x="188" y="16" width="164" height="108" rx="8" fill="#141c2e" stroke="#FF6A00" stroke-width="1.5" filter="url(#glow)"/>
-        <text x="270" y="48" text-anchor="middle" fill="#FF6A00" font-family="monospace" font-size="11" font-weight="bold" letter-spacing="2">GHOSTBRIDGE</text>
-        <text x="270" y="68" text-anchor="middle" fill="#8a9ab8" font-family="monospace" font-size="9">WiFi ↔ Serial</text>
-        <text x="270" y="88" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="8">Assembled · Ready to use</text>
-        <text x="270" y="108" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="8">USB-C Power · DB9 RS232</text>
-
-        <!-- Arrow right -->
-        <line x1="354" y1="70" x2="408" y2="70" stroke="#00BFFF" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr-b)" stroke-dasharray="4 3"/>
-        <text x="381" y="60" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="8">WiFi</text>
-
-        <!-- WiFi Device -->
-        <rect x="410" y="30" width="120" height="80" rx="6" fill="#141c2e" stroke="#00BFFF" stroke-width="1" stroke-opacity="0.35"/>
-        <text x="470" y="62" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="9" letter-spacing="1">WIFI DEVICE</text>
-        <text x="470" y="82" text-anchor="middle" fill="#e8eaf0" font-family="monospace" font-size="11" font-weight="bold">Phone / Tablet</text>
-        <text x="470" y="100" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="9">TCP · Port 35000</text>
-      </svg>
+      <div class="product-photos">
+        <img src="assets/gb_hero_pair.jpg" alt="GhostBridge — USB-C and DB9 ends" class="photo-hero" />
+        <img src="assets/gb_product_sheet.jpg" alt="GhostBridge — all views" class="photo-sheet" />
+      </div>
 
       <h1 class="hero-headline">
         <span class="orange">Cut the cable.</span><br />Keep the connection.
