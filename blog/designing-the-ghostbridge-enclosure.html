@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Designing the GhostBridge Enclosure — Crux Resolve LLC</title>
+  <meta name="description" content="Twelve revisions, one Ender 3 Pro, and a lot of failed prints. The story behind the GhostBridge enclosure design process." />
+  <link rel="canonical" href="https://cruxresolve.com/blog/designing-the-ghostbridge-enclosure.html" />
+  <link rel="icon" type="image/png" href="/assets/ghosttune-app-icon.png" />
+  <link rel="apple-touch-icon" href="/assets/ghosttune-app-icon.png" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://cruxresolve.com/blog/designing-the-ghostbridge-enclosure.html" />
+  <meta property="og:title" content="Designing the GhostBridge Enclosure" />
+  <meta property="og:description" content="Twelve revisions, one Ender 3 Pro, and a lot of failed prints. The story behind the GhostBridge enclosure design process." />
+  <meta property="og:image" content="https://cruxresolve.com/assets/gb_sheet.jpg" />
+  <meta property="article:published_time" content="2026-06-25" />
+  <meta name="robots" content="index, follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep:     #080b12;
+      --bg-panel:    #0e1420;
+      --bg-card:     #141c2e;
+      --orange:      #FF6A00;
+      --orange-glow: #FFB347;
+      --orange-dim:  #cc5500;
+      --text-primary:#e8eaf0;
+      --text-muted:  #8a9ab8;
+      --text-dim:    #5a6a88;
+      --border:      rgba(255,106,0,0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(8,11,18,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-icon { border-radius: 8px; }
+    .nav-wordmark {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--orange);
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--orange-glow); }
+    .post-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 100px 40px 80px;
+      position: relative;
+      z-index: 1;
+    }
+    .post-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      color: var(--text-dim);
+      text-decoration: none;
+      margin-bottom: 36px;
+      transition: color 0.2s;
+    }
+    .post-back:hover { color: var(--orange); }
+    .post-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--orange-dim);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .post-title {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .post-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 3px 8px;
+      border-radius: 3px;
+      background: rgba(255,106,0,0.08);
+      color: var(--orange-dim);
+      border: 1px solid rgba(255,106,0,0.12);
+    }
+    .post-body { color: var(--text-muted); font-size: 0.95rem; line-height: 1.85; }
+    .post-body p { margin-bottom: 22px; }
+    .post-body h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--orange-glow);
+      letter-spacing: 0.04em;
+      margin: 40px 0 14px;
+    }
+    .post-body strong { color: var(--text-primary); font-weight: 500; }
+    .post-body a {
+      color: var(--orange-glow);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,179,71,0.3);
+      transition: border-color 0.2s;
+    }
+    .post-body a:hover { border-color: var(--orange-glow); }
+    .post-body code {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.88em;
+      color: var(--orange);
+      background: rgba(255,106,0,0.08);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    .post-image {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin: 28px 0;
+      display: block;
+    }
+    .image-caption {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      text-align: center;
+      margin-top: -18px;
+      margin-bottom: 28px;
+    }
+    .callout {
+      background: var(--bg-card);
+      border-left: 3px solid var(--orange);
+      border-radius: 0 6px 6px 0;
+      padding: 18px 22px;
+      margin: 28px 0;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .callout strong { color: var(--text-primary); }
+    .rev-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      margin: 24px 0 32px;
+    }
+    .rev-table th {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--orange-dim);
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .rev-table td {
+      padding: 10px 12px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255,106,0,0.05);
+      vertical-align: top;
+    }
+    .rev-table td:first-child {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--orange-dim);
+      white-space: nowrap;
+    }
+    .rev-table tr:last-child td { border-bottom: none; }
+    .post-cta-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,106,0,0.2);
+      border-left: 3px solid var(--orange);
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin: 40px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .post-cta-text { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; }
+    .post-cta-text strong { color: var(--text-primary); font-weight: 500; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--orange-glow); }
+    .post-footer {
+      margin-top: 56px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .post-footer a { font-size: 0.82rem; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+    .post-footer a:hover { color: var(--orange-glow); }
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg-panel);
+      padding: 32px 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .footer-icon { border-radius: 6px; opacity: 0.7; }
+    .footer-wordmark { font-family: 'Orbitron', monospace; font-size: 0.78rem; font-weight: 700; color: var(--text-dim); letter-spacing: 0.12em; }
+    .footer-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.78rem; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange-glow); }
+    .footer-copy { font-size: 0.74rem; color: var(--text-dim); }
+    @media (max-width: 640px) {
+      nav { padding: 0 16px; }
+      .nav-links { display: none; }
+      .post-wrap { padding: 90px 20px 60px; }
+      .post-cta-card { flex-direction: column; }
+      footer { padding: 28px 20px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-brand" href="/">
+      <img class="nav-icon" src="/assets/ghosttune-app-icon.png" alt="Crux Resolve" width="34" height="34" />
+      <span class="nav-wordmark">CRUX RESOLVE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/ghosttune-app.html">GhostTune</a></li>
+      <li><a href="/ghostbridge.html">GhostBridge</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/support.html">Support</a></li>
+    </ul>
+  </nav>
+
+  <div class="post-wrap">
+
+    <a class="post-back" href="/blog/">← Back to Blog</a>
+
+    <div class="post-label">// Build Log · Hardware</div>
+    <h1 class="post-title">Designing the GhostBridge Enclosure</h1>
+    <div class="post-meta">
+      <span>June 25, 2026</span>
+      <span>·</span>
+      <span>Crux Resolve LLC</span>
+      <span class="post-tag">Build Log</span>
+      <span class="post-tag">Hardware</span>
+      <span class="post-tag">3D Printing</span>
+    </div>
+
+    <div class="post-body">
+
+      <p>
+        Twelve revisions. One Ender 3 Pro. A lot of failed prints and a growing pile
+        of rejected enclosure halves on the workbench. That's the short version of how
+        the GhostBridge enclosure came together.
+      </p>
+
+      <p>
+        The longer version is more interesting — and more useful if you're designing
+        printed enclosures yourself.
+      </p>
+
+      <img class="post-image" src="/assets/gb_sheet.jpg" alt="GhostBridge Rev 12 — all views" />
+      <div class="image-caption">// GhostBridge Rev 12.0 — the production enclosure</div>
+
+      <h2>Why Design a Custom Enclosure at All</h2>
+
+      <p>
+        The easy path is an off-the-shelf project box. They're cheap, they're available
+        in standard sizes, and they require no design work. We went down that path briefly
+        and abandoned it for two reasons.
+      </p>
+
+      <p>
+        First, standard project boxes don't fit this PCB stack well. The combination of
+        the microcontroller module, the RS232 level shifter, and the DB9 connector
+        creates an unusual footprint that doesn't map cleanly to off-the-shelf sizes.
+        You end up with either a box that's too big with components rattling around inside,
+        or too small with clearance issues around the connectors.
+      </p>
+
+      <p>
+        Second, a custom enclosure is a product decision as much as a functional one.
+        Something with a debossed logo and rubber feet looks like a finished product.
+        Something in a generic grey project box looks like a prototype. For GhostBridge,
+        the enclosure is part of the product.
+      </p>
+
+      <h2>The Design Tool: OpenSCAD</h2>
+
+      <p>
+        The enclosure is designed in OpenSCAD — a code-based 3D modeling tool where
+        geometry is defined programmatically rather than by pushing and pulling surfaces
+        in a GUI editor. Every dimension is a variable. Every feature is a calculation.
+      </p>
+
+      <p>
+        This approach pays off when you're iterating. Changing the wall thickness,
+        adjusting the connector clearance, moving the screw holes — you change a number
+        at the top of the file and regenerate. No redrawing. No realigning. The model
+        updates everywhere that number was used.
+      </p>
+
+      <div class="callout">
+        <strong>Print settings throughout development:</strong> 0.4mm nozzle, 0.2mm layer height,
+        4 perimeters, PLA. These stayed consistent across all twelve revisions so dimensional
+        changes were the only variable between prints.
+      </div>
+
+      <h2>What Each Revision Fixed</h2>
+
+      <p>
+        Most revisions were small — a fraction of a millimeter here, a structural
+        reinforcement there. But each one addressed something real.
+      </p>
+
+      <table class="rev-table">
+        <thead>
+          <tr>
+            <th>Rev</th>
+            <th>What Changed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1–3</td><td>Initial fit and sizing. Getting the PCB to sit flat with correct standoff height and connector alignment.</td></tr>
+          <tr><td>4–5</td><td>Connector opening geometry. The DB9 slot needed clearance on all sides for the metal shell without being sloppy.</td></tr>
+          <tr><td>6–7</td><td>Lid fit. The locating lip system replaced a simple flat-top approach. First lid that snapped together properly.</td></tr>
+          <tr><td>8–9</td><td>Screw retention. Added M3 rail system so the lid is mechanically retained on both ends, not just press-fit.</td></tr>
+          <tr><td>10</td><td>DB9 closure reinforcement. Increased the lid plate overlap at the DB9 end from 0.5mm to 1.5mm for a stronger PLA joint.</td></tr>
+          <tr><td>11</td><td>USB-C closure. Reinforced the lid closure at the USB-C end with a tapered root — thicker at the base, correct clearance at the connector face.</td></tr>
+          <tr><td>12</td><td>Screw rail geometry. Shortened and centered all four screw support rails to exactly 10mm. Added anti-flex ribs that stop inside the locating lip instead of piercing through it.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>The Hardest Problem: Connector Clearance</h2>
+
+      <p>
+        The DB9 connector is the most mechanically demanding feature. It's a large connector
+        relative to the enclosure — the slot for it spans most of the short end wall.
+        The metal shell of the connector needs clearance on all sides to seat fully,
+        but too much clearance and it looks sloppy and lets in debris.
+      </p>
+
+      <p>
+        The other complication is that the DB9 connector extends into the space where
+        the lid's locating lip would normally sit. The lip has to be cut away at the
+        DB9 end, which reduces the structural contribution of that section of the lid.
+        The Rev 10 closure reinforcement was specifically designed to compensate for that —
+        fusing more of the lid plate into the DB9 end wall to recover the lost rigidity.
+      </p>
+
+      <h2>The USB-C End</h2>
+
+      <p>
+        The USB-C connector presented a different challenge. Unlike the DB9, it's a small
+        connector that projects only about 1mm beyond the edge of the PCB. A standard
+        3mm wall thickness would be too thick for a cable to seat fully — the cable shell
+        would hit the wall before the connector bottomed out.
+      </p>
+
+      <p>
+        The solution is a recessed section of wall around the USB-C opening — locally
+        1mm thick in the connector zone, with the full 3mm wall everywhere else.
+        Rev 11 added a tapered root to this closure on the lid side so the locally
+        thin section is reinforced structurally while preserving the clearance geometry.
+      </p>
+
+      <h2>The Lid System</h2>
+
+      <p>
+        The lid uses a locating lip — a 1mm perimeter ring that drops 2mm into the
+        base cavity. It registers the lid position precisely and provides resistance
+        to lateral movement. The M3 screws on both short ends then clamp the lid
+        down and prevent it from lifting.
+      </p>
+
+      <p>
+        The screw rails are printed as part of the lid and extend downward into the
+        base cavity. M3 pilot holes are drilled directly into PLA — the thread
+        engagement is enough for assembly and disassembly without inserts.
+        Using clearance holes in the base wall and threaded pilots in the lid rails
+        means the screws pull the lid down as they're tightened, which seats the
+        locating lip cleanly.
+      </p>
+
+      <h2>Anti-Flex Ribs</h2>
+
+      <p>
+        With the screw rails at both ends and the locating lip around the perimeter,
+        the center of the lid was the remaining weak point. Without support, the
+        lid plate could flex slightly under pressure. Two internal ribs span the
+        width of the lid in the center section, running from locating lip to
+        locating lip. Rev 12 shortened these ribs so they stop just inside
+        the lip rather than piercing through the outer face — removing a stress
+        concentration point that had caused a small number of prints to crack
+        along the rib endpoint.
+      </p>
+
+      <h2>Branding</h2>
+
+      <p>
+        The lid exterior has two debossed features: the ghost logo and the
+        GhostTune wordmark. Debossing — cutting into the surface rather than
+        raising above it — works better than embossing on FDM prints because
+        it doesn't require bridging or overhangs. The features are shallow
+        (<code>0.35mm</code> depth) and narrow (<code>1.2mm</code> line width),
+        which keeps them crisp at 0.2mm layer height without
+        creating weak spots in the lid plate.
+      </p>
+
+      <h2>Going Forward</h2>
+
+      <p>
+        Rev 12 is the production enclosure for the first batch of GhostBridge units.
+        Future production batches will move from FDM printing on the Ender 3 Pro
+        to manufactured enclosures — the OpenSCAD design exports clean geometry
+        that translates directly to other production methods.
+      </p>
+
+      <p>
+        The OpenSCAD source file will be made available for anyone who wants to
+        inspect the geometry, verify the dimensions, or adapt the design for
+        their own purposes.
+      </p>
+
+      <div class="post-cta-card">
+        <div class="post-cta-text">
+          <strong>GhostBridge — $89.00</strong><br />
+          Rev 12 enclosure. Assembled, tested, ships via USPS within 2–4 weeks.
+        </div>
+        <a class="btn-primary" href="https://buy.stripe.com/8x28wR9Za8n81oxcDe1VK00" target="_blank" rel="noopener">Order Now</a>
+      </div>
+
+    </div>
+
+    <div class="post-footer">
+      <a href="/blog/">← All posts</a>
+      <a href="/ghostbridge.html">GhostBridge product page →</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <a class="footer-brand" href="/">
+        <img class="footer-icon" src="/assets/ghosttune-app-icon.png" alt="Crux Resolve" width="26" height="26" />
+        <span class="footer-wordmark">CRUX RESOLVE LLC</span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="/ghosttune-app.html">GhostTune</a></li>
+        <li><a href="/ghostbridge.html">GhostBridge</a></li>
+        <li><a href="/support.html">Support</a></li>
+        <li><a href="/privacy.html">Privacy</a></li>
+      </ul>
+      <span class="footer-copy">© 2026 Crux Resolve LLC · All rights reserved</span>
+    </div>
+  </footer>
+
+</body>
+</html>

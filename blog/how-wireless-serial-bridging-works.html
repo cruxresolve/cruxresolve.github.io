@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Wireless Serial Bridging Works — Crux Resolve LLC</title>
+  <meta name="description" content="A plain-language explanation of how WiFi-to-serial bridges work, what RS232 is, and why transparent bridging is a powerful pattern for connecting legacy hardware to modern devices." />
+  <link rel="canonical" href="https://cruxresolve.com/blog/how-wireless-serial-bridging-works.html" />
+  <link rel="icon" type="image/png" href="/assets/ghosttune-app-icon.png" />
+  <link rel="apple-touch-icon" href="/assets/ghosttune-app-icon.png" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://cruxresolve.com/blog/how-wireless-serial-bridging-works.html" />
+  <meta property="og:title" content="How Wireless Serial Bridging Works" />
+  <meta property="og:description" content="A plain-language explanation of WiFi-to-serial bridges, RS232, and why transparent bridging is such a powerful pattern." />
+  <meta property="og:image" content="https://cruxresolve.com/assets/og-banner.png" />
+  <meta property="article:published_time" content="2026-06-25" />
+  <meta name="robots" content="index, follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep:     #080b12;
+      --bg-panel:    #0e1420;
+      --bg-card:     #141c2e;
+      --orange:      #FF6A00;
+      --orange-glow: #FFB347;
+      --orange-dim:  #cc5500;
+      --text-primary:#e8eaf0;
+      --text-muted:  #8a9ab8;
+      --text-dim:    #5a6a88;
+      --border:      rgba(255,106,0,0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(8,11,18,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-icon { border-radius: 8px; }
+    .nav-wordmark {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--orange);
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--orange-glow); }
+    .post-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 100px 40px 80px;
+      position: relative;
+      z-index: 1;
+    }
+    .post-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      color: var(--text-dim);
+      text-decoration: none;
+      margin-bottom: 36px;
+      transition: color 0.2s;
+    }
+    .post-back:hover { color: var(--orange); }
+    .post-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--orange-dim);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .post-title {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .post-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 3px 8px;
+      border-radius: 3px;
+      background: rgba(255,106,0,0.08);
+      color: var(--orange-dim);
+      border: 1px solid rgba(255,106,0,0.12);
+    }
+    .post-body { color: var(--text-muted); font-size: 0.95rem; line-height: 1.85; }
+    .post-body p { margin-bottom: 22px; }
+    .post-body h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--orange-glow);
+      letter-spacing: 0.04em;
+      margin: 40px 0 14px;
+    }
+    .post-body strong { color: var(--text-primary); font-weight: 500; }
+    .post-body a {
+      color: var(--orange-glow);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,179,71,0.3);
+      transition: border-color 0.2s;
+    }
+    .post-body a:hover { border-color: var(--orange-glow); }
+    .post-body code {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.88em;
+      color: var(--orange);
+      background: rgba(255,106,0,0.08);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+    .diagram {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px 24px;
+      margin: 28px 0;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 2;
+      overflow-x: auto;
+    }
+    .diagram .label { color: var(--orange-dim); }
+    .diagram .arrow { color: var(--text-dim); }
+    .callout {
+      background: var(--bg-card);
+      border-left: 3px solid var(--orange);
+      border-radius: 0 6px 6px 0;
+      padding: 18px 22px;
+      margin: 28px 0;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .callout strong { color: var(--text-primary); }
+    .post-cta-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,106,0,0.2);
+      border-left: 3px solid var(--orange);
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin: 40px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .post-cta-text { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; }
+    .post-cta-text strong { color: var(--text-primary); font-weight: 500; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--orange-glow); }
+    .post-footer {
+      margin-top: 56px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .post-footer a {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .post-footer a:hover { color: var(--orange-glow); }
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg-panel);
+      padding: 32px 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .footer-icon { border-radius: 6px; opacity: 0.7; }
+    .footer-wordmark {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      letter-spacing: 0.12em;
+    }
+    .footer-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.78rem; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange-glow); }
+    .footer-copy { font-size: 0.74rem; color: var(--text-dim); }
+    @media (max-width: 640px) {
+      nav { padding: 0 16px; }
+      .nav-links { display: none; }
+      .post-wrap { padding: 90px 20px 60px; }
+      .post-cta-card { flex-direction: column; }
+      footer { padding: 28px 20px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-brand" href="/">
+      <img class="nav-icon" src="/assets/ghosttune-app-icon.png" alt="Crux Resolve" width="34" height="34" />
+      <span class="nav-wordmark">CRUX RESOLVE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/ghosttune-app.html">GhostTune</a></li>
+      <li><a href="/ghostbridge.html">GhostBridge</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/support.html">Support</a></li>
+    </ul>
+  </nav>
+
+  <div class="post-wrap">
+
+    <a class="post-back" href="/blog/">← Back to Blog</a>
+
+    <div class="post-label">// Technical</div>
+    <h1 class="post-title">How Wireless Serial Bridging Works</h1>
+    <div class="post-meta">
+      <span>June 25, 2026</span>
+      <span>·</span>
+      <span>Crux Resolve LLC</span>
+      <span class="post-tag">Technical</span>
+      <span class="post-tag">Hardware</span>
+    </div>
+
+    <div class="post-body">
+
+      <p>
+        A WiFi-to-serial bridge sounds like it should be complicated. It isn't.
+        The concept is simple enough to explain in one sentence: it takes bytes arriving
+        over a TCP network connection and puts them on a serial wire, and vice versa.
+        That's it. Everything else is implementation detail.
+      </p>
+
+      <p>
+        But the implications of that simple idea are significant — and worth understanding
+        if you're thinking about using one.
+      </p>
+
+      <h2>What RS232 Serial Actually Is</h2>
+
+      <p>
+        RS232 is one of the oldest data communication standards still in active use.
+        It was standardized in 1960 and is still found on industrial equipment, embedded
+        controllers, test instruments, and a huge range of legacy hardware produced in the
+        decades since. The reason it survived this long is the same reason it's sometimes
+        frustrating to work with: it's extremely simple.
+      </p>
+
+      <p>
+        At its core, RS232 is a point-to-point serial link — one sender, one receiver,
+        one wire for each direction. Data travels as a stream of bits at a fixed rate
+        called the baud rate. There's no addressing, no packetization, no built-in error
+        correction. You agree on a baud rate and a data format with the device you're
+        talking to, and then you send bytes. The device sends bytes back.
+      </p>
+
+      <div class="callout">
+        <strong>The DB9 connector</strong> is the physical interface most people associate with RS232.
+        Nine pins, two rows. On most serial devices the relevant pins are TX (transmit),
+        RX (receive), and GND (ground). The others handle hardware flow control,
+        which most embedded devices don't use.
+      </div>
+
+      <p>
+        The voltage levels RS232 uses are higher than the logic levels modern microcontrollers
+        operate at — roughly ±12V for RS232 vs 3.3V for most modern embedded hardware.
+        That's why a level shifter chip is always part of a serial bridge design.
+        It translates voltages in both directions so neither side damages the other.
+      </p>
+
+      <h2>The Bridge in the Middle</h2>
+
+      <p>
+        A WiFi-to-serial bridge sits physically between a serial device and a WiFi-capable
+        client — a phone, a laptop, a tablet. Its job is to maintain two open connections
+        simultaneously and move data between them as fast as possible without interpreting
+        any of it.
+      </p>
+
+      <div class="diagram">
+        <span class="label">Serial Device</span>  <span class="arrow">──RS232──►</span>  <span class="label">Bridge</span>  <span class="arrow">──WiFi TCP──►</span>  <span class="label">Your App</span><br/>
+        <span class="label">Serial Device</span>  <span class="arrow">◄──RS232──</span>  <span class="label">Bridge</span>  <span class="arrow">◄──WiFi TCP──</span>  <span class="label">Your App</span>
+      </div>
+
+      <p>
+        On the serial side, the bridge opens a UART connection at the correct baud rate
+        and waits for bytes. On the WiFi side, it creates an access point and runs a TCP
+        server. When a client connects, everything flowing in on the TCP socket goes out
+        on the serial port, and everything arriving on the serial port goes out on the
+        TCP socket. The bridge never looks at the content — it's opaque to the data.
+      </p>
+
+      <p>
+        This is what "transparent bridging" means. The application on your phone thinks
+        it's talking directly to the serial device. The serial device thinks it's talking
+        directly to whatever sent the command. The bridge is invisible to both.
+      </p>
+
+      <h2>Why This Pattern Is Powerful</h2>
+
+      <p>
+        The value of transparency is that it puts zero constraints on the application layer.
+        The bridge doesn't need to know what protocol the serial device speaks.
+        It doesn't need to know what commands the application is sending.
+        It doesn't need updating when either side changes.
+      </p>
+
+      <p>
+        This means the same hardware bridge can serve completely different applications
+        talking to completely different devices. An application talking to an engine
+        controller and an application talking to an industrial PLC can both use the
+        same bridge without any modification — as long as both devices use RS232
+        and both applications can open a TCP socket.
+      </p>
+
+      <h2>The WiFi Access Point Approach</h2>
+
+      <p>
+        Most bridge designs create their own WiFi access point rather than connecting
+        to an existing router. This is a deliberate choice with real practical advantages.
+      </p>
+
+      <p>
+        When the bridge acts as an access point, it creates a direct connection between
+        itself and the client. There's no router in the path, no DHCP server to assign
+        addresses, no dependency on existing network infrastructure. The bridge's IP
+        address is fixed and known in advance. You can use the bridge in a garage,
+        on a dyno, in a field — anywhere — without needing a WiFi network in range.
+      </p>
+
+      <p>
+        The tradeoff is that your phone can't be on its regular WiFi network at the
+        same time as it's connected to the bridge. On iOS, your phone will switch
+        automatically when you join the bridge's network — you just won't have
+        internet access through WiFi while connected.
+      </p>
+
+      <h2>Latency and Throughput</h2>
+
+      <p>
+        Serial communication is inherently low-bandwidth by modern standards.
+        Even at 115,200 baud — a common rate for embedded devices — you're moving
+        roughly 11,500 bytes per second. A local WiFi TCP connection can sustain
+        many megabytes per second. The bottleneck is always the serial side,
+        not the wireless side.
+      </p>
+
+      <p>
+        Latency matters more than throughput for interactive applications.
+        When you send a command to a device and wait for a response, you want
+        that round trip to be fast. Local WiFi adds very little latency compared
+        to the serial communication itself — typically under a millisecond on
+        a direct access point connection. For most applications, the bridge
+        introduces no perceptible delay.
+      </p>
+
+      <div class="callout">
+        <strong>One important firmware detail:</strong> TCP uses an algorithm called
+        Nagle's algorithm by default, which buffers small packets to send them together.
+        For request-response serial protocols, this is the wrong behavior — it adds
+        unnecessary latency. Good bridge firmware disables Nagle's algorithm explicitly
+        so small command packets are sent immediately.
+      </div>
+
+      <h2>What Can Go Wrong</h2>
+
+      <p>
+        The most common issue with serial bridges is buffer overrun. If data arrives
+        on the serial port faster than the bridge can forward it over WiFi —
+        or if the TCP connection drops unexpectedly — the serial receive buffer
+        can fill up. Well-designed firmware monitors buffer levels and handles
+        overrun gracefully rather than silently dropping bytes or delivering
+        corrupted data.
+      </p>
+
+      <p>
+        Baud rate mismatch is another common issue. The bridge must be configured
+        to communicate at the same baud rate as the serial device. Most devices
+        have a fixed baud rate that's documented in their manual or datasheet.
+        If the rates don't match, you'll receive garbage data — usually obvious
+        immediately.
+      </p>
+
+      <h2>GhostBridge</h2>
+
+      <p>
+        GhostBridge is our implementation of this pattern, built specifically
+        as the wireless companion to GhostTune. It uses an ESP32 microcontroller
+        for the WiFi stack and TCP server, a MAX3232 level shifter for RS232
+        voltage translation, and firmware written to handle the timing requirements
+        of the protocol GhostTune uses.
+      </p>
+
+      <p>
+        But because it's a transparent bridge, it works for any application that
+        speaks TCP and any device that speaks RS232 — not just GhostTune.
+      </p>
+
+      <div class="post-cta-card">
+        <div class="post-cta-text">
+          <strong>GhostBridge — $89.00</strong><br />
+          Assembled, tested, ready to use. Ships via USPS within 2–4 weeks.
+        </div>
+        <a class="btn-primary" href="https://buy.stripe.com/8x28wR9Za8n81oxcDe1VK00" target="_blank" rel="noopener">Order Now</a>
+      </div>
+
+    </div>
+
+    <div class="post-footer">
+      <a href="/blog/">← All posts</a>
+      <a href="/ghostbridge.html">GhostBridge product page →</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <a class="footer-brand" href="/">
+        <img class="footer-icon" src="/assets/ghosttune-app-icon.png" alt="Crux Resolve" width="26" height="26" />
+        <span class="footer-wordmark">CRUX RESOLVE LLC</span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="/ghosttune-app.html">GhostTune</a></li>
+        <li><a href="/ghostbridge.html">GhostBridge</a></li>
+        <li><a href="/support.html">Support</a></li>
+        <li><a href="/privacy.html">Privacy</a></li>
+      </ul>
+      <span class="footer-copy">© 2026 Crux Resolve LLC · All rights reserved</span>
+    </div>
+  </footer>
+
+</body>
+</html>
