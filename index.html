@@ -534,17 +534,5 @@
     </div>
   </footer>
 
-  <script>
-    const btn = document.getElementById('hamburger');
-    const menu = document.getElementById('nav-mobile');
-    btn.addEventListener('click', () => {
-      btn.classList.toggle('open');
-      menu.classList.toggle('open');
-    });
-    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      btn.classList.remove('open');
-      menu.classList.remove('open');
-    }));
-  </script>
 </body>
 </html>
