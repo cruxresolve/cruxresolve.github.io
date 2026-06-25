@@ -16,14 +16,16 @@
   <meta property="og:url" content="https://cruxresolve.com/" />
   <meta property="og:title" content="GhostTune — ECU Tuning for iOS" />
   <meta property="og:description" content="Professional EFI tuning from your iPhone. Full table editing, live data gauges, and burn-to-ECU capability for MegaSquirt MS2/Extra users. No laptop required." />
-  <meta property="og:image" content="https://cruxresolve.com/assets/ghosttune-app-icon.png" />
+  <meta property="og:image" content="https://cruxresolve.com/assets/og-banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:site_name" content="GhostTune by Crux Resolve" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="GhostTune — ECU Tuning for iOS" />
   <meta name="twitter:description" content="Professional EFI tuning from your iPhone. Full table editing, live data gauges, and burn-to-ECU capability for MegaSquirt MS2/Extra users. No laptop required." />
-  <meta name="twitter:image" content="https://cruxresolve.com/assets/ghosttune-app-icon.png" />
+  <meta name="twitter:image" content="https://cruxresolve.com/assets/og-banner.png" />
 
   <!-- Additional SEO -->
   <meta name="keywords" content="MegaSquirt iPhone app, MS2 tuning iOS, EFI tuning app iPhone, MicroSquirt mobile tuning, wireless EFI tuning, TunerStudio alternative iOS, MegaSquirt iPad, ECU tuning app, GhostTune, Crux Resolve" />
@@ -851,6 +853,55 @@
       .footer-inner { flex-direction: column; align-items: flex-start; }
       .footer-links { flex-wrap: wrap; gap: 18px; }
     }
+
+    /* ── FAQ ── */
+    .faq-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-width: 860px;
+      margin: 48px auto 0;
+    }
+    .faq-item {
+      border: 1px solid rgba(255,106,0,0.1);
+      border-radius: 6px;
+      background: var(--bg-card);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item + .faq-item { margin-top: 6px; }
+    .faq-item:hover { border-color: rgba(255,106,0,0.25); }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-align: left;
+      padding: 20px 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-question:hover { color: var(--orange-glow); }
+    .faq-chevron { font-size: 0.75rem; color: var(--orange); transition: transform 0.2s; flex-shrink: 0; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-answer {
+      display: none;
+      padding: 0 24px 20px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+    .faq-answer a { color: var(--orange); text-decoration: none; }
+    .faq-item.open .faq-answer { display: block; }
+    .faq-more { text-align: center; margin-top: 24px; font-size: 0.85rem; color: var(--text-dim); }
+    .faq-more a { color: var(--orange); text-decoration: none; }
+    .faq-more a:hover { color: var(--orange-glow); }
   </style>
 </head>
 <body>
@@ -866,6 +917,7 @@
       <li><a href="#features">Features</a></li>
       <li><a href="#howto">Setup</a></li>
       <li><a href="#compat">Compatibility</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#beta">Beta</a></li>
       <li><a href="support.html">Support</a></li>
       <li><a href="ghosttune.html">Media</a></li>
@@ -1076,6 +1128,81 @@
 
   <div class="section-divider"></div>
 
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="section-label">// COMMON QUESTIONS</div>
+    <h2 class="section-title">Got questions?</h2>
+    <p class="section-body">The ones we hear most, answered.</p>
+
+    <div class="faq-grid">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          What ECUs does GhostTune support?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          GhostTune is currently verified on MicroSquirt<a class="tm-ref" href="#tm">*</a> hardware running MS2/Extra<a class="tm-ref" href="#tm">*</a> 3.4.4 firmware. Compatibility testing for additional ECUs and firmware versions is ongoing — check the <a href="#compat">compatibility table</a> above for current status.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          What happens if my phone loses connection mid-burn?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          GhostTune's Burn Guard system monitors the connection throughout every write sequence. If a disruption is detected before the burn completes, the app alerts you and guides you through a safe recovery — your ECU is never left in a partial or unknown state.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          Does GhostTune work without a connected ECU?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          Yes — Demo Mode lets you explore every screen with simulated live data so you can learn the app before you're in the garage with your engine running.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          Is my tune data sent to the cloud?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          No. All ECU communication and tune data stays on your device and local network. GhostTune does not transmit your tune files or engine parameters to any server. See our <a href="privacy.html">Privacy Policy</a> for full details.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          Does it work with MS3 or other MegaSquirt variants?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          MS3 and other variants are in active evaluation. GhostTune v1.0 is built and verified on MS2/Extra 3.4.4. Expanded compatibility is on the roadmap — join the beta list to be notified as new platforms are confirmed.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          What WiFi bridge hardware do I need?
+          <span class="faq-chevron">▼</span>
+        </button>
+        <div class="faq-answer">
+          GhostTune connects via a WiFi-to-serial bridge wired to the ECU's RS232 diagnostic port. A reference bridge design using an ESP32 module is available, and supported hardware details are listed in the in-app Setup Wizard. No proprietary cables or phone adapters required.
+        </div>
+      </div>
+
+    </div>
+
+    <p class="faq-more">More questions? <a href="support.html">Visit the full support page →</a></p>
+  </section>
+
+  <div class="section-divider"></div>
+
   <!-- BETA -->
   <section id="beta">
     <div class="section-label">// BETA ACCESS</div>
@@ -1093,12 +1220,28 @@
         first testers — or just want to be on the lookout for when beta drops — leave your email and
         we'll reach out when the time comes.
       </p>
-      <div class="email-row">
-        <input class="email-input" type="email" placeholder="your@email.com" />
-        <a class="btn-primary" href="mailto:support@cruxresolve.com?subject=GhostTune Beta Interest">
-          Notify Me
-        </a>
-      </div>
+      <form class="email-row" action="https://formspree.io/f/ghosttune" method="POST" id="notify-form">
+        <input class="email-input" type="email" name="email" placeholder="your@email.com" required />
+        <input type="hidden" name="subject" value="GhostTune Beta Interest" />
+        <button type="submit" class="btn-primary">Notify Me</button>
+      </form>
+      <p class="email-confirm" id="email-thanks" style="display:none; color:#8a9ab8; font-size:0.85rem; margin-top:12px;">
+        ✓ Got it — we'll be in touch when beta opens.
+      </p>
+      <script>
+        document.getElementById('notify-form').addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const form = e.target;
+          const data = new FormData(form);
+          try {
+            const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+            if (res.ok) {
+              form.style.display = 'none';
+              document.getElementById('email-thanks').style.display = 'block';
+            }
+          } catch(err) {}
+        });
+      </script>
     </div>
   </section>
 
