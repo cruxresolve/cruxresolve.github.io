@@ -111,8 +111,16 @@ class DocumentParser(HTMLParser):
 
 
 def public_html_files() -> list[Path]:
-    files = list(ROOT.glob("*.html")) + list((ROOT / "blog").glob("*.html"))
-    return sorted(path for path in files if path.is_file())
+    candidates = list(ROOT.glob("*.html")) + list((ROOT / "blog").glob("*.html"))
+    pages: list[Path] = []
+    for path in candidates:
+        if not path.is_file():
+            continue
+        # Files such as Google Search Console verification tokens are intentionally
+        # plain text/HTML and are not user-facing pages with landmarks or metadata.
+        if path.read_text(encoding="utf-8").startswith("---\n"):
+            pages.append(path)
+    return sorted(pages)
 
 
 def public_target(href: str, source: Path) -> tuple[Path | None, str]:
