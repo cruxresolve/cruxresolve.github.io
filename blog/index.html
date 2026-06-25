@@ -382,5 +382,22 @@
     </div>
   </footer>
 
+  <script>
+    const _hbtn = document.getElementById('hamburger');
+    const _hmenu = document.getElementById('nav-mobile');
+    if (_hbtn && _hmenu) {
+      _hbtn.setAttribute('aria-expanded', 'false');
+      _hbtn.addEventListener('click', () => {
+        const open = _hmenu.classList.toggle('open');
+        _hbtn.classList.toggle('open');
+        _hbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      _hmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        _hbtn.classList.remove('open');
+        _hmenu.classList.remove('open');
+        _hbtn.setAttribute('aria-expanded', 'false');
+      }));
+    }
+  </script>
 </body>
 </html>
