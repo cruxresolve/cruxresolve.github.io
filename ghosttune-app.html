@@ -564,7 +564,7 @@
       color: var(--text-primary);
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.85rem;
-      outline: none;
+      /* outline removed for custom focus styles */
       transition: border-color 0.2s;
     }
 
@@ -993,9 +993,50 @@
       .nav-hamburger { display: flex; }
       nav { height: 64px !important; flex-wrap: nowrap !important; padding: 0 20px !important; }
     }
+
+    /* ── ACCESSIBILITY ── */
+    /* Skip nav */
+    .skip-nav {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      background: var(--orange);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 0 0 6px 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 9999;
+      transition: top 0.2s;
+    }
+    .skip-nav:focus { top: 0; }
+
+    /* Focus styles */
+    *:focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+    button:focus-visible,
+    a:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+
+    /* Fix text-dim contrast — boost it slightly */
+    :root { --text-dim: #6e82a8; }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
 
   <div class="scanline"></div>
 
@@ -1015,12 +1056,12 @@
       <li><a href="support.html">Support</a></li>
       <li><a href="ghosttune.html">Media</a></li>
     </ul>
-    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-controls="nav-mobile">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<div class="nav-mobile" id="nav-mobile">
+<div class="nav-mobile" id="nav-mobile" role="navigation" aria-label="Mobile navigation">
     <a href="#features">Features</a>
     <a href="#howto">Setup</a>
     <a href="#compat">Compatibility</a>
@@ -1032,7 +1073,7 @@
     <a href="ghosttune.html">Media</a>
 </div>
 
-  <div class="hero">
+  <div id="main-content" class="hero">
     <div class="hero-glow"></div>
     <div class="hero-content">
       <div class="hero-badge">// COMING SOON — iOS ECU TUNING</div>
@@ -1329,7 +1370,7 @@
         we'll reach out when the time comes.
       </p>
       <form class="email-row" action="https://formspree.io/f/xqeveryb" method="POST" id="notify-form">
-        <input class="email-input" type="email" name="email" placeholder="your@email.com" required />
+        <input class="email-input" type="email" aria-label="Email address" name="email" placeholder="your@email.com" required />
         <input type="hidden" name="subject" value="GhostTune Beta Interest" />
         <button type="submit" class="btn-primary">Notify Me</button>
       </form>
@@ -1392,15 +1433,17 @@
     const _hbtn = document.getElementById('hamburger');
     const _hmenu = document.getElementById('nav-mobile');
     if (_hbtn && _hmenu) {
+      _hbtn.setAttribute('aria-expanded', 'false');
       _hbtn.addEventListener('click', () => {
+        const open = _hmenu.classList.toggle('open');
         _hbtn.classList.toggle('open');
-        _hmenu.classList.toggle('open');
+        _hbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
       _hmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
         _hbtn.classList.remove('open');
         _hmenu.classList.remove('open');
+        _hbtn.setAttribute('aria-expanded', 'false');
       }));
     }
-  </script>
-</body>
+  </script></body>
 </html>

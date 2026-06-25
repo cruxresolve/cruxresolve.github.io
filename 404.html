@@ -147,13 +147,54 @@
     }
     .footer-note a { color: var(--orange-dim); text-decoration: none; }
     .footer-note a:hover { color: var(--orange); }
+
+    /* ── ACCESSIBILITY ── */
+    /* Skip nav */
+    .skip-nav {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      background: var(--orange);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 0 0 6px 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 9999;
+      transition: top 0.2s;
+    }
+    .skip-nav:focus { top: 0; }
+
+    /* Focus styles */
+    *:focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+    button:focus-visible,
+    a:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+
+    /* Fix text-dim contrast — boost it slightly */
+    :root { --text-dim: #6e82a8; }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
 
   <div class="glow"></div>
 
-  <div class="content">
+  <div class="content" id="main-content">
     <div class="eyebrow">// ERROR · PAGE NOT FOUND</div>
     <div class="error-code">404</div>
     <div class="divider"></div>

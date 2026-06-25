@@ -596,9 +596,50 @@
     .readout-item:nth-child(3) .readout-value { animation-delay: 1s; }
     .readout-item:nth-child(4) .readout-value { animation-delay: 1.5s; }
     .readout-item:nth-child(5) .readout-value { animation-delay: 2s; }
+
+    /* ── ACCESSIBILITY ── */
+    /* Skip nav */
+    .skip-nav {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      background: var(--orange);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 0 0 6px 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 9999;
+      transition: top 0.2s;
+    }
+    .skip-nav:focus { top: 0; }
+
+    /* Focus styles */
+    *:focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+    button:focus-visible,
+    a:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+
+    /* Fix text-dim contrast — boost it slightly */
+    :root { --text-dim: #6e82a8; }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
 
 <!-- NAV -->
 <nav>
@@ -616,7 +657,7 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section id="main-content" class="hero">
   <span class="hero-eyebrow">// Press &amp; Media Kit — GhostTune by Crux Resolve LLC</span>
   <img class="hero-icon" src="icon.png" alt="GhostTune app icon" />
   <h1 class="hero-headline">
