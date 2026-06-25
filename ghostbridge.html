@@ -543,6 +543,24 @@
       .footer-inner { flex-direction: column; align-items: flex-start; }
       .step { gap: 14px; }
     }
+
+    @media (max-width: 1024px) and (min-width: 769px) {
+      section { padding: 72px 40px; }
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-photos { max-width: 560px; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 56px 20px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .steps { max-width: 100%; }
+      .notify-card { padding: 32px 20px; }
+      .email-row { flex-direction: column; }
+      .email-input { min-width: 100%; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .product-photos { max-width: 100%; }
+      .stats-strip { flex-wrap: wrap; }
+      .stat-item { min-width: 120px; }
+    }
   </style>
 </head>
 <body>
