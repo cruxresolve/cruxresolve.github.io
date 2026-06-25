@@ -571,6 +571,7 @@
     @media (max-width: 768px) {
       nav { padding: 0 20px; }
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
       .readout-strip { gap: 28px; padding: 20px 24px; }
       .screenshots-grid { grid-template-columns: 1fr 1fr; }
       .hardware-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -654,7 +655,18 @@
     <li><a href="blog/">Blog</a></li>
     <li><a href="https://cruxresolve.com/support">Support</a></li>
   </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-controls="nav-mobile" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="nav-mobile" id="nav-mobile" role="navigation" aria-label="Mobile navigation">
+  <a href="#features">Features</a>
+  <a href="#screenshots">Screenshots</a>
+  <a href="#hardware">Hardware</a>
+  <a href="blog/">Blog</a>
+  <a href="https://cruxresolve.com/support">Support</a>
+</div>
 
 <!-- HERO -->
 <section id="main-content" class="hero">
@@ -825,5 +837,22 @@
   </div>
 </footer>
 
+  <script>
+    const _hbtn = document.getElementById('hamburger');
+    const _hmenu = document.getElementById('nav-mobile');
+    if (_hbtn && _hmenu) {
+      _hbtn.setAttribute('aria-expanded', 'false');
+      _hbtn.addEventListener('click', () => {
+        const open = _hmenu.classList.toggle('open');
+        _hbtn.classList.toggle('open');
+        _hbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      _hmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        _hbtn.classList.remove('open');
+        _hmenu.classList.remove('open');
+        _hbtn.setAttribute('aria-expanded', 'false');
+      }));
+    }
+  </script>
 </body>
 </html>
