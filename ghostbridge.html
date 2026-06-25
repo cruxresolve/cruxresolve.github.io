@@ -576,7 +576,7 @@
         <text x="470" y="108" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="9">iPhone · iPad</text>
 
         <!-- SSID label -->
-        <text x="270" y="150" text-anchor="middle" fill="#FF6A00" font-family="monospace" font-size="9" opacity="0.5">SSID: GhostTune-WiFi · 192.168.4.1:35000</text>
+        <text x="270" y="150" text-anchor="middle" fill="#FF6A00" font-family="monospace" font-size="9" opacity="0.5">SSID: GhostTune-XXXX (MAC-unique) · PW: ghosttune · 192.168.4.1:35000</text>
       </svg>
 
       <h1 class="hero-headline">
@@ -643,7 +643,7 @@
       <div class="feature-card">
         <div class="feature-icon">📡</div>
         <div class="feature-title">Dedicated WiFi AP</div>
-        <div class="feature-body">Broadcasts its own access point (<code style="color:var(--orange);font-size:0.85em;">GhostTune-WiFi</code>). No router needed. Connect your iPhone directly — even in a field or on a dyno.</div>
+        <div class="feature-body">Broadcasts its own access point with a unique SSID derived from its MAC address — e.g. <code style="color:var(--orange);font-size:0.85em;">GhostTune-A3F2</code>. No router needed. Connect your iPhone directly — even in a field or on a dyno.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🧠</div>
@@ -684,7 +684,8 @@
         <tr><td>RS232 Interface</td><td>ANMBEST MAX3232 DB9 RS232-to-TTL module</td></tr>
         <tr><td>ECU Connector</td><td>DB9 (RS232 diagnostic port)</td></tr>
         <tr><td>Power</td><td>USB-C (5V)</td></tr>
-        <tr><td>WiFi SSID</td><td>GhostTune-WiFi</td></tr>
+        <tr><td>WiFi SSID</td><td>GhostTune-XXXX (last 2 MAC bytes, unique per unit — e.g. GhostTune-A3F2)</td></tr>
+        <tr><td>WiFi Password</td><td>ghosttune</td></tr>
         <tr><td>IP Address</td><td>192.168.4.1</td></tr>
         <tr><td>TCP Port</td><td>35000</td></tr>
         <tr><td>Enclosure Dimensions</td><td>97.95mm × 77.01mm (exterior)</td></tr>
@@ -729,7 +730,7 @@
         <div class="step-num">03</div>
         <div class="step-content">
           <div class="step-title">Join GhostTune-WiFi on your iPhone</div>
-          <div class="step-body">Open iPhone Settings → Wi-Fi → select <strong style="color:var(--orange);">GhostTune-WiFi</strong>. No password required. The bridge is its own access point — no router needed.</div>
+          <div class="step-body">Open iPhone Settings → Wi-Fi → select your bridge's network — it'll appear as <strong style="color:var(--orange);">GhostTune-XXXX</strong> where XXXX is the last 4 characters of your unit's MAC address (printed on the label). Password is <strong style="color:var(--orange);">ghosttune</strong>. No router needed — the bridge is its own access point.</div>
         </div>
       </div>
       <div class="step">
