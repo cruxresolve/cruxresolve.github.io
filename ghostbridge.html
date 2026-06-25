@@ -502,7 +502,7 @@
     <ul class="nav-links">
       <li><a href="#features">Features</a></li>
       <li><a href="#howto">Setup</a></li>
-      <li><a href="#notify">Get Notified</a></li>
+      <li><a href="#notify">Order</a></li>
       <li><a href="index.html">GhostTune App</a></li>
       <li><a href="support.html">Support</a></li>
     </ul>
@@ -532,7 +532,7 @@
       <p class="hero-note">// Assembled &amp; ready to use &nbsp;·&nbsp; <span>USB-C power</span> &nbsp;·&nbsp; <span>DB9 RS232</span> &nbsp;·&nbsp; <span>No drivers</span></p>
 
       <div class="hero-cta-row">
-        <a class="btn-primary" href="#notify">✉ Get Notified When Available</a>
+        <a class="btn-primary" href="https://buy.stripe.com/8x28wR9Za8n81oxcDe1VK00" target="_blank" rel="noopener">Buy Now — $89.00</a>
         <a class="btn-ghost" href="#howto">See How It Works →</a>
       </div>
 
@@ -634,20 +634,31 @@
   <!-- NOTIFY -->
   <section id="notify">
     <div class="notify-card">
-      <div class="notify-title">GhostBridge is coming.</div>
+      <div class="notify-title">Order Your GhostBridge</div>
       <p class="notify-sub">
-        Assembled units are in preparation. Drop your email and we'll reach out
-        when they're ready to order — no spam, no newsletter, just the one message you want.
+        Assembled units are available now. Orders ship via USPS within 2–4 weeks of purchase.
+        All sales final — see our <a href="terms-of-sale.html" style="color:var(--orange-glow);">Terms of Sale</a> for full details.
       </p>
-      <form class="email-row" action="https://formspree.io/f/xqeveryb" method="POST" id="bridge-notify-form">
-        <input class="email-input" type="email" name="email" placeholder="your@email.com" required />
-        <input type="hidden" name="subject" value="GhostBridge Interest" />
-        <input type="hidden" name="product" value="GhostBridge" />
-        <button type="submit" class="btn-primary">Notify Me</button>
-      </form>
-      <p class="email-confirm" id="bridge-thanks" style="display:none;">
-        ✓ You're on the list — we'll reach out when units are ready.
+      <a class="btn-primary" href="https://buy.stripe.com/8x28wR9Za8n81oxcDe1VK00" target="_blank" rel="noopener">
+        Buy Now — $89.00
+      </a>
+      <p style="margin-top:16px; font-size:0.78rem; color:var(--text-dim); font-family:'Share Tech Mono',monospace; letter-spacing:0.06em;">
+        // Secure checkout via Stripe · USD · Ships from Illinois
       </p>
+
+      <div style="margin-top:32px; padding-top:24px; border-top:1px solid rgba(255,106,0,0.1);">
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:12px;">Not ready to order? Get notified when new stock is available:</p>
+        <form class="email-row" action="https://formspree.io/f/xqeveryb" method="POST" id="bridge-notify-form">
+          <input class="email-input" type="email" name="email" placeholder="your@email.com" required />
+          <input type="hidden" name="subject" value="GhostBridge Interest" />
+          <input type="hidden" name="product" value="GhostBridge" />
+          <button type="submit" class="btn-primary">Notify Me</button>
+        </form>
+        <p class="email-confirm" id="bridge-thanks" style="display:none;">
+          ✓ You're on the list — we'll reach out when new stock is ready.
+        </p>
+      </div>
+
       <script>
         document.getElementById('bridge-notify-form').addEventListener('submit', async function(e) {
           e.preventDefault();
