@@ -6,6 +6,7 @@ on:
       - "**.html"
       - "assets/**"
       - "scripts/check_site.py"
+      - "scripts/check_live_site.py"
       - ".github/workflows/site-check.yml"
       - "robots.txt"
       - "sitemap.xml"
@@ -15,6 +16,7 @@ on:
       - "**.html"
       - "assets/**"
       - "scripts/check_site.py"
+      - "scripts/check_live_site.py"
       - ".github/workflows/site-check.yml"
       - "robots.txt"
       - "sitemap.xml"
@@ -23,7 +25,7 @@ permissions:
   contents: read
 
 jobs:
-  validate:
+  validate-source:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -40,17 +42,44 @@ jobs:
         continue-on-error: true
         shell: bash
         run: node --check assets/js/site.js >> site-validation-report.txt 2>&1
-      - name: Upload validation report
+      - name: Upload source validation report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: site-validation-report
           path: site-validation-report.txt
           if-no-files-found: error
-      - name: Report validation result
+      - name: Report source validation result
         if: always()
         shell: bash
         run: |
           cat site-validation-report.txt
           test "${{ steps.site_check.outcome }}" = "success"
           test "${{ steps.js_check.outcome }}" = "success"
+
+  validate-live-site:
+    needs: validate-source
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          show-progress: false
+      - name: Verify rendered public pages
+        id: live_check
+        continue-on-error: true
+        shell: bash
+        run: python3 scripts/check_live_site.py > live-site-report.txt 2>&1
+      - name: Upload live-site report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-site-report
+          path: live-site-report.txt
+          if-no-files-found: error
+      - name: Report live-site validation result
+        if: always()
+        shell: bash
+        run: |
+          cat live-site-report.txt
+          test "${{ steps.live_check.outcome }}" = "success"
