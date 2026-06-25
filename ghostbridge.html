@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GhostBridge — WiFi Bridge for GhostTune | Crux Resolve LLC</title>
+  <meta name="description" content="GhostBridge is the official WiFi-to-serial bridge for GhostTune. Connects your MegaSquirt MS2/Extra ECU to your iPhone wirelessly. Assembled and ready to install." />
+  <link rel="canonical" href="https://cruxresolve.com/ghostbridge.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/ghosttune-app-icon.png" />
+  <link rel="apple-touch-icon" href="/assets/ghosttune-app-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cruxresolve.com/ghostbridge.html" />
+  <meta property="og:title" content="GhostBridge — WiFi Bridge for GhostTune" />
+  <meta property="og:description" content="The official WiFi-to-serial bridge for GhostTune. Plug into your ECU's RS232 port and tune wirelessly from your iPhone. Assembled and ready to install." />
+  <meta property="og:image" content="https://cruxresolve.com/assets/og-banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="GhostBridge by Crux Resolve" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="GhostBridge — WiFi Bridge for GhostTune" />
+  <meta name="twitter:description" content="The official WiFi-to-serial bridge for GhostTune. Plug into your ECU's RS232 port and tune wirelessly from your iPhone." />
+  <meta name="twitter:image" content="https://cruxresolve.com/assets/og-banner.png" />
+
+  <!-- SEO -->
+  <meta name="keywords" content="GhostBridge, MegaSquirt WiFi bridge, MS2 WiFi adapter, ECU wireless adapter, MegaSquirt iPhone, GhostTune hardware, ESP32 ECU bridge, RS232 WiFi adapter" />
+  <meta name="author" content="Crux Resolve LLC" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep:      #080b12;
+      --bg-panel:     #0e1420;
+      --bg-card:      #141c2e;
+      --steel:        #2a3244;
+      --steel-light:  #3a4458;
+      --orange:       #FF6A00;
+      --orange-glow:  #FFB347;
+      --orange-dim:   #cc5500;
+      --blue-eye:     #00BFFF;
+      --blue-dim:     #4FC3F7;
+      --text-primary: #e8eaf0;
+      --text-muted:   #8a9ab8;
+      --text-dim:     #5a6a88;
+      --border:       rgba(255,106,0,0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 64px;
+      background: rgba(8,11,18,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-icon { border-radius: 8px; }
+    .nav-wordmark {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--orange);
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--orange-glow); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 32px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse, rgba(255,106,0,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      color: var(--orange);
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      border-radius: 3px;
+      margin-bottom: 32px;
+      background: rgba(255,106,0,0.05);
+    }
+    .hero-diagram {
+      margin: 0 auto 40px;
+      width: 100%;
+      max-width: 520px;
+    }
+    .hero-headline {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: 0.04em;
+      margin-bottom: 24px;
+    }
+    .hero-headline .orange { color: var(--orange); }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-sub strong { color: var(--text-primary); font-weight: 500; }
+    .hero-cta-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.03em;
+    }
+    .btn-primary:hover { background: var(--orange-glow); transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: 1px solid var(--steel);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--orange); color: var(--orange-glow); }
+
+    /* ── DIAGRAM SVG ── */
+    .bridge-diagram {
+      width: 100%;
+      max-width: 540px;
+      margin: 0 auto 48px;
+      display: block;
+    }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-panel);
+      position: relative;
+      z-index: 1;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 140px;
+      padding: 28px 20px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-value {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--orange);
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 96px 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .section-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--orange-dim);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-body {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 640px;
+      line-height: 1.75;
+      margin-bottom: 48px;
+    }
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── FEATURE CARDS ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(255,106,0,0.35); }
+    .feature-icon {
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+    }
+    .feature-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .feature-body {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ── SPEC TABLE ── */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .spec-table tr {
+      border-bottom: 1px solid rgba(255,106,0,0.07);
+    }
+    .spec-table tr:last-child { border-bottom: none; }
+    .spec-table td {
+      padding: 14px 16px;
+      vertical-align: top;
+    }
+    .spec-table td:first-child {
+      color: var(--text-dim);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      width: 220px;
+      white-space: nowrap;
+    }
+    .spec-table td:last-child {
+      color: var(--text-primary);
+    }
+    .spec-table tr:nth-child(odd) td { background: rgba(255,106,0,0.02); }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-width: 740px;
+    }
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .step-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1;
+      min-width: 36px;
+      margin-top: 2px;
+    }
+    .step-content {}
+    .step-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .step-body {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ── NOTIFY FORM ── */
+    .notify-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 48px;
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .notify-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+    .notify-sub {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .email-row {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .email-input {
+      flex: 1;
+      min-width: 220px;
+      background: var(--bg-panel);
+      border: 1px solid var(--steel);
+      border-radius: 6px;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .email-input:focus { border-color: var(--orange); }
+    .email-input::placeholder { color: var(--text-dim); }
+    .email-confirm {
+      margin-top: 14px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg-panel);
+      padding: 40px 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .footer-icon { border-radius: 6px; }
+    .footer-wordmark {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.12em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--orange-glow); }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+    .tm-ref {
+      font-size: 0.65em;
+      vertical-align: super;
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+    #tm {
+      padding-top: 40px;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      max-width: 1100px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      section { padding: 60px 20px; }
+      .notify-card { padding: 32px 20px; }
+      .email-row { flex-direction: column; }
+      .email-input { min-width: 100%; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .step { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-brand" href="index.html">
+      <img class="nav-icon" src="assets/ghosttune-app-icon.png" alt="Crux Resolve" width="36" height="36" />
+      <span class="nav-wordmark">GHOSTBRIDGE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#specs">Specs</a></li>
+      <li><a href="#howto">Setup</a></li>
+      <li><a href="#notify">Get Notified</a></li>
+      <li><a href="index.html">GhostTune App</a></li>
+      <li><a href="support.html">Support</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-badge">// GHOSTBRIDGE — WIFI HARDWARE FOR GHOSTTUNE</div>
+
+      <!-- SVG Block Diagram -->
+      <svg class="bridge-diagram" viewBox="0 0 540 160" xmlns="http://www.w3.org/2000/svg" aria-label="GhostBridge connection diagram: ECU to GhostBridge to iPhone">
+        <defs>
+          <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#FF6A00" opacity="0.7"/>
+          </marker>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- ECU Box -->
+        <rect x="10" y="40" width="120" height="80" rx="6" fill="#141c2e" stroke="#FF6A00" stroke-width="1" stroke-opacity="0.4"/>
+        <text x="70" y="72" text-anchor="middle" fill="#8a9ab8" font-family="monospace" font-size="10" letter-spacing="1">ECU</text>
+        <text x="70" y="90" text-anchor="middle" fill="#e8eaf0" font-family="monospace" font-size="11" font-weight="bold">MS2/Extra</text>
+        <text x="70" y="108" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="9">RS232 · DB9</text>
+
+        <!-- Arrow ECU → Bridge -->
+        <line x1="132" y1="80" x2="188" y2="80" stroke="#FF6A00" stroke-width="1.5" stroke-opacity="0.6" marker-end="url(#arr)" stroke-dasharray="4 3"/>
+        <text x="160" y="70" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="8">SERIAL</text>
+
+        <!-- GhostBridge Box -->
+        <rect x="190" y="28" width="160" height="104" rx="8" fill="#141c2e" stroke="#FF6A00" stroke-width="1.5" filter="url(#glow)"/>
+        <text x="270" y="56" text-anchor="middle" fill="#FF6A00" font-family="monospace" font-size="10" font-weight="bold" letter-spacing="2">GHOSTBRIDGE</text>
+        <text x="270" y="76" text-anchor="middle" fill="#8a9ab8" font-family="monospace" font-size="9">ESP32 · Rev 12.0</text>
+        <text x="270" y="96" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="8">98mm × 77mm × 24mm</text>
+        <text x="270" y="114" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="8">USB-C Power · M3 Screws</text>
+
+        <!-- Arrow Bridge → iPhone -->
+        <line x1="352" y1="80" x2="408" y2="80" stroke="#00BFFF" stroke-width="1.5" stroke-opacity="0.6" marker-end="url(#arr)" stroke-dasharray="4 3"/>
+        <text x="380" y="70" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="8">WiFi</text>
+
+        <!-- iPhone Box -->
+        <rect x="410" y="40" width="120" height="80" rx="6" fill="#141c2e" stroke="#00BFFF" stroke-width="1" stroke-opacity="0.4"/>
+        <text x="470" y="72" text-anchor="middle" fill="#8a9ab8" font-family="monospace" font-size="10" letter-spacing="1">APP</text>
+        <text x="470" y="90" text-anchor="middle" fill="#e8eaf0" font-family="monospace" font-size="11" font-weight="bold">GhostTune</text>
+        <text x="470" y="108" text-anchor="middle" fill="#5a6a88" font-family="monospace" font-size="9">iPhone · iPad</text>
+
+        <!-- SSID label -->
+        <text x="270" y="150" text-anchor="middle" fill="#FF6A00" font-family="monospace" font-size="9" opacity="0.5">SSID: GhostTune-WiFi · 192.168.4.1:35000</text>
+      </svg>
+
+      <h1 class="hero-headline">
+        <span class="orange">No cable.</span><br />No laptop. No compromise.
+      </h1>
+
+      <p class="hero-sub">
+        GhostBridge is the <strong>official WiFi-to-serial bridge</strong> for GhostTune.
+        Plug into your ECU's RS232 diagnostic port, power it from USB-C,
+        and your iPhone connects wirelessly — no adapters, no drivers, no desk required.
+      </p>
+
+      <div class="hero-cta-row">
+        <a class="btn-primary" href="#notify">✉ Get Notified When Available</a>
+        <a class="btn-ghost" href="#specs">View Specs →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-value">ESP32</div>
+      <div class="stat-label">Core MCU</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">98 × 77mm</div>
+      <div class="stat-label">Enclosure</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">USB-C</div>
+      <div class="stat-label">Power</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">DB9</div>
+      <div class="stat-label">ECU Port</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">Rev 12.0</div>
+      <div class="stat-label">Enclosure Rev</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">Assembled</div>
+      <div class="stat-label">Ships Ready</div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="section-label">// WHY GHOSTBRIDGE</div>
+    <h2 class="section-title">Built for GhostTune.<br />Built for the real world.</h2>
+    <p class="section-body">
+      Off-the-shelf WiFi adapters weren't designed for ECU serial protocols.
+      GhostBridge is — tuned firmware, proper RS232 levels, and an enclosure
+      built to survive a garage.
+    </p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔌</div>
+        <div class="feature-title">Plug and Play</div>
+        <div class="feature-body">DB9 straight into your ECU's diagnostic port. USB-C for power. No soldering, no breadboards, no configuration files to edit.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📡</div>
+        <div class="feature-title">Dedicated WiFi AP</div>
+        <div class="feature-body">Broadcasts its own access point (<code style="color:var(--orange);font-size:0.85em;">GhostTune-WiFi</code>). No router needed. Connect your iPhone directly — even in a field or on a dyno.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <div class="feature-title">GhostTune Firmware</div>
+        <div class="feature-body">Flashed with firmware written specifically for GhostTune's communication protocol. Not a generic serial bridge — every timing decision was made with MS2/Extra in mind.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏗️</div>
+        <div class="feature-title">Custom Enclosure</div>
+        <div class="feature-body">PLA enclosure designed from scratch for this exact PCB stack. Rev 12.0 with reinforced DB9 closure, anti-flex ribs, M3 screw retention, rubber feet, and a debossed ghost logo on the lid.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">Local Network Only</div>
+        <div class="feature-body">All ECU data stays on the local WiFi link between the bridge and your phone. Nothing routed to the internet. Nothing logged to a server.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">MAX3232 RS232</div>
+        <div class="feature-body">Proper RS232 voltage levels via ANMBEST MAX3232 module. No level-shifting hacks. Reliable signal integrity at the baud rates MS2/Extra expects.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- SPECS -->
+  <section id="specs">
+    <div class="section-label">// HARDWARE SPECIFICATIONS</div>
+    <h2 class="section-title">What's inside the box.</h2>
+    <p class="section-body">
+      Every dimension pulled from the Rev 12.0 enclosure design. No marketing fluff.
+    </p>
+
+    <table class="spec-table">
+      <tbody>
+        <tr><td>Core MCU</td><td>NodeMCU ESP-32S v1.1</td></tr>
+        <tr><td>RS232 Interface</td><td>ANMBEST MAX3232 DB9 RS232-to-TTL module</td></tr>
+        <tr><td>ECU Connector</td><td>DB9 (RS232 diagnostic port)</td></tr>
+        <tr><td>Power</td><td>USB-C (5V)</td></tr>
+        <tr><td>WiFi SSID</td><td>GhostTune-WiFi</td></tr>
+        <tr><td>IP Address</td><td>192.168.4.1</td></tr>
+        <tr><td>TCP Port</td><td>35000</td></tr>
+        <tr><td>Enclosure Dimensions</td><td>97.95mm × 77.01mm (exterior)</td></tr>
+        <tr><td>PCB Dimensions</td><td>90.15mm × 70.41mm × 1.55mm</td></tr>
+        <tr><td>Enclosure Material</td><td>PLA — 0.4mm nozzle, 0.2mm layers, 4 perimeters</td></tr>
+        <tr><td>Enclosure Rev</td><td>Rev 12.0</td></tr>
+        <tr><td>Fasteners</td><td>M3 screws (4× side, PLA self-tapping pilot holes)</td></tr>
+        <tr><td>Standoffs</td><td>4× M3 PCB standoffs, 4mm height, 6mm OD</td></tr>
+        <tr><td>Feet</td><td>4× rubber feet, 8mm diameter, recessed mount</td></tr>
+        <tr><td>Lid Features</td><td>Debossed ghost logo + "GhostTune" text, locating lip, anti-flex ribs</td></tr>
+        <tr><td>Compatible ECU</td><td>MicroSquirt<a class="tm-ref" href="#tm">*</a> / MS2/Extra<a class="tm-ref" href="#tm">*</a> 3.4.4 (verified)</td></tr>
+        <tr><td>Compatible App</td><td>GhostTune for iOS (iPhone &amp; iPad)</td></tr>
+        <tr><td>Ships</td><td>Fully assembled and tested</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- HOW IT WORKS -->
+  <section id="howto">
+    <div class="section-label">// SETUP</div>
+    <h2 class="section-title">Up and running in minutes.</h2>
+    <p class="section-body">No drivers. No laptop. No configuration wizard.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title">Connect DB9 to your ECU</div>
+          <div class="step-body">Plug the GhostBridge DB9 connector into your ECU's RS232 diagnostic port — the same port TunerStudio<a class="tm-ref" href="#tm">*</a> uses. Finger-tight is fine.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title">Power via USB-C</div>
+          <div class="step-body">Connect a USB-C cable from any 5V source — a USB charger, your car's USB port, or a small power bank. The bridge powers up and begins broadcasting immediately.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-title">Join GhostTune-WiFi on your iPhone</div>
+          <div class="step-body">Open iPhone Settings → Wi-Fi → select <strong style="color:var(--orange);">GhostTune-WiFi</strong>. No password required. The bridge is its own access point — no router needed.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-title">Open GhostTune and connect</div>
+          <div class="step-body">Launch GhostTune, tap Connect. The app finds the bridge at <strong style="color:var(--orange);">192.168.4.1:35000</strong> automatically. Live data starts flowing within seconds.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <div class="step-title">Tune</div>
+          <div class="step-body">Edit VE tables, monitor live gauges, review diffs, and burn to ECU — all from your iPhone. No laptop. No cable to your phone. No compromise.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- NOTIFY -->
+  <section id="notify">
+    <div class="notify-card">
+      <div class="notify-title">GhostBridge is coming.</div>
+      <p class="notify-sub">
+        Assembled units are in preparation. Leave your email and we'll reach out
+        directly when GhostBridge is available to order — no spam, no newsletter,
+        just the one email you actually want.
+      </p>
+      <form class="email-row" action="https://formspree.io/f/xqeveryb" method="POST" id="bridge-notify-form">
+        <input class="email-input" type="email" name="email" placeholder="your@email.com" required />
+        <input type="hidden" name="subject" value="GhostBridge Interest" />
+        <input type="hidden" name="product" value="GhostBridge" />
+        <button type="submit" class="btn-primary">Notify Me</button>
+      </form>
+      <p class="email-confirm" id="bridge-thanks" style="display:none;">
+        ✓ You're on the list — we'll reach out when units are ready.
+      </p>
+      <script>
+        document.getElementById('bridge-notify-form').addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const form = e.target;
+          const data = new FormData(form);
+          try {
+            const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+            if (res.ok) {
+              form.style.display = 'none';
+              document.getElementById('bridge-thanks').style.display = 'block';
+            }
+          } catch(err) {}
+        });
+      </script>
+    </div>
+  </section>
+
+  <footer>
+    <div id="tm" style="padding: 0 0 32px;">
+      * MegaSquirt®, MicroSquirt®, and MS2/Extra® are registered trademarks of Bowling and Grippo LLC. TunerStudio® is a registered trademark of EFI Analytics, Inc. Crux Resolve LLC and GhostBridge are not affiliated with, endorsed by, or sponsored by these trademark holders.
+    </div>
+    <div class="footer-inner">
+      <a class="footer-brand" href="index.html">
+        <img class="footer-icon" src="assets/ghosttune-app-icon.png" alt="Crux Resolve" width="28" height="28" />
+        <span class="footer-wordmark">CRUX RESOLVE LLC</span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="index.html">GhostTune App</a></li>
+        <li><a href="ghosttune.html">Media Kit</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+      </ul>
+      <span class="footer-copy">© 2025 Crux Resolve LLC. All rights reserved.</span>
+    </div>
+  </footer>
+
+</body>
+</html>
