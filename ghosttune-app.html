@@ -902,6 +902,53 @@
     .faq-more { text-align: center; margin-top: 24px; font-size: 0.85rem; color: var(--text-dim); }
     .faq-more a { color: var(--orange); text-decoration: none; }
     .faq-more a:hover { color: var(--orange-glow); }
+
+    /* ── HAMBURGER ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+      z-index: 200;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-muted);
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: rgba(8,11,18,0.98);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,106,0,0.06);
+      transition: color 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { color: var(--orange-glow); }
   </style>
 </head>
 <body>
@@ -924,7 +971,22 @@
       <li><a href="support.html">Support</a></li>
       <li><a href="ghosttune.html">Media</a></li>
     </ul>
-  </nav>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-mobile" id="nav-mobile">
+    <a href="#features">Features</a>
+    <a href="#howto">Setup</a>
+    <a href="#compat">Compatibility</a>
+    <a href="#faq">FAQ</a>
+    <a href="#beta">Beta</a>
+    <a href="ghostbridge.html">GhostBridge</a>
+    <a href="blog/">Blog</a>
+    <a href="support.html">Support</a>
+    <a href="ghosttune.html">Media</a>
+</div>
 
   <div class="hero">
     <div class="hero-glow"></div>
@@ -1270,5 +1332,17 @@
     </div>
   </footer>
 
+  <script>
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('nav-mobile');
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+    }));
+  </script>
 </body>
 </html>
