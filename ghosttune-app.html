@@ -289,6 +289,34 @@
       letter-spacing: 0.05em;
     }
 
+    /* ── SCREENSHOTS ── */
+    #screenshots {
+      padding: 80px 32px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .screenshots-scroll {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      padding: 24px 16px 32px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      justify-content: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .screenshots-scroll::-webkit-scrollbar { display: none; }
+    .screenshot-frame {
+      scroll-snap-align: center;
+      flex-shrink: 0;
+      border-radius: 36px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+      transition: transform 0.2s;
+    }
+    .screenshot-frame:hover { transform: translateY(-6px); }
+
     .stats-strip {
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -1128,6 +1156,20 @@
       <div class="stat-label">Platform</div>
     </div>
   </div>
+
+  <!-- SCREENSHOTS -->
+  <section id="screenshots">
+    <div class="section-label">// APP SCREENSHOTS</div>
+    <h2 class="section-title">See it in action.</h2>
+    <div class="screenshots-scroll">
+      <img class="screenshot-frame" src="/assets/framed/IMG_4078_framed.png" alt="GhostTune app screenshot" width="260" loading="lazy" />
+      <img class="screenshot-frame" src="/assets/framed/IMG_4079_framed.png" alt="GhostTune app screenshot" width="260" loading="lazy" />
+      <img class="screenshot-frame" src="/assets/framed/IMG_4080_framed.png" alt="GhostTune app screenshot" width="260" loading="lazy" />
+      <img class="screenshot-frame" src="/assets/framed/IMG_4081_framed.png" alt="GhostTune app screenshot" width="260" loading="lazy" />
+      <img class="screenshot-frame" src="/assets/framed/IMG_4082_framed.png" alt="GhostTune app screenshot" width="260" loading="lazy" />
+      <img class="screenshot-frame" src="/assets/framed/IMG_4083_framed.png" alt="GhostTune app screenshot" width="260" loading="lazy" />
+    </div>
+  </section>
 
   <!-- FEATURES -->
   <section id="features">
