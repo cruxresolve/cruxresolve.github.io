@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ page.title | escape }}</title>
+  <meta name="description" content="{{ page.description | escape }}" />
+  <link rel="canonical" href="{{ page.canonical }}" />
+  <link rel="icon" type="image/png" href="/assets/ghosttune-app-icon.png" />
+  <link rel="apple-touch-icon" href="/assets/ghosttune-app-icon.png" />
+  <meta name="robots" content="{{ page.robots | default: 'index, follow' }}" />
+  <meta property="og:type" content="{{ page.og_type | default: 'website' }}" />
+  <meta property="og:url" content="{{ page.canonical }}" />
+  <meta property="og:title" content="{{ page.title | escape }}" />
+  <meta property="og:description" content="{{ page.description | escape }}" />
+  <meta property="og:image" content="{{ page.og_image | default: 'https://cruxresolve.com/assets/og-banner.png' }}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Crux Resolve LLC" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ page.title | escape }}" />
+  <meta name="twitter:description" content="{{ page.description | escape }}" />
+  <meta name="twitter:image" content="{{ page.og_image | default: 'https://cruxresolve.com/assets/og-banner.png' }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="brand" href="/">
+        <img src="/assets/ghosttune-app-icon.png" alt="" width="36" height="36" />
+        <span class="brand-name">CRUX RESOLVE</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/ghosttune-app.html"{% if page.current == 'ghosttune' %} aria-current="page"{% endif %}>GhostTune</a></li>
+        <li><a href="/ghostbridge.html"{% if page.current == 'ghostbridge' %} aria-current="page"{% endif %}>GhostBridge</a></li>
+        <li><a href="/blog/"{% if page.current == 'blog' %} aria-current="page"{% endif %}>Blog</a></li>
+        <li><a href="/support.html"{% if page.current == 'support' %} aria-current="page"{% endif %}>Support</a></li>
+        <li><a href="/ghosttune.html"{% if page.current == 'media' %} aria-current="page"{% endif %}>Media</a></li>
+      </ul>
+      <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-navigation" data-menu-button>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobile-navigation" aria-label="Mobile navigation" data-mobile-menu hidden>
+      <a href="/ghosttune-app.html"{% if page.current == 'ghosttune' %} aria-current="page"{% endif %}>GhostTune</a>
+      <a href="/ghostbridge.html"{% if page.current == 'ghostbridge' %} aria-current="page"{% endif %}>GhostBridge</a>
+      <a href="/blog/"{% if page.current == 'blog' %} aria-current="page"{% endif %}>Blog</a>
+      <a href="/support.html"{% if page.current == 'support' %} aria-current="page"{% endif %}>Support</a>
+      <a href="/ghosttune.html"{% if page.current == 'media' %} aria-current="page"{% endif %}>Media</a>
+    </div>
+  </nav>
+
+  {{ content }}
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <a class="brand" href="/">
+          <img src="/assets/ghosttune-app-icon.png" alt="" width="36" height="36" loading="lazy" />
+          <span class="brand-name">CRUX RESOLVE LLC</span>
+        </a>
+        <ul class="footer-links">
+          <li><a href="/ghosttune-app.html">GhostTune</a></li>
+          <li><a href="/ghostbridge.html">GhostBridge</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/support.html">Support</a></li>
+          <li><a href="/privacy.html">Privacy</a></li>
+          <li><a href="/terms-of-sale.html">Terms of Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-note">© 2026 Crux Resolve LLC · All rights reserved</div>
+      <div class="footer-note">MegaSquirt and MicroSquirt are registered trademarks of Bowling &amp; Grippo. MS2/Extra refers to the open-source firmware project. GhostTune and GhostBridge are not affiliated with, endorsed by, or sponsored by Bowling &amp; Grippo or the MS2/Extra firmware project.</div>
+    </div>
+  </footer>
+  <script src="/assets/js/site.js" defer></script>
+</body>
+</html>
