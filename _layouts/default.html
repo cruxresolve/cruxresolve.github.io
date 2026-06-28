@@ -25,6 +25,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/site.css" />
+  <link rel="stylesheet" href="/assets/css/analytics-consent.css" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -69,6 +70,7 @@
           <li><a href="/blog/">Blog</a></li>
           <li><a href="/support.html">Support</a></li>
           <li><a href="/privacy.html">Privacy</a></li>
+          <li><button class="footer-link-button" type="button" data-privacy-settings>Privacy choices</button></li>
           <li><a href="/terms-of-sale.html">Terms of Sale</a></li>
         </ul>
       </div>
@@ -77,6 +79,21 @@
       <div class="footer-note">Apple, iPhone, iPad, iPadOS, and App Store are trademarks or service marks of Apple Inc. iOS is a trademark or registered trademark of Cisco in the United States and other countries and is used under license. Crux Resolve LLC is not affiliated with or endorsed by Apple Inc.</div>
     </div>
   </footer>
+
+  <section class="analytics-consent" data-analytics-consent hidden aria-labelledby="analytics-consent-title" aria-describedby="analytics-consent-description">
+    <div class="analytics-consent__panel" role="dialog" aria-modal="false">
+      <div class="analytics-consent__copy">
+        <h2 id="analytics-consent-title">Optional website analytics</h2>
+        <p id="analytics-consent-description">With your permission, Crux Resolve uses Google Analytics to understand which pages are useful and how visitors find the site. Analytics is not loaded unless you allow it, and it is not used for advertising. Read the <a href="/privacy.html">Privacy Policy</a>.</p>
+      </div>
+      <div class="analytics-consent__actions">
+        <button class="button button-secondary" type="button" data-analytics-decline>Decline analytics</button>
+        <button class="button button-primary" type="button" data-analytics-accept>Allow analytics</button>
+      </div>
+    </div>
+  </section>
+
   <script src="/assets/js/site.js" defer></script>
+  <script src="/assets/js/analytics-consent.js" defer></script>
 </body>
 </html>
