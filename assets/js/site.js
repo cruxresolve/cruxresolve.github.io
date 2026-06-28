@@ -85,7 +85,7 @@
         form.reset();
         if (status) {
           status.dataset.state = "success";
-          status.textContent = "Thank you. Your email has been added.";
+          status.textContent = "Thank you. Your request has been submitted.";
         }
       } catch (error) {
         if (status) {
