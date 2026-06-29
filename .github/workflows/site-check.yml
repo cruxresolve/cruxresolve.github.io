@@ -37,11 +37,21 @@ jobs:
         continue-on-error: true
         shell: bash
         run: python3 scripts/check_site.py > site-validation-report.txt 2>&1
+      - name: Validate company email address
+        id: email_check
+        continue-on-error: true
+        shell: bash
+        run: |
+          addresses="$(grep -RhoE '[A-Za-z0-9._%+-]+@cruxresolve\.com' --include='*.html' --include='*.md' --include='*.txt' --include='*.xml' --include='*.yml' --include='*.yaml' --include='*.py' --include='*.js' . | sort -u || true)"
+          printf '%s\n' "$addresses" >> site-validation-report.txt
+          test "$addresses" = "support@cruxresolve.com"
       - name: Validate JavaScript syntax
         id: js_check
         continue-on-error: true
         shell: bash
-        run: node --check assets/js/site.js >> site-validation-report.txt 2>&1
+        run: |
+          node --check assets/js/site.js >> site-validation-report.txt 2>&1
+          node --check assets/js/analytics-consent.js >> site-validation-report.txt 2>&1
       - name: Upload source validation report
         if: always()
         uses: actions/upload-artifact@v4
@@ -55,6 +65,7 @@ jobs:
         run: |
           cat site-validation-report.txt
           test "${{ steps.site_check.outcome }}" = "success"
+          test "${{ steps.email_check.outcome }}" = "success"
           test "${{ steps.js_check.outcome }}" = "success"
 
   validate-live-site:
