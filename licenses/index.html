@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open Source Licenses — GhostTune | Crux Resolve LLC</title>
+  <meta name="description" content="Open-source software licenses and production dependency notices for GhostTune by Crux Resolve LLC.">
+  <link rel="canonical" href="https://cruxresolve.com/licenses">
+  <meta property="og:title" content="GhostTune Open Source Licenses">
+  <meta property="og:description" content="Open-source software licenses and production dependency notices for GhostTune.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cruxresolve.com/licenses">
+  <meta name="theme-color" content="#0b0b11">
+
+  <style>
+    :root {
+      --bg: #0b0b11;
+      --bg-soft: #11111a;
+      --surface: #151520;
+      --surface-strong: #1b1b29;
+      --text: #f5f2fa;
+      --muted: #aaa7b7;
+      --faint: #777389;
+      --border: rgba(255,255,255,.12);
+      --accent: #ff7a18;
+      --accent-strong: #e85d04;
+      --warm: #ffb067;
+      --max: 1180px;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(255,122,24,.16), transparent 30rem),
+        radial-gradient(circle at 100% 20%, rgba(232,93,4,.08), transparent 32rem),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+    a:hover { color: var(--accent); }
+    .skip-link {
+      position: fixed;
+      left: 1rem;
+      top: -5rem;
+      z-index: 1000;
+      padding: .75rem 1rem;
+      border-radius: .6rem;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--border);
+      background: rgba(11,11,17,.86);
+      backdrop-filter: blur(18px);
+    }
+    .nav-shell {
+      width: min(var(--max), calc(100% - 2rem));
+      min-height: 4.5rem;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      color: #fff;
+      font-size: .84rem;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .brand-mark {
+      width: 2rem;
+      height: 2rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,122,24,.58);
+      border-radius: .55rem;
+      background: linear-gradient(145deg, rgba(255,122,24,.22), rgba(255,122,24,.04));
+      color: var(--accent);
+      font-size: 1.05rem;
+      letter-spacing: normal;
+    }
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: clamp(.65rem, 2vw, 1.35rem);
+      flex-wrap: wrap;
+    }
+    .site-nav a {
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 750;
+      text-decoration: none;
+    }
+    .site-nav a[aria-current="page"] { color: var(--accent); }
+
+    .page {
+      width: min(var(--max), calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(4.5rem, 9vw, 8rem) 0 clamp(4rem, 8vw, 7rem);
+    }
+    .eyebrow {
+      margin: 0 0 .9rem;
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 12ch;
+      margin: 0;
+      font-size: clamp(2.7rem, 8vw, 6rem);
+      line-height: .94;
+      letter-spacing: -.055em;
+    }
+    .lead {
+      max-width: 760px;
+      margin: 1.5rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.24rem);
+      line-height: 1.75;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+      margin-top: 1.6rem;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.25rem;
+      padding: .42rem .8rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.035);
+      color: var(--muted);
+      font-size: .77rem;
+      font-weight: 800;
+      letter-spacing: .03em;
+    }
+
+    .notice {
+      max-width: 930px;
+      margin-top: clamp(2.5rem, 6vw, 4.5rem);
+      padding: clamp(1.15rem, 3vw, 1.75rem);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
+      box-shadow: 0 24px 70px rgba(0,0,0,.2);
+      color: var(--muted);
+    }
+    .notice p { margin: 0; }
+    .notice p + p { margin-top: .85rem; }
+    .notice a { color: var(--accent); }
+
+    .section { margin-top: clamp(3rem, 7vw, 5.5rem); }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 3vw, 2.3rem);
+      letter-spacing: -.03em;
+    }
+    .result-count {
+      margin: 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: .8rem;
+    }
+    .summary-card {
+      min-height: 7.3rem;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: .9rem;
+      background: var(--surface);
+    }
+    .summary-card .num {
+      color: var(--accent);
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      font-weight: 950;
+      line-height: 1;
+    }
+    .summary-card .lbl {
+      margin-top: .7rem;
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 900;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .tools {
+      position: sticky;
+      top: 5.1rem;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 1rem;
+      padding: .75rem;
+      border: 1px solid var(--border);
+      border-radius: .9rem;
+      background: rgba(17,17,26,.9);
+      backdrop-filter: blur(18px);
+    }
+    .search-wrap { flex: 1; min-width: 0; }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .search-bar {
+      width: 100%;
+      min-height: 3rem;
+      padding: .72rem .9rem;
+      border: 1px solid var(--border);
+      border-radius: .68rem;
+      background: var(--bg);
+      color: var(--text);
+      font: inherit;
+    }
+    .search-bar:focus-visible,
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid rgba(255,122,24,.48);
+      outline-offset: 3px;
+    }
+    .clear-button {
+      min-height: 3rem;
+      padding: .7rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: .68rem;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .clear-button:hover { border-color: var(--accent); }
+
+    #inventory {
+      display: grid;
+      gap: .9rem;
+    }
+    .lic-group {
+      border: 1px solid var(--border);
+      border-radius: .9rem;
+      background: var(--surface);
+      overflow: hidden;
+      box-shadow: 0 18px 48px rgba(0,0,0,.12);
+    }
+    .lic-label {
+      padding: .9rem 1rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-strong);
+      color: var(--text);
+      font-weight: 900;
+    }
+    .lic-count { color: var(--muted); font-weight: 700; }
+    .lic-pkgs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .48rem;
+      padding: 1rem;
+    }
+    .pkg {
+      display: inline-flex;
+      max-width: 100%;
+      padding: .34rem .52rem;
+      border: 1px solid var(--border);
+      border-radius: .42rem;
+      background: var(--bg-soft);
+      color: #c7c3d2;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: .72rem;
+      overflow-wrap: anywhere;
+    }
+    .hidden { display: none !important; }
+    .empty {
+      display: none;
+      margin: 1rem 0 0;
+      padding: 2rem;
+      border: 1px dashed var(--border);
+      border-radius: .9rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    .empty.visible { display: block; }
+
+    .site-footer {
+      border-top: 1px solid var(--border);
+      background: #09090e;
+    }
+    .footer-shell {
+      width: min(var(--max), calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2.4rem 0;
+    }
+    .footer-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .footer-brand {
+      color: #fff;
+      font-size: .82rem;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-decoration: none;
+    }
+    .footer-nav {
+      display: flex;
+      justify-content: flex-end;
+      gap: .65rem 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-nav a {
+      color: var(--muted);
+      font-size: .8rem;
+      text-decoration: none;
+    }
+    .copyright,
+    .trademark {
+      color: var(--faint);
+      font-size: .74rem;
+    }
+    .copyright { margin: 1.6rem 0 0; }
+    .trademark { max-width: 920px; margin: .55rem 0 0; }
+
+    @media (max-width: 760px) {
+      .nav-shell {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 1rem 0;
+      }
+      .site-nav { justify-content: flex-start; }
+      .tools {
+        top: .35rem;
+        align-items: stretch;
+        flex-direction: column;
+      }
+      .clear-button { width: 100%; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+      .footer-top { flex-direction: column; }
+      .footer-nav { justify-content: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .site-header, .tools { backdrop-filter: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="/" aria-label="Crux Resolve home">
+        <span class="brand-mark" aria-hidden="true">C</span>
+        <span>CRUX RESOLVE</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/ghosttune-app.html">GhostTune</a>
+        <a href="/ghostbridge.html">GhostBridge</a>
+        <a href="/blog/">Blog</a>
+        <a href="/support.html">Support</a>
+        <a href="/ghosttune.html">Media</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="page">
+    <section aria-labelledby="page-title">
+      <p class="eyebrow">// GhostTune · Legal</p>
+      <h1 id="page-title">Open source licenses.</h1>
+      <p class="lead">GhostTune is built with open-source software. This page identifies the production dependency inventory and the declared license associated with each package.</p>
+      <div class="meta" aria-label="License inventory summary">
+        <span class="pill">800 packages</span>
+        <span class="pill">18 license groups</span>
+        <span class="pill">Production dependency tree</span>
+      </div>
+    </section>
+
+    <section class="notice" aria-label="Open source notice">
+      <p>Each component remains subject to its own license. Where a third-party license grants rights that differ from the GhostTune End User License Agreement, that third-party license controls for the component it governs.</p>
+      <p>Package source and upstream project information can be obtained from the package repositories identified by package metadata. Questions may be sent to <a href="mailto:support@cruxresolve.com">support@cruxresolve.com</a>.</p>
+    </section>
+
+    <section class="section" aria-labelledby="summary-title">
+      <div class="section-head">
+        <h2 id="summary-title">Inventory summary</h2>
+      </div>
+      <div class="summary">
+        <div class="summary-card"><div class="num">800</div><div class="lbl">Packages</div></div>
+        <div class="summary-card"><div class="num">657</div><div class="lbl">MIT</div></div>
+        <div class="summary-card"><div class="num">61</div><div class="lbl">ISC</div></div>
+        <div class="summary-card"><div class="num">19</div><div class="lbl">BSD-3-Clause</div></div>
+        <div class="summary-card"><div class="num">18</div><div class="lbl">BSD-2-Clause</div></div>
+        <div class="summary-card"><div class="num">13</div><div class="lbl">Apache-2.0</div></div>
+        <div class="summary-card"><div class="num">11</div><div class="lbl">MPL-2.0</div></div>
+        <div class="summary-card"><div class="num">18</div><div class="lbl">License groups</div></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="inventory-title">
+      <div class="section-head">
+        <h2 id="inventory-title">Package inventory</h2>
+        <p id="result-count" class="result-count" aria-live="polite">800 packages in 18 license groups</p>
+      </div>
+
+      <div class="tools">
+        <label class="search-wrap" for="license-search">
+          <span class="sr-only">Search open-source packages</span>
+          <input id="license-search" class="search-bar" type="search" inputmode="search" autocomplete="off" placeholder="Search package name…">
+        </label>
+        <button id="clear-search" class="clear-button" type="button" hidden>Clear search</button>
+      </div>
+
+      <div id="inventory">
+<div class="lic-group"><div class="lic-label">MIT <span class="lic-count">(657)</span></div><div class="lic-pkgs"><span class="pkg">@0no-co/graphql.web@1.3.2</span> <span class="pkg">@babel/code-frame@7.10.4</span> <span class="pkg">@babel/code-frame@7.29.7</span> <span class="pkg">@babel/compat-data@7.29.7</span> <span class="pkg">@babel/core@7.29.7</span> <span class="pkg">@babel/generator@7.29.7</span> <span class="pkg">@babel/helper-annotate-as-pure@7.29.7</span> <span class="pkg">@babel/helper-compilation-targets@7.29.7</span> <span class="pkg">@babel/helper-create-class-features-plugin@7.29.7</span> <span class="pkg">@babel/helper-create-regexp-features-plugin@7.29.7</span> <span class="pkg">@babel/helper-define-polyfill-provider@0.6.8</span> <span class="pkg">@babel/helper-globals@7.29.7</span> <span class="pkg">@babel/helper-member-expression-to-functions@7.29.7</span> <span class="pkg">@babel/helper-module-imports@7.29.7</span> <span class="pkg">@babel/helper-module-transforms@7.29.7</span> <span class="pkg">@babel/helper-optimise-call-expression@7.29.7</span> <span class="pkg">@babel/helper-plugin-utils@7.29.7</span> <span class="pkg">@babel/helper-remap-async-to-generator@7.29.7</span> <span class="pkg">@babel/helper-replace-supers@7.29.7</span> <span class="pkg">@babel/helper-skip-transparent-expression-wrappers@7.29.7</span> <span class="pkg">@babel/helper-string-parser@7.29.7</span> <span class="pkg">@babel/helper-validator-identifier@7.29.7</span> <span class="pkg">@babel/helper-validator-option@7.29.7</span> <span class="pkg">@babel/helper-wrap-function@7.29.7</span> <span class="pkg">@babel/helpers@7.29.7</span> <span class="pkg">@babel/highlight@7.25.9</span> <span class="pkg">@babel/parser@7.29.7</span> <span class="pkg">@babel/plugin-bugfix-firefox-class-in-computed-class-key@7.29.7</span> <span class="pkg">@babel/plugin-bugfix-safari-class-field-initializer-scope@7.29.7</span> <span class="pkg">@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@7.29.7</span> <span class="pkg">@babel/plugin-bugfix-safari-rest-destructuring-rhs-array@7.29.7</span> <span class="pkg">@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining@7.29.7</span> <span class="pkg">@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly@7.29.7</span> <span class="pkg">@babel/plugin-proposal-class-properties@7.18.6</span> <span class="pkg">@babel/plugin-proposal-decorators@7.29.7</span> <span class="pkg">@babel/plugin-proposal-export-default-from@7.29.7</span> <span class="pkg">@babel/plugin-proposal-nullish-coalescing-operator@7.18.6</span> <span class="pkg">@babel/plugin-proposal-optional-chaining@7.21.0</span> <span class="pkg">@babel/plugin-proposal-private-property-in-object@7.21.0-placeholder-for-preset-env.2</span> <span class="pkg">@babel/plugin-syntax-async-generators@7.8.4</span> <span class="pkg">@babel/plugin-syntax-bigint@7.8.3</span> <span class="pkg">@babel/plugin-syntax-class-properties@7.12.13</span> <span class="pkg">@babel/plugin-syntax-class-static-block@7.14.5</span> <span class="pkg">@babel/plugin-syntax-decorators@7.29.7</span> <span class="pkg">@babel/plugin-syntax-dynamic-import@7.8.3</span> <span class="pkg">@babel/plugin-syntax-export-default-from@7.29.7</span> <span class="pkg">@babel/plugin-syntax-flow@7.29.7</span> <span class="pkg">@babel/plugin-syntax-import-assertions@7.29.7</span> <span class="pkg">@babel/plugin-syntax-import-attributes@7.29.7</span> <span class="pkg">@babel/plugin-syntax-import-meta@7.10.4</span> <span class="pkg">@babel/plugin-syntax-json-strings@7.8.3</span> <span class="pkg">@babel/plugin-syntax-jsx@7.29.7</span> <span class="pkg">@babel/plugin-syntax-logical-assignment-operators@7.10.4</span> <span class="pkg">@babel/plugin-syntax-nullish-coalescing-operator@7.8.3</span> <span class="pkg">@babel/plugin-syntax-numeric-separator@7.10.4</span> <span class="pkg">@babel/plugin-syntax-object-rest-spread@7.8.3</span> <span class="pkg">@babel/plugin-syntax-optional-catch-binding@7.8.3</span> <span class="pkg">@babel/plugin-syntax-optional-chaining@7.8.3</span> <span class="pkg">@babel/plugin-syntax-private-property-in-object@7.14.5</span> <span class="pkg">@babel/plugin-syntax-top-level-await@7.14.5</span> <span class="pkg">@babel/plugin-syntax-typescript@7.29.7</span> <span class="pkg">@babel/plugin-syntax-unicode-sets-regex@7.18.6</span> <span class="pkg">@babel/plugin-transform-arrow-functions@7.29.7</span> <span class="pkg">@babel/plugin-transform-async-generator-functions@7.29.7</span> <span class="pkg">@babel/plugin-transform-async-to-generator@7.29.7</span> <span class="pkg">@babel/plugin-transform-block-scoped-functions@7.29.7</span> <span class="pkg">@babel/plugin-transform-block-scoping@7.29.7</span> <span class="pkg">@babel/plugin-transform-class-properties@7.29.7</span> <span class="pkg">@babel/plugin-transform-class-static-block@7.29.7</span> <span class="pkg">@babel/plugin-transform-classes@7.29.7</span> <span class="pkg">@babel/plugin-transform-computed-properties@7.29.7</span> <span class="pkg">@babel/plugin-transform-destructuring@7.29.7</span> <span class="pkg">@babel/plugin-transform-dotall-regex@7.29.7</span> <span class="pkg">@babel/plugin-transform-duplicate-keys@7.29.7</span> <span class="pkg">@babel/plugin-transform-duplicate-named-capturing-groups-regex@7.29.7</span> <span class="pkg">@babel/plugin-transform-dynamic-import@7.29.7</span> <span class="pkg">@babel/plugin-transform-explicit-resource-management@7.29.7</span> <span class="pkg">@babel/plugin-transform-exponentiation-operator@7.29.7</span> <span class="pkg">@babel/plugin-transform-export-namespace-from@7.29.7</span> <span class="pkg">@babel/plugin-transform-flow-strip-types@7.29.7</span> <span class="pkg">@babel/plugin-transform-for-of@7.29.7</span> <span class="pkg">@babel/plugin-transform-function-name@7.29.7</span> <span class="pkg">@babel/plugin-transform-json-strings@7.29.7</span> <span class="pkg">@babel/plugin-transform-literals@7.29.7</span> <span class="pkg">@babel/plugin-transform-logical-assignment-operators@7.29.7</span> <span class="pkg">@babel/plugin-transform-member-expression-literals@7.29.7</span> <span class="pkg">@babel/plugin-transform-modules-amd@7.29.7</span> <span class="pkg">@babel/plugin-transform-modules-commonjs@7.29.7</span> <span class="pkg">@babel/plugin-transform-modules-systemjs@7.29.7</span> <span class="pkg">@babel/plugin-transform-modules-umd@7.29.7</span> <span class="pkg">@babel/plugin-transform-named-capturing-groups-regex@7.29.7</span> <span class="pkg">@babel/plugin-transform-new-target@7.29.7</span> <span class="pkg">@babel/plugin-transform-nullish-coalescing-operator@7.29.7</span> <span class="pkg">@babel/plugin-transform-numeric-separator@7.29.7</span> <span class="pkg">@babel/plugin-transform-object-rest-spread@7.29.7</span> <span class="pkg">@babel/plugin-transform-object-super@7.29.7</span> <span class="pkg">@babel/plugin-transform-optional-catch-binding@7.29.7</span> <span class="pkg">@babel/plugin-transform-optional-chaining@7.29.7</span> <span class="pkg">@babel/plugin-transform-parameters@7.29.7</span> <span class="pkg">@babel/plugin-transform-private-methods@7.29.7</span> <span class="pkg">@babel/plugin-transform-private-property-in-object@7.29.7</span> <span class="pkg">@babel/plugin-transform-property-literals@7.29.7</span> <span class="pkg">@babel/plugin-transform-react-display-name@7.29.7</span> <span class="pkg">@babel/plugin-transform-react-jsx-development@7.29.7</span> <span class="pkg">@babel/plugin-transform-react-jsx-self@7.29.7</span> <span class="pkg">@babel/plugin-transform-react-jsx-source@7.29.7</span> <span class="pkg">@babel/plugin-transform-react-jsx@7.29.7</span> <span class="pkg">@babel/plugin-transform-react-pure-annotations@7.29.7</span> <span class="pkg">@babel/plugin-transform-regenerator@7.29.7</span> <span class="pkg">@babel/plugin-transform-regexp-modifiers@7.29.7</span> <span class="pkg">@babel/plugin-transform-reserved-words@7.29.7</span> <span class="pkg">@babel/plugin-transform-runtime@7.29.7</span> <span class="pkg">@babel/plugin-transform-shorthand-properties@7.29.7</span> <span class="pkg">@babel/plugin-transform-spread@7.29.7</span> <span class="pkg">@babel/plugin-transform-sticky-regex@7.29.7</span> <span class="pkg">@babel/plugin-transform-template-literals@7.29.7</span> <span class="pkg">@babel/plugin-transform-typeof-symbol@7.29.7</span> <span class="pkg">@babel/plugin-transform-typescript@7.29.7</span> <span class="pkg">@babel/plugin-transform-unicode-escapes@7.29.7</span> <span class="pkg">@babel/plugin-transform-unicode-property-regex@7.29.7</span> <span class="pkg">@babel/plugin-transform-unicode-regex@7.29.7</span> <span class="pkg">@babel/plugin-transform-unicode-sets-regex@7.29.7</span> <span class="pkg">@babel/preset-env@7.29.7</span> <span class="pkg">@babel/preset-flow@7.29.7</span> <span class="pkg">@babel/preset-modules@0.1.6-no-external-plugins</span> <span class="pkg">@babel/preset-react@7.29.7</span> <span class="pkg">@babel/preset-typescript@7.29.7</span> <span class="pkg">@babel/register@7.29.7</span> <span class="pkg">@babel/runtime@7.29.7</span> <span class="pkg">@babel/template@7.29.7</span> <span class="pkg">@babel/traverse@7.29.7</span> <span class="pkg">@babel/types@7.29.7</span> <span class="pkg">@egjs/hammerjs@2.0.17</span> <span class="pkg">@expo/bunyan@4.0.1</span> <span class="pkg">@expo/cli@0.22.28</span> <span class="pkg">@expo/code-signing-certificates@0.0.6</span> <span class="pkg">@expo/config-plugins@9.0.17</span> <span class="pkg">@expo/config-types@52.0.5</span> <span class="pkg">@expo/config@10.0.11</span> <span class="pkg">@expo/devcert@1.2.1</span> <span class="pkg">@expo/env@0.4.2</span> <span class="pkg">@expo/fingerprint@0.11.11</span> <span class="pkg">@expo/image-utils@0.6.5</span> <span class="pkg">@expo/json-file@10.2.0</span> <span class="pkg">@expo/json-file@9.0.2</span> <span class="pkg">@expo/metro-config@0.19.12</span> <span class="pkg">@expo/osascript@2.6.0</span> <span class="pkg">@expo/package-manager@1.12.1</span> <span class="pkg">@expo/plist@0.2.2</span> <span class="pkg">@expo/prebuild-config@8.2.0</span> <span class="pkg">@expo/rudder-sdk-node@1.1.1</span> <span class="pkg">@expo/sdk-runtime-versions@1.0.0</span> <span class="pkg">@expo/spawn-async@1.8.0</span> <span class="pkg">@expo/sudo-prompt@9.3.2</span> <span class="pkg">@expo/vector-icons@14.0.4</span> <span class="pkg">@expo/ws-tunnel@1.0.6</span> <span class="pkg">@istanbuljs/schema@0.1.6</span> <span class="pkg">@jest/create-cache-key-function@29.7.0</span> <span class="pkg">@jest/environment@29.7.0</span> <span class="pkg">@jest/fake-timers@29.7.0</span> <span class="pkg">@jest/schemas@29.6.3</span> <span class="pkg">@jest/transform@29.7.0</span> <span class="pkg">@jest/types@29.6.3</span> <span class="pkg">@jridgewell/gen-mapping@0.3.13</span> <span class="pkg">@jridgewell/remapping@2.3.5</span> <span class="pkg">@jridgewell/resolve-uri@3.1.2</span> <span class="pkg">@jridgewell/source-map@0.3.11</span> <span class="pkg">@jridgewell/sourcemap-codec@1.5.5</span> <span class="pkg">@jridgewell/trace-mapping@0.3.31</span> <span class="pkg">@nodelib/fs.scandir@2.1.5</span> <span class="pkg">@nodelib/fs.stat@2.0.5</span> <span class="pkg">@nodelib/fs.walk@1.2.8</span> <span class="pkg">@pkgjs/parseargs@0.11.0</span> <span class="pkg">@react-native-async-storage\/async-storage@1.23.1</span> <span class="pkg">@react-native/assets-registry@0.76.9</span> <span class="pkg">@react-native/babel-plugin-codegen@0.76.9</span> <span class="pkg">@react-native/babel-preset@0.76.9</span> <span class="pkg">@react-native/codegen@0.76.9</span> <span class="pkg">@react-native/community-cli-plugin@0.76.9</span> <span class="pkg">@react-native/dev-middleware@0.76.9</span> <span class="pkg">@react-native/gradle-plugin@0.76.9</span> <span class="pkg">@react-native/js-polyfills@0.76.9</span> <span class="pkg">@react-native/metro-babel-transformer@0.76.9</span> <span class="pkg">@react-native/normalize-colors@0.76.9</span> <span class="pkg">@react-native/virtualized-lists@0.76.9</span> <span class="pkg">@sinclair/typebox@0.27.10</span> <span class="pkg">@types/babel__core@7.20.5</span> <span class="pkg">@types/babel__generator@7.27.0</span> <span class="pkg">@types/babel__template@7.4.4</span> <span class="pkg">@types/babel__traverse@7.28.0</span> <span class="pkg">@types/graceful-fs@4.1.9</span> <span class="pkg">@types/hammerjs@2.0.46</span> <span class="pkg">@types/istanbul-lib-coverage@2.0.6</span> <span class="pkg">@types/istanbul-lib-report@3.0.3</span> <span class="pkg">@types/istanbul-reports@3.0.4</span> <span class="pkg">@types/node-forge@1.3.14</span> <span class="pkg">@types/node@25.9.3</span> <span class="pkg">@types/prop-types@15.7.15</span> <span class="pkg">@types/react@18.3.31</span> <span class="pkg">@types/stack-utils@2.0.3</span> <span class="pkg">@types/yargs-parser@21.0.3</span> <span class="pkg">@types/yargs@17.0.35</span> <span class="pkg">@urql/core@5.2.0</span> <span class="pkg">@urql/exchange-retry@1.3.2</span> <span class="pkg">@xmldom/xmldom@0.7.13</span> <span class="pkg">@xmldom/xmldom@0.9.10</span> <span class="pkg">abort-controller@3.0.0</span> <span class="pkg">accepts@1.3.8</span> <span class="pkg">acorn@8.17.0</span> <span class="pkg">aggregate-error@3.1.0</span> <span class="pkg">anser@1.4.10</span> <span class="pkg">ansi-escapes@4.3.2</span> <span class="pkg">ansi-regex@4.1.1</span> <span class="pkg">ansi-regex@5.0.1</span> <span class="pkg">ansi-regex@6.2.2</span> <span class="pkg">ansi-styles@3.2.1</span> <span class="pkg">ansi-styles@4.3.0</span> <span class="pkg">ansi-styles@5.2.0</span> <span class="pkg">ansi-styles@6.2.3</span> <span class="pkg">any-promise@1.3.0</span> <span class="pkg">arg@5.0.2</span> <span class="pkg">argparse@1.0.10</span> <span class="pkg">array-union@2.1.0</span> <span class="pkg">asap@2.0.6</span> <span class="pkg">ast-types@0.15.2</span> <span class="pkg">async-limiter@1.0.1</span> <span class="pkg">asynckit@0.4.0</span> <span class="pkg">babel-core@7.0.0-bridge.0</span> <span class="pkg">babel-jest@29.7.0</span> <span class="pkg">babel-plugin-jest-hoist@29.6.3</span> <span class="pkg">babel-plugin-polyfill-corejs2@0.4.17</span> <span class="pkg">babel-plugin-polyfill-corejs3@0.13.0</span> <span class="pkg">babel-plugin-polyfill-corejs3@0.14.2</span> <span class="pkg">babel-plugin-polyfill-regenerator@0.6.8</span> <span class="pkg">babel-plugin-react-native-web@0.19.13</span> <span class="pkg">babel-plugin-syntax-hermes-parser@0.23.1</span> <span class="pkg">babel-plugin-syntax-hermes-parser@0.25.1</span> <span class="pkg">babel-plugin-transform-flow-enums@0.0.2</span> <span class="pkg">babel-preset-current-node-syntax@1.2.0</span> <span class="pkg">babel-preset-expo@12.0.12</span> <span class="pkg">babel-preset-jest@29.6.3</span> <span class="pkg">balanced-match@1.0.2</span> <span class="pkg">base64-js@1.5.1</span> <span class="pkg">better-opn@3.0.2</span> <span class="pkg">bplist-creator@0.0.7</span> <span class="pkg">bplist-creator@0.1.0</span> <span class="pkg">bplist-parser@0.3.1</span> <span class="pkg">bplist-parser@0.3.2</span> <span class="pkg">brace-expansion@1.1.15</span> <span class="pkg">brace-expansion@2.1.1</span> <span class="pkg">braces@3.0.3</span> <span class="pkg">browserslist@4.28.2</span> <span class="pkg">buffer-alloc-unsafe@1.1.0</span> <span class="pkg">buffer-alloc@1.2.0</span> <span class="pkg">buffer-fill@1.0.0</span> <span class="pkg">buffer-from@1.1.2</span> <span class="pkg">buffer@5.7.1</span> <span class="pkg">buffer@6.0.3</span> <span class="pkg">bytes@3.1.2</span> <span class="pkg">call-bind-apply-helpers@1.0.2</span> <span class="pkg">caller-callsite@2.0.0</span> <span class="pkg">caller-path@2.0.0</span> <span class="pkg">callsites@2.0.0</span> <span class="pkg">camelcase@5.3.1</span> <span class="pkg">camelcase@6.3.0</span> <span class="pkg">chalk@2.4.2</span> <span class="pkg">chalk@4.1.2</span> <span class="pkg">ci-info@2.0.0</span> <span class="pkg">ci-info@3.9.0</span> <span class="pkg">clean-stack@2.2.0</span> <span class="pkg">cli-cursor@2.1.0</span> <span class="pkg">cli-spinners@2.9.2</span> <span class="pkg">clone-deep@4.0.1</span> <span class="pkg">clone@1.0.4</span> <span class="pkg">color-convert@1.9.3</span> <span class="pkg">color-convert@2.0.1</span> <span class="pkg">color-name@1.1.3</span> <span class="pkg">color-name@1.1.4</span> <span class="pkg">combined-stream@1.0.8</span> <span class="pkg">commander@12.1.0</span> <span class="pkg">commander@2.20.3</span> <span class="pkg">commander@4.1.1</span> <span class="pkg">commander@7.2.0</span> <span class="pkg">commondir@1.0.1</span> <span class="pkg">component-type@1.2.2</span> <span class="pkg">compressible@2.0.18</span> <span class="pkg">compression@1.8.1</span> <span class="pkg">concat-map@0.0.1</span> <span class="pkg">connect@3.7.0</span> <span class="pkg">convert-source-map@2.0.0</span> <span class="pkg">core-js-compat@3.49.0</span> <span class="pkg">cosmiconfig@5.2.1</span> <span class="pkg">cross-fetch@3.2.0</span> <span class="pkg">cross-spawn@6.0.6</span> <span class="pkg">cross-spawn@7.0.6</span> <span class="pkg">crypto-random-string@2.0.0</span> <span class="pkg">css-tree@1.1.3</span> <span class="pkg">csstype@3.2.3</span> <span class="pkg">debug@2.6.9</span> <span class="pkg">debug@3.2.7</span> <span class="pkg">debug@4.4.3</span> <span class="pkg">deep-extend@0.6.0</span> <span class="pkg">deepmerge@4.3.1</span> <span class="pkg">defaults@1.0.4</span> <span class="pkg">define-lazy-prop@2.0.0</span> <span class="pkg">del@6.1.1</span> <span class="pkg">delayed-stream@1.0.0</span> <span class="pkg">depd@2.0.0</span> <span class="pkg">destroy@1.2.0</span> <span class="pkg">dir-glob@3.0.1</span> <span class="pkg">dom-serializer@2.0.0</span> <span class="pkg">dunder-proto@1.0.1</span> <span class="pkg">eastasianwidth@0.2.0</span> <span class="pkg">ee-first@1.1.1</span> <span class="pkg">emoji-regex@8.0.0</span> <span class="pkg">emoji-regex@9.2.2</span> <span class="pkg">encodeurl@1.0.2</span> <span class="pkg">encodeurl@2.0.0</span> <span class="pkg">end-of-stream@1.4.5</span> <span class="pkg">env-editor@0.4.2</span> <span class="pkg">error-ex@1.3.4</span> <span class="pkg">error-stack-parser@2.1.4</span> <span class="pkg">es-define-property@1.0.1</span> <span class="pkg">es-errors@1.3.0</span> <span class="pkg">es-object-atoms@1.1.2</span> <span class="pkg">es-set-tostringtag@2.1.0</span> <span class="pkg">escalade@3.2.0</span> <span class="pkg">escape-html@1.0.3</span> <span class="pkg">escape-string-regexp@1.0.5</span> <span class="pkg">escape-string-regexp@2.0.0</span> <span class="pkg">escape-string-regexp@4.0.0</span> <span class="pkg">etag@1.8.1</span> <span class="pkg">event-target-shim@5.0.1</span> <span class="pkg">eventemitter3@4.0.7</span> <span class="pkg">execa@1.0.0</span> <span class="pkg">execa@5.1.1</span> <span class="pkg">expo-asset@11.0.5</span> <span class="pkg">expo-clipboard@7.0.1</span> <span class="pkg">expo-constants@17.0.8</span> <span class="pkg">expo-document-picker@13.0.3</span> <span class="pkg">expo-file-system@18.0.12</span> <span class="pkg">expo-font@13.0.4</span> <span class="pkg">expo-haptics@14.0.1</span> <span class="pkg">expo-keep-awake@14.0.3</span> <span class="pkg">expo-modules-autolinking@2.0.8</span> <span class="pkg">expo-modules-core@2.2.3</span> <span class="pkg">expo-sharing@13.0.1</span> <span class="pkg">expo-status-bar@2.0.1</span> <span class="pkg">expo@52.0.49</span> <span class="pkg">fast-glob@3.3.3</span> <span class="pkg">fast-json-stable-stringify@2.1.0</span> <span class="pkg">fbjs-css-vars@1.0.2</span> <span class="pkg">fbjs@3.0.5</span> <span class="pkg">fetch-retry@4.1.1</span> <span class="pkg">fill-range@7.1.1</span> <span class="pkg">finalhandler@1.1.2</span> <span class="pkg">find-cache-dir@2.1.0</span> <span class="pkg">find-up@3.0.0</span> <span class="pkg">find-up@4.1.0</span> <span class="pkg">find-up@5.0.0</span> <span class="pkg">flow-enums-runtime@0.0.6</span> <span class="pkg">flow-parser@0.318.0</span> <span class="pkg">form-data@3.0.5</span> <span class="pkg">freeport-async@2.0.0</span> <span class="pkg">fresh@0.5.2</span> <span class="pkg">fs-extra@8.1.0</span> <span class="pkg">fs-extra@9.0.0</span> <span class="pkg">fs-extra@9.1.0</span> <span class="pkg">fsevents@2.3.3</span> <span class="pkg">function-bind@1.1.2</span> <span class="pkg">gensync@1.0.0-beta.2</span> <span class="pkg">get-intrinsic@1.3.0</span> <span class="pkg">get-package-type@0.1.0</span> <span class="pkg">get-proto@1.0.1</span> <span class="pkg">get-stream@4.1.0</span> <span class="pkg">get-stream@6.0.1</span> <span class="pkg">getenv@1.0.0</span> <span class="pkg">globby@11.1.0</span> <span class="pkg">gopd@1.2.0</span> <span class="pkg">has-flag@3.0.0</span> <span class="pkg">has-flag@4.0.0</span> <span class="pkg">has-symbols@1.1.0</span> <span class="pkg">has-tostringtag@1.0.2</span> <span class="pkg">hasown@2.0.4</span> <span class="pkg">hermes-estree@0.23.1</span> <span class="pkg">hermes-estree@0.25.1</span> <span class="pkg">hermes-parser@0.23.1</span> <span class="pkg">hermes-parser@0.25.1</span> <span class="pkg">http-errors@2.0.1</span> <span class="pkg">ignore@5.3.2</span> <span class="pkg">image-size@1.2.1</span> <span class="pkg">import-fresh@2.0.0</span> <span class="pkg">imurmurhash@0.1.4</span> <span class="pkg">indent-string@4.0.0</span> <span class="pkg">internal-ip@4.3.0</span> <span class="pkg">invariant@2.2.4</span> <span class="pkg">ip-regex@2.1.0</span> <span class="pkg">ipaddr.js@1.9.1</span> <span class="pkg">is-arrayish@0.2.1</span> <span class="pkg">is-buffer@1.1.6</span> <span class="pkg">is-core-module@2.16.2</span> <span class="pkg">is-directory@0.3.1</span> <span class="pkg">is-docker@2.2.1</span> <span class="pkg">is-extglob@2.1.1</span> <span class="pkg">is-fullwidth-code-point@3.0.0</span> <span class="pkg">is-glob@4.0.3</span> <span class="pkg">is-number@7.0.0</span> <span class="pkg">is-path-cwd@2.2.0</span> <span class="pkg">is-path-inside@3.0.3</span> <span class="pkg">is-plain-obj@2.1.0</span> <span class="pkg">is-plain-object@2.0.4</span> <span class="pkg">is-stream@1.1.0</span> <span class="pkg">is-stream@2.0.1</span> <span class="pkg">is-wsl@2.2.0</span> <span class="pkg">isobject@3.0.1</span> <span class="pkg">jest-environment-node@29.7.0</span> <span class="pkg">jest-get-type@29.6.3</span> <span class="pkg">jest-haste-map@29.7.0</span> <span class="pkg">jest-message-util@29.7.0</span> <span class="pkg">jest-mock@29.7.0</span> <span class="pkg">jest-regex-util@29.6.3</span> <span class="pkg">jest-util@29.7.0</span> <span class="pkg">jest-validate@29.7.0</span> <span class="pkg">jest-worker@29.7.0</span> <span class="pkg">jimp-compact@0.16.1</span> <span class="pkg">join-component@1.1.0</span> <span class="pkg">js-tokens@4.0.0</span> <span class="pkg">js-yaml@3.14.2</span> <span class="pkg">js-yaml@4.2.0</span> <span class="pkg">jscodeshift@0.14.0</span> <span class="pkg">jsesc@3.1.0</span> <span class="pkg">json-parse-better-errors@1.0.2</span> <span class="pkg">json5@2.2.3</span> <span class="pkg">jsonfile@4.0.0</span> <span class="pkg">jsonfile@6.2.1</span> <span class="pkg">kind-of@6.0.3</span> <span class="pkg">kleur@3.0.3</span> <span class="pkg">leven@3.1.0</span> <span class="pkg">lines-and-columns@1.2.4</span> <span class="pkg">locate-path@3.0.0</span> <span class="pkg">locate-path@5.0.0</span> <span class="pkg">locate-path@6.0.0</span> <span class="pkg">lodash.debounce@4.0.8</span> <span class="pkg">lodash.throttle@4.1.1</span> <span class="pkg">log-symbols@2.2.0</span> <span class="pkg">loose-envify@1.4.0</span> <span class="pkg">make-dir@2.1.0</span> <span class="pkg">math-intrinsics@1.1.0</span> <span class="pkg">md5-file@3.2.3</span> <span class="pkg">memoize-one@5.2.1</span> <span class="pkg">merge-options@3.0.4</span> <span class="pkg">merge-stream@2.0.0</span> <span class="pkg">merge2@1.4.1</span> <span class="pkg">metro-babel-transformer@0.81.5</span> <span class="pkg">metro-cache-key@0.81.5</span> <span class="pkg">metro-cache@0.81.5</span> <span class="pkg">metro-config@0.81.5</span> <span class="pkg">metro-core@0.81.5</span> <span class="pkg">metro-file-map@0.81.5</span> <span class="pkg">metro-minify-terser@0.81.5</span> <span class="pkg">metro-resolver@0.81.5</span> <span class="pkg">metro-runtime@0.81.5</span> <span class="pkg">metro-source-map@0.81.5</span> <span class="pkg">metro-symbolicate@0.81.5</span> <span class="pkg">metro-transform-plugins@0.81.5</span> <span class="pkg">metro-transform-worker@0.81.5</span> <span class="pkg">metro@0.81.5</span> <span class="pkg">micromatch@4.0.8</span> <span class="pkg">mime-db@1.52.0</span> <span class="pkg">mime-db@1.54.0</span> <span class="pkg">mime-types@2.1.35</span> <span class="pkg">mime@1.6.0</span> <span class="pkg">mimic-fn@1.2.0</span> <span class="pkg">mimic-fn@2.1.0</span> <span class="pkg">minimist@1.2.8</span> <span class="pkg">minizlib@2.1.2</span> <span class="pkg">mkdirp@0.5.6</span> <span class="pkg">mkdirp@1.0.4</span> <span class="pkg">ms@2.0.0</span> <span class="pkg">ms@2.1.3</span> <span class="pkg">mz@2.7.0</span> <span class="pkg">nanoid@3.3.12</span> <span class="pkg">negotiator@0.6.3</span> <span class="pkg">negotiator@0.6.4</span> <span class="pkg">neo-async@2.6.2</span> <span class="pkg">nested-error-stacks@2.0.1</span> <span class="pkg">nice-try@1.0.5</span> <span class="pkg">node-dir@0.1.17</span> <span class="pkg">node-fetch@2.7.0</span> <span class="pkg">node-int64@0.4.0</span> <span class="pkg">node-releases@2.0.47</span> <span class="pkg">normalize-path@3.0.0</span> <span class="pkg">npm-run-path@2.0.2</span> <span class="pkg">npm-run-path@4.0.1</span> <span class="pkg">nullthrows@1.1.1</span> <span class="pkg">ob1@0.81.5</span> <span class="pkg">object-assign@4.1.1</span> <span class="pkg">on-finished@2.3.0</span> <span class="pkg">on-finished@2.4.1</span> <span class="pkg">on-headers@1.1.0</span> <span class="pkg">onetime@2.0.1</span> <span class="pkg">onetime@5.1.2</span> <span class="pkg">open@7.4.2</span> <span class="pkg">open@8.4.2</span> <span class="pkg">ora@3.4.0</span> <span class="pkg">p-finally@1.0.0</span> <span class="pkg">p-limit@2.3.0</span> <span class="pkg">p-limit@3.1.0</span> <span class="pkg">p-locate@3.0.0</span> <span class="pkg">p-locate@4.1.0</span> <span class="pkg">p-locate@5.0.0</span> <span class="pkg">p-map@4.0.0</span> <span class="pkg">p-try@2.2.0</span> <span class="pkg">parse-json@4.0.0</span> <span class="pkg">parse-png@2.1.0</span> <span class="pkg">parseurl@1.3.3</span> <span class="pkg">path-exists@3.0.0</span> <span class="pkg">path-exists@4.0.0</span> <span class="pkg">path-is-absolute@1.0.1</span> <span class="pkg">path-key@2.0.1</span> <span class="pkg">path-key@3.1.1</span> <span class="pkg">path-parse@1.0.7</span> <span class="pkg">path-type@4.0.0</span> <span class="pkg">picomatch@2.3.2</span> <span class="pkg">picomatch@3.0.2</span> <span class="pkg">pify@4.0.1</span> <span class="pkg">pirates@4.0.7</span> <span class="pkg">pkg-dir@3.0.0</span> <span class="pkg">plist@3.1.1</span> <span class="pkg">pngjs@3.4.0</span> <span class="pkg">postcss@8.4.49</span> <span class="pkg">pretty-bytes@5.6.0</span> <span class="pkg">pretty-format@29.7.0</span> <span class="pkg">progress@2.0.3</span> <span class="pkg">promise@7.3.1</span> <span class="pkg">promise@8.3.0</span> <span class="pkg">prompts@2.4.2</span> <span class="pkg">prop-types@15.8.1</span> <span class="pkg">pump@3.0.4</span> <span class="pkg">punycode@2.3.1</span> <span class="pkg">queue-microtask@1.2.3</span> <span class="pkg">queue@6.0.2</span> <span class="pkg">range-parser@1.2.1</span> <span class="pkg">react-devtools-core@5.3.2</span> <span class="pkg">react-is@16.13.1</span> <span class="pkg">react-is@18.3.1</span> <span class="pkg">react-native-gesture-handler@2.20.2</span> <span class="pkg">react-native-safe-area-context@4.12.0</span> <span class="pkg">react-native-svg@15.8.0</span> <span class="pkg">react-native-tcp-socket@6.4.1</span> <span class="pkg">react-native@0.76.9</span> <span class="pkg">react-refresh@0.14.2</span> <span class="pkg">react@18.3.1</span> <span class="pkg">recast@0.21.5</span> <span class="pkg">regenerate-unicode-properties@10.2.2</span> <span class="pkg">regenerate@1.4.2</span> <span class="pkg">regenerator-runtime@0.13.11</span> <span class="pkg">regexpu-core@6.4.0</span> <span class="pkg">regjsgen@0.8.0</span> <span class="pkg">remove-trailing-slash@0.1.1</span> <span class="pkg">require-directory@2.1.1</span> <span class="pkg">require-from-string@2.0.2</span> <span class="pkg">requireg@0.2.2</span> <span class="pkg">resolve-from@3.0.0</span> <span class="pkg">resolve-from@5.0.0</span> <span class="pkg">resolve-workspace-root@2.0.1</span> <span class="pkg">resolve.exports@2.0.3</span> <span class="pkg">resolve@1.22.12</span> <span class="pkg">resolve@1.7.1</span> <span class="pkg">restore-cursor@2.0.0</span> <span class="pkg">reusify@1.1.0</span> <span class="pkg">run-parallel@1.2.0</span> <span class="pkg">safe-buffer@5.2.1</span> <span class="pkg">scheduler@0.24.0-canary-efb381bbf-20230505</span> <span class="pkg">selfsigned@2.4.1</span> <span class="pkg">send@0.19.2</span> <span class="pkg">serialize-error@2.1.0</span> <span class="pkg">serve-static@1.16.3</span> <span class="pkg">setimmediate@1.0.5</span> <span class="pkg">shallow-clone@3.0.1</span> <span class="pkg">shebang-command@1.2.0</span> <span class="pkg">shebang-command@2.0.0</span> <span class="pkg">shebang-regex@1.0.0</span> <span class="pkg">shebang-regex@3.0.0</span> <span class="pkg">shell-quote@1.8.4</span> <span class="pkg">simple-plist@1.3.1</span> <span class="pkg">sisteransi@1.0.5</span> <span class="pkg">slash@3.0.0</span> <span class="pkg">slugify@1.6.9</span> <span class="pkg">source-map-support@0.5.21</span> <span class="pkg">stack-utils@2.0.6</span> <span class="pkg">stackframe@1.3.4</span> <span class="pkg">stacktrace-parser@0.1.11</span> <span class="pkg">statuses@1.5.0</span> <span class="pkg">statuses@2.0.2</span> <span class="pkg">string-width@4.2.3</span> <span class="pkg">string-width@5.1.2</span> <span class="pkg">strip-ansi@5.2.0</span> <span class="pkg">strip-ansi@6.0.1</span> <span class="pkg">strip-ansi@7.2.0</span> <span class="pkg">strip-eof@1.0.0</span> <span class="pkg">strip-final-newline@2.0.0</span> <span class="pkg">strip-json-comments@2.0.1</span> <span class="pkg">structured-headers@0.4.1</span> <span class="pkg">sucrase@3.35.0</span> <span class="pkg">supports-color@5.5.0</span> <span class="pkg">supports-color@7.2.0</span> <span class="pkg">supports-color@8.1.1</span> <span class="pkg">supports-hyperlinks@2.3.0</span> <span class="pkg">supports-preserve-symlinks-flag@1.0.0</span> <span class="pkg">temp-dir@2.0.0</span> <span class="pkg">temp@0.8.4</span> <span class="pkg">tempy@0.7.1</span> <span class="pkg">terminal-link@2.1.1</span> <span class="pkg">thenify-all@1.6.0</span> <span class="pkg">thenify@3.3.1</span> <span class="pkg">throat@5.0.0</span> <span class="pkg">to-regex-range@5.0.1</span> <span class="pkg">toidentifier@1.0.1</span> <span class="pkg">tr46@0.0.3</span> <span class="pkg">type-detect@4.0.8</span> <span class="pkg">ua-parser-js@1.0.41</span> <span class="pkg">undici-types@7.24.6</span> <span class="pkg">undici@6.26.0</span> <span class="pkg">unicode-canonical-property-names-ecmascript@2.0.1</span> <span class="pkg">unicode-match-property-ecmascript@2.0.0</span> <span class="pkg">unicode-match-property-value-ecmascript@2.2.1</span> <span class="pkg">unicode-property-aliases-ecmascript@2.2.0</span> <span class="pkg">unique-string@2.0.0</span> <span class="pkg">universalify@0.1.2</span> <span class="pkg">universalify@1.0.0</span> <span class="pkg">universalify@2.0.1</span> <span class="pkg">unpipe@1.0.0</span> <span class="pkg">update-browserslist-db@1.2.3</span> <span class="pkg">utils-merge@1.0.1</span> <span class="pkg">uuid@7.0.3</span> <span class="pkg">uuid@8.3.2</span> <span class="pkg">vary@1.1.2</span> <span class="pkg">vlq@1.0.1</span> <span class="pkg">warn-once@0.1.1</span> <span class="pkg">wcwidth@1.0.1</span> <span class="pkg">web-streams-polyfill@3.3.3</span> <span class="pkg">whatwg-fetch@3.6.20</span> <span class="pkg">whatwg-url-without-unicode@8.0.0-3</span> <span class="pkg">whatwg-url@5.0.0</span> <span class="pkg">wonka@6.3.6</span> <span class="pkg">wrap-ansi@7.0.0</span> <span class="pkg">wrap-ansi@8.1.0</span> <span class="pkg">ws@6.2.4</span> <span class="pkg">ws@7.5.11</span> <span class="pkg">ws@8.21.0</span> <span class="pkg">xml2js@0.6.0</span> <span class="pkg">xmlbuilder@11.0.1</span> <span class="pkg">xmlbuilder@14.0.0</span> <span class="pkg">xmlbuilder@15.1.1</span> <span class="pkg">yargs@17.7.2</span> <span class="pkg">yocto-queue@0.1.0</span></div></div>
+<div class="lic-group"><div class="lic-label">ISC <span class="lic-count">(61)</span></div><div class="lic-pkgs"><span class="pkg">@isaacs/cliui@8.0.2</span> <span class="pkg">@isaacs/ttlcache@1.4.1</span> <span class="pkg">@istanbuljs/load-nyc-config@1.1.0</span> <span class="pkg">@npmcli/fs@3.1.1</span> <span class="pkg">anymatch@3.1.3</span> <span class="pkg">at-least-node@1.0.0</span> <span class="pkg">boolbase@1.0.0</span> <span class="pkg">cacache@18.0.4</span> <span class="pkg">chownr@2.0.0</span> <span class="pkg">cliui@8.0.1</span> <span class="pkg">electron-to-chromium@1.5.372</span> <span class="pkg">fastq@1.20.1</span> <span class="pkg">foreground-child@3.3.1</span> <span class="pkg">fs-minipass@2.1.0</span> <span class="pkg">fs-minipass@3.0.3</span> <span class="pkg">fs.realpath@1.0.0</span> <span class="pkg">get-caller-file@2.0.5</span> <span class="pkg">glob-parent@5.1.2</span> <span class="pkg">glob@10.5.0</span> <span class="pkg">glob@7.2.3</span> <span class="pkg">graceful-fs@4.2.11</span> <span class="pkg">hosted-git-info@7.0.2</span> <span class="pkg">inflight@1.0.6</span> <span class="pkg">inherits@2.0.4</span> <span class="pkg">ini@1.3.8</span> <span class="pkg">isexe@2.0.0</span> <span class="pkg">lru-cache@10.4.3</span> <span class="pkg">lru-cache@5.1.1</span> <span class="pkg">minimatch@3.1.5</span> <span class="pkg">minimatch@9.0.9</span> <span class="pkg">minipass-collect@2.0.1</span> <span class="pkg">minipass-pipeline@1.2.4</span> <span class="pkg">minipass@3.3.6</span> <span class="pkg">minipass@5.0.0</span> <span class="pkg">npm-package-arg@11.0.3</span> <span class="pkg">once@1.4.0</span> <span class="pkg">picocolors@1.1.1</span> <span class="pkg">proc-log@4.2.0</span> <span class="pkg">rimraf@2.6.3</span> <span class="pkg">rimraf@3.0.2</span> <span class="pkg">semver@5.7.2</span> <span class="pkg">semver@6.3.1</span> <span class="pkg">semver@7.8.4</span> <span class="pkg">setprototypeof@1.2.0</span> <span class="pkg">signal-exit@3.0.7</span> <span class="pkg">signal-exit@4.1.0</span> <span class="pkg">ssri@10.0.6</span> <span class="pkg">tar@6.2.1</span> <span class="pkg">test-exclude@6.0.0</span> <span class="pkg">unique-filename@3.0.0</span> <span class="pkg">unique-slug@4.0.0</span> <span class="pkg">validate-npm-package-name@5.0.1</span> <span class="pkg">which@1.3.1</span> <span class="pkg">which@2.0.2</span> <span class="pkg">wrappy@1.0.2</span> <span class="pkg">write-file-atomic@2.4.3</span> <span class="pkg">write-file-atomic@4.0.2</span> <span class="pkg">y18n@5.0.8</span> <span class="pkg">yallist@3.1.1</span> <span class="pkg">yallist@4.0.0</span> <span class="pkg">yargs-parser@21.1.1</span></div></div>
+<div class="lic-group"><div class="lic-label">BSD-3-Clause <span class="lic-count">(19)</span></div><div class="lic-pkgs"><span class="pkg">@expo/xcpretty@4.4.4</span> <span class="pkg">@react-native/debugger-frontend@0.76.9</span> <span class="pkg">@sinonjs/commons@3.0.1</span> <span class="pkg">@sinonjs/fake-timers@10.3.0</span> <span class="pkg">babel-plugin-istanbul@6.1.1</span> <span class="pkg">charenc@0.0.2</span> <span class="pkg">crypt@0.0.2</span> <span class="pkg">fbemitter@3.0.0</span> <span class="pkg">hoist-non-react-statics@3.3.2</span> <span class="pkg">ieee754@1.2.1</span> <span class="pkg">istanbul-lib-coverage@3.2.2</span> <span class="pkg">istanbul-lib-instrument@5.2.1</span> <span class="pkg">makeerror@1.0.12</span> <span class="pkg">md5@2.3.0</span> <span class="pkg">source-map-js@1.2.1</span> <span class="pkg">source-map@0.5.7</span> <span class="pkg">source-map@0.6.1</span> <span class="pkg">sprintf-js@1.0.3</span> <span class="pkg">tmpl@1.0.5</span></div></div>
+<div class="lic-group"><div class="lic-label">BSD-2-Clause <span class="lic-count">(18)</span></div><div class="lic-pkgs"><span class="pkg">css-select@5.2.2</span> <span class="pkg">css-what@6.2.2</span> <span class="pkg">default-gateway@4.2.0</span> <span class="pkg">domelementtype@2.3.0</span> <span class="pkg">domhandler@5.0.3</span> <span class="pkg">domutils@3.2.2</span> <span class="pkg">dotenv-expand@11.0.7</span> <span class="pkg">dotenv@16.4.7</span> <span class="pkg">entities@4.5.0</span> <span class="pkg">esprima@4.0.1</span> <span class="pkg">esutils@2.0.3</span> <span class="pkg">fontfaceobserver@2.3.0</span> <span class="pkg">jsc-android@250231.0.0</span> <span class="pkg">nth-check@2.1.1</span> <span class="pkg">regjsparser@0.13.2</span> <span class="pkg">terser@5.48.0</span> <span class="pkg">webidl-conversions@3.0.1</span> <span class="pkg">webidl-conversions@5.0.0</span></div></div>
+<div class="lic-group"><div class="lic-label">Apache-2.0 <span class="lic-count">(13)</span></div><div class="lic-pkgs"><span class="pkg">baseline-browser-mapping@2.10.37</span> <span class="pkg">bser@2.1.1</span> <span class="pkg">chrome-launcher@0.15.2</span> <span class="pkg">chromium-edge-launcher@0.2.0</span> <span class="pkg">detect-libc@1.0.3</span> <span class="pkg">exponential-backoff@3.1.3</span> <span class="pkg">fb-watchman@2.0.2</span> <span class="pkg">human-signals@2.1.0</span> <span class="pkg">lighthouse-logger@1.4.2</span> <span class="pkg">marky@1.3.0</span> <span class="pkg">ts-interface-checker@0.1.13</span> <span class="pkg">walker@1.0.8</span> <span class="pkg">xcode@3.0.1</span></div></div>
+<div class="lic-group"><div class="lic-label">MPL-2.0 <span class="lic-count">(11)</span></div><div class="lic-pkgs"><span class="pkg">lightningcss-darwin-arm64@1.27.0</span> <span class="pkg">lightningcss-darwin-x64@1.27.0</span> <span class="pkg">lightningcss-freebsd-x64@1.27.0</span> <span class="pkg">lightningcss-linux-arm-gnueabihf@1.27.0</span> <span class="pkg">lightningcss-linux-arm64-gnu@1.27.0</span> <span class="pkg">lightningcss-linux-arm64-musl@1.27.0</span> <span class="pkg">lightningcss-linux-x64-gnu@1.27.0</span> <span class="pkg">lightningcss-linux-x64-musl@1.27.0</span> <span class="pkg">lightningcss-win32-arm64-msvc@1.27.0</span> <span class="pkg">lightningcss-win32-x64-msvc@1.27.0</span> <span class="pkg">lightningcss@1.27.0</span></div></div>
+<div class="lic-group"><div class="lic-label">BlueOak-1.0.0 <span class="lic-count">(6)</span></div><div class="lic-pkgs"><span class="pkg">jackspeak@3.4.3</span> <span class="pkg">minipass-flush@1.0.7</span> <span class="pkg">minipass@7.1.3</span> <span class="pkg">package-json-from-dist@1.0.1</span> <span class="pkg">path-scurry@1.11.1</span> <span class="pkg">sax@1.6.0</span></div></div>
+<div class="lic-group"><div class="lic-label">(MIT OR CC0-1.0) <span class="lic-count">(3)</span></div><div class="lic-pkgs"><span class="pkg">type-fest@0.16.0</span> <span class="pkg">type-fest@0.21.3</span> <span class="pkg">type-fest@0.7.1</span></div></div>
+<div class="lic-group"><div class="lic-label">Unlicense <span class="lic-count">(2)</span></div><div class="lic-pkgs"><span class="pkg">big-integer@1.6.52</span> <span class="pkg">stream-buffers@2.2.0</span></div></div>
+<div class="lic-group"><div class="lic-label">0BSD <span class="lic-count">(2)</span></div><div class="lic-pkgs"><span class="pkg">jsc-safe-url@0.2.4</span> <span class="pkg">tslib@2.8.1</span></div></div>
+<div class="lic-group"><div class="lic-label">MIT* <span class="lic-count">(1)</span></div><div class="lic-pkgs"><span class="pkg">@segment/loosely-validate-event@2.0.0</span></div></div>
+<div class="lic-group"><div class="lic-label">Python-2.0 <span class="lic-count">(1)</span></div><div class="lic-pkgs"><span class="pkg">argparse@2.0.1</span></div></div>
+<div class="lic-group"><div class="lic-label">CC-BY-4.0 <span class="lic-count">(1)</span></div><div class="lic-pkgs"><span class="pkg">caniuse-lite@1.0.30001799</span></div></div>
+<div class="lic-group"><div class="lic-label">CC0-1.0 <span class="lic-count">(1)</span></div><div class="lic-pkgs"><span class="pkg">mdn-data@2.0.14</span></div></div>
+<div class="lic-group"><div class="lic-label">(BSD-3-Clause OR GPL-2.0) <span class="lic-count">(1)</span></div><div class="lic-pkgs"><span class="pkg">node-forge@1.4.0</span></div></div>
+<div class="lic-group"><div class="lic-label">Apache 2.0 <span class="lic-count">(1)</span></div><div class="lic-pkgs"><span class="pkg">qrcode-terminal@0.11.0</span></div></div>
+<div class="lic-group"><div class="lic-label">(BSD-2-Clause OR MIT OR Apache-2.0) <span class="lic-count">(1)</span></div><div class="lic-pkgs"><span class="pkg">rc@1.2.8</span></div></div>
+<div class="lic-group"><div class="lic-label">BSD* <span class="lic-count">(1)</span></div><div class="lic-pkgs"><span class="pkg">readline@1.3.0</span></div></div>
+      </div>
+      <p id="empty-state" class="empty" role="status">No package names match that search.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-shell">
+      <div class="footer-top">
+        <a class="footer-brand" href="/">CRUX RESOLVE LLC</a>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="/ghosttune-app.html">GhostTune</a>
+          <a href="/ghostbridge.html">GhostBridge</a>
+          <a href="/blog/">Blog</a>
+          <a href="/support.html">Support</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms-of-sale.html">Terms of Sale</a>
+          <a href="/licenses" aria-current="page">Licenses</a>
+        </nav>
+      </div>
+      <p class="copyright">© 2026 Crux Resolve LLC · All rights reserved</p>
+      <p class="trademark">MegaSquirt and MicroSquirt are registered trademarks of Bowling &amp; Grippo. MS2/Extra refers to the open-source firmware project. GhostTune and GhostBridge are not affiliated with, endorsed by, or sponsored by Bowling &amp; Grippo or the MS2/Extra firmware project.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const input = document.getElementById('license-search');
+      const clearButton = document.getElementById('clear-search');
+      const resultCount = document.getElementById('result-count');
+      const emptyState = document.getElementById('empty-state');
+      const groups = Array.from(document.querySelectorAll('.lic-group'));
+      const packages = Array.from(document.querySelectorAll('.pkg'));
+
+      function filterPackages() {
+        const query = input.value.toLocaleLowerCase().trim();
+        let visiblePackages = 0;
+        let visibleGroups = 0;
+
+        groups.forEach(function (group) {
+          let groupMatches = 0;
+          group.querySelectorAll('.pkg').forEach(function (pkg) {
+            const matches = !query || pkg.textContent.toLocaleLowerCase().includes(query);
+            pkg.classList.toggle('hidden', !matches);
+            if (matches) groupMatches += 1;
+          });
+
+          group.classList.toggle('hidden', groupMatches === 0);
+          if (groupMatches > 0) {
+            visibleGroups += 1;
+            visiblePackages += groupMatches;
+          }
+        });
+
+        resultCount.textContent =
+          visiblePackages + ' package' + (visiblePackages === 1 ? '' : 's') +
+          ' in ' + visibleGroups + ' license group' + (visibleGroups === 1 ? '' : 's');
+
+        emptyState.classList.toggle('visible', visiblePackages === 0);
+        clearButton.hidden = !query;
+      }
+
+      input.addEventListener('input', filterPackages);
+      clearButton.addEventListener('click', function () {
+        input.value = '';
+        filterPackages();
+        input.focus();
+      });
+
+      resultCount.textContent = packages.length + ' packages in ' + groups.length + ' license groups';
+    })();
+  </script>
+</body>
+</html>
