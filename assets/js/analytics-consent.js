@@ -38,6 +38,21 @@
     banner.hidden = true;
   };
 
+  window.cruxTrack = (eventName, parameters = {}) => {
+    if (
+      typeof eventName !== "string" ||
+      !eventName ||
+      readConsent() !== GRANTED ||
+      !window.__cruxResolveGa4Loaded ||
+      typeof window.gtag !== "function"
+    ) {
+      return false;
+    }
+
+    window.gtag("event", eventName, parameters);
+    return true;
+  };
+
   const loadGoogleAnalytics = () => {
     if (window.__cruxResolveGa4Loaded) return;
     window.__cruxResolveGa4Loaded = true;
