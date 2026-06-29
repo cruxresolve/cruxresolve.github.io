@@ -1,6 +1,18 @@
 (() => {
   "use strict";
 
+  const track = (eventName, parameters = {}) => {
+    if (typeof window.cruxTrack === "function") {
+      window.cruxTrack(eventName, parameters);
+    }
+  };
+
+  const slugify = (value) => String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "") || "website";
+
   const button = document.querySelector("[data-menu-button]");
   const menu = document.querySelector("[data-mobile-menu]");
 
@@ -60,6 +72,40 @@
     });
   });
 
+  document.querySelectorAll('a[href*="buy.stripe.com"]').forEach((link) => {
+    link.addEventListener("click", () => {
+      track("begin_checkout", {
+        currency: "USD",
+        value: 89,
+        items: [{
+          item_id: "ghostbridge",
+          item_name: "GhostBridge",
+          price: 89,
+          quantity: 1
+        }]
+      });
+    });
+  });
+
+  document.querySelectorAll('a[href="mailto:support@cruxresolve.com"]').forEach((link) => {
+    link.addEventListener("click", () => {
+      track("contact_support", {
+        contact_method: "email",
+        page_path: window.location.pathname
+      });
+    });
+  });
+
+  document.querySelectorAll('select[name="interest"]').forEach((select) => {
+    select.addEventListener("change", () => {
+      if (!select.value) return;
+      track("select_content", {
+        content_type: "ghosttune_interest",
+        content_id: slugify(select.value)
+      });
+    });
+  });
+
   document.querySelectorAll("form[data-async-form]").forEach((form) => {
     const statusId = form.getAttribute("aria-describedby");
     const status = statusId ? document.getElementById(statusId) : null;
@@ -67,6 +113,14 @@
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
+      const formData = new FormData(form);
+      const formName =
+        formData.get("form_name") ||
+        formData.get("product") ||
+        formData.get("subject") ||
+        "website form";
+      const interest = formData.get("interest");
+
       if (status) {
         status.dataset.state = "";
         status.textContent = "Submitting…";
@@ -76,11 +130,16 @@
       try {
         const response = await fetch(form.action, {
           method: form.method || "POST",
-          body: new FormData(form),
+          body: formData,
           headers: { Accept: "application/json" }
         });
 
         if (!response.ok) throw new Error(`Request failed with ${response.status}`);
+
+        track("generate_lead", {
+          lead_type: slugify(formName),
+          ...(interest ? { interest_type: slugify(interest) } : {})
+        });
 
         form.reset();
         if (status) {
