@@ -25,6 +25,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/site.css" />
+  {% if page.extra_css %}<link rel="stylesheet" href="{{ page.extra_css }}" />{% endif %}
   <link rel="stylesheet" href="/assets/css/analytics-consent.css" />
 </head>
 <body>
@@ -95,6 +96,7 @@
   </section>
 
   <script src="/assets/js/site.js" defer></script>
+  {% if page.extra_js %}<script src="{{ page.extra_js }}" defer></script>{% endif %}
   <script src="/assets/js/analytics-consent.js" defer></script>
 </body>
 </html>

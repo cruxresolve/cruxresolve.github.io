@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 886 1920" role="img" aria-labelledby="title desc">
+  <title id="title">GhostTune video preview</title>
+  <desc id="desc">Black and orange GhostTune poster reading Performance in every pulse.</desc>
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="42%" r="68%">
+      <stop offset="0" stop-color="#2f1509"/>
+      <stop offset="0.55" stop-color="#120b08"/>
+      <stop offset="1" stop-color="#050505"/>
+    </radialGradient>
+    <linearGradient id="orange" x1="0" x2="1">
+      <stop offset="0" stop-color="#ff7a1a"/>
+      <stop offset="1" stop-color="#ff9a58"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity="0.72"/>
+    </filter>
+  </defs>
+
+  <rect width="886" height="1920" fill="url(#glow)"/>
+  <rect x="38" y="38" width="810" height="1844" rx="42" fill="none" stroke="#ff9a58" stroke-opacity="0.55" stroke-width="3"/>
+  <path d="M38 190h225l42-42h276l42 42h225" fill="none" stroke="#ff9a58" stroke-width="6"/>
+  <path d="M38 1730h168l54 54h366l54-54h168" fill="none" stroke="#ff9a58" stroke-width="6"/>
+
+  <g opacity="0.26">
+    <path d="M90 340H796M90 400H796M90 460H796M90 520H796M90 580H796M90 640H796M90 700H796M90 760H796M90 820H796M90 880H796M90 940H796M90 1000H796M90 1060H796M90 1120H796M90 1180H796M90 1240H796M90 1300H796M90 1360H796M90 1420H796M90 1480H796M90 1540H796" stroke="#ff9a58" stroke-width="1"/>
+    <path d="M130 300V1610M210 300V1610M290 300V1610M370 300V1610M450 300V1610M530 300V1610M610 300V1610M690 300V1610M770 300V1610" stroke="#ff9a58" stroke-width="1"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <circle cx="443" cy="650" r="170" fill="#080808" stroke="url(#orange)" stroke-width="8"/>
+    <path d="M443 493c-70 0-126 56-126 126v99c0 31 25 56 56 56h24v-52h92v52h24c31 0 56-25 56-56v-99c0-70-56-126-126-126Z" fill="#ff9a58"/>
+    <circle cx="399" cy="634" r="18" fill="#090909"/>
+    <circle cx="487" cy="634" r="18" fill="#090909"/>
+    <path d="M401 688c28 20 56 20 84 0" fill="none" stroke="#090909" stroke-width="14" stroke-linecap="round"/>
+  </g>
+
+  <text x="443" y="1025" text-anchor="middle" fill="#ffffff" font-family="Orbitron, Arial, sans-serif" font-size="108" font-weight="800" letter-spacing="5">GHOSTTUNE</text>
+  <rect x="147" y="1078" width="592" height="8" rx="4" fill="url(#orange)"/>
+  <text x="443" y="1170" text-anchor="middle" fill="#ff9a58" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700" letter-spacing="3">PERFORMANCE IN EVERY PULSE.</text>
+
+  <path d="M110 1350h155l30-24 33 54 42-144 47 228 38-114 39 59 36-59 33 40h213" fill="none" stroke="#ff9a58" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="417" cy="1464" r="10" fill="#fff"/>
+
+  <text x="443" y="1672" text-anchor="middle" fill="#c8d0dc" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="2">WATCH GHOSTTUNE IN ACTION</text>
+</svg>

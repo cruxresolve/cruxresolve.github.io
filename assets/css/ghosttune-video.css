@@ -1,0 +1,121 @@
+.ghosttune-video-section {
+  text-align: center;
+}
+
+.ghosttune-video-stage {
+  width: min(100%, 430px);
+  margin: 30px auto 0;
+}
+
+.ghosttune-video-poster,
+.ghosttune-video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 886 / 1920;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  background: #070707;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .45), 0 0 44px rgba(255, 154, 88, .12);
+}
+
+.ghosttune-video-poster {
+  display: block;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+}
+
+.ghosttune-video-poster img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ghosttune-video-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 82px;
+  height: 82px;
+  display: grid;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(255, 255, 255, .92);
+  border-radius: 50%;
+  background: rgba(8, 11, 18, .84);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .42), 0 0 32px rgba(255, 154, 88, .32);
+  transition: transform .18s ease, background .18s ease;
+}
+
+.ghosttune-video-play::before {
+  content: "";
+  width: 0;
+  height: 0;
+  margin-left: 6px;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-left: 22px solid var(--orange);
+}
+
+.ghosttune-video-poster:hover .ghosttune-video-play,
+.ghosttune-video-poster:focus-visible .ghosttune-video-play {
+  transform: translate(-50%, -50%) scale(1.06);
+  background: rgba(8, 11, 18, .96);
+}
+
+.ghosttune-video-prompt {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 26px;
+  margin: 0;
+  color: #fff;
+  font-family: Orbitron, ui-monospace, monospace;
+  font-size: .84rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 12px #000;
+}
+
+.ghosttune-video-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.ghosttune-video-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-top: 18px;
+}
+
+.ghosttune-video-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 750;
+}
+
+.ghosttune-video-note {
+  max-width: 640px;
+  margin: 16px auto 0;
+  color: var(--dim);
+  font-size: .84rem;
+}
+
+@media (max-width: 620px) {
+  .ghosttune-video-stage {
+    width: min(100%, 390px);
+  }
+
+  .ghosttune-video-play {
+    width: 74px;
+    height: 74px;
+  }
+}
