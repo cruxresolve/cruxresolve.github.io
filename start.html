@@ -1,0 +1,46 @@
+---
+layout: default
+title: "GhostTune — Tune Your MicroSquirt from Your iPhone"
+description: "GhostTune is an independent iOS ECU tuning app verified on MicroSquirt hardware running MS2/Extra 3.4.4. Drop your email for release updates and beta news."
+canonical: https://cruxresolve.com/start.html
+current: start
+extra_css: /assets/css/ghosttune-video.css
+---
+<main id="main-content">
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="eyebrow">// Independent ECU tuning application · Live-ECU testing in progress</div>
+      <img class="hero-icon" src="/assets/ghosttune-app-icon.png" alt="GhostTune app icon" width="112" height="112" />
+      <h1><span class="accent">Tune your MicroSquirt&reg; from your iPhone.</span><br />No laptop. No cable.</h1>
+      <p class="lead">Full VE, ignition, and AFR table editing, live data, and guarded ECU writes &mdash; verified on MicroSquirt&reg; hardware running MS2/Extra 3.4.4.</p>
+    </div>
+  </section>
+
+  {% include ghosttune/video-preview.html %}
+
+  <section class="section-divider" id="updates">
+    <div class="narrow center">
+      <div class="section-label">// Release updates</div>
+      <h2>Be there at launch.</h2>
+      <p class="section-intro">One email field. That&rsquo;s it. Release updates, new demos, and launch news &mdash; unsubscribe any time. Formspree processes the form as explained in the <a href="/privacy.html">Privacy Policy</a>.</p>
+      <form action="https://formspree.io/f/xqeveryb" method="POST" data-async-form aria-describedby="start-form-status">
+        <div class="grid grid-2" style="margin-top:18px;">
+          <div style="grid-column:1/-1;">
+            <label for="start-email">Email address <span aria-hidden="true">*</span></label>
+            <input autocomplete="email" id="start-email" name="email" placeholder="your@email.com" required type="email" />
+          </div>
+        </div>
+        <input name="interest" type="hidden" value="Release updates only" />
+        <input name="_subject" type="hidden" value="GhostTune Testing and Release Interest" />
+        <input name="form_name" type="hidden" value="GhostTune Start Page Signup" />
+        <input aria-hidden="true" autocomplete="off" name="_gotcha" style="display:none" tabindex="-1" type="text" />
+        <div class="actions">
+          <button class="button button-primary" type="submit">Get GhostTune updates</button>
+        </div>
+        <p class="muted">By submitting, you ask Crux Resolve LLC to contact you about GhostTune release updates. You may request removal at any time.</p>
+      </form>
+      <p aria-live="polite" class="form-status" id="start-form-status" role="status"></p>
+      <p class="muted" style="margin-top:22px;">Want the full details? <a href="/ghosttune-app.html">See features, safety architecture, and compatibility</a> or <a href="/ghostbridge.html">get GhostBridge hardware</a>.</p>
+    </div>
+  </section>
+</main>
