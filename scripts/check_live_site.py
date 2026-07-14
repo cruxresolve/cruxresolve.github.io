@@ -10,11 +10,12 @@ import urllib.request
 
 CHECKS = {
     "https://cruxresolve.com/": (
-        "Built for iOS.",
+        "Tune your MicroSquirt",
+        "No laptop. No cable.",
         "GhostBridge",
     ),
     "https://cruxresolve.com/ghosttune-app.html": (
-        "App Store review in progress",
+        "Live-ECU testing is underway.",
         "MicroSquirt",
         "MS2/Extra 3.4.4",
     ),

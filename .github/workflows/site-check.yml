@@ -76,20 +76,25 @@ jobs:
         uses: actions/checkout@v4
         with:
           show-progress: false
+      - name: Defer live deployment validation until merge
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "Source validation passed. The public-site deployment check runs after this pull request is merged to main."
       - name: Verify rendered public pages
+        if: github.event_name == 'push'
         id: live_check
         continue-on-error: true
         shell: bash
         run: python3 scripts/check_live_site.py > live-site-report.txt 2>&1
       - name: Upload live-site report
-        if: always()
+        if: github.event_name == 'push' && always()
         uses: actions/upload-artifact@v4
         with:
           name: live-site-report
           path: live-site-report.txt
           if-no-files-found: error
       - name: Report live-site validation result
-        if: always()
+        if: github.event_name == 'push' && always()
         shell: bash
         run: |
           cat live-site-report.txt
