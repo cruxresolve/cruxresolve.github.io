@@ -6,13 +6,59 @@ canonical: https://cruxresolve.com/start.html
 current: start
 extra_css: /assets/css/ghosttune-video.css
 ---
+<style>
+.start-gt-hero{min-height:720px;overflow:hidden;padding:72px 0 68px;text-align:left}
+.start-gt-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(340px,.88fr);align-items:center;gap:52px}
+.start-gt-copy{position:relative;z-index:2}
+.start-gt-copy h1{max-width:760px;font-size:clamp(2.55rem,5.2vw,4.8rem);letter-spacing:-.035em}
+.start-gt-copy .lead{max-width:680px;margin-inline:0}
+.start-gt-actions{justify-content:flex-start}
+.start-gt-proof{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.start-gt-proof span{min-height:32px;display:inline-flex;align-items:center;gap:7px;padding:5px 10px;border:1px solid rgba(107,220,255,.28);border-radius:999px;background:rgba(107,220,255,.06);color:#d9f8ff;font-size:.78rem;font-weight:750}
+.start-gt-proof span::before{content:"";width:6px;height:6px;flex:0 0 6px;border-radius:50%;background:#66f0ff;box-shadow:0 0 10px rgba(102,240,255,.9)}
+.start-gt-stage{position:relative;min-height:570px;display:grid;place-items:center;isolation:isolate}
+.start-gt-stage::before{content:"";position:absolute;width:min(460px,92%);aspect-ratio:1;z-index:-2;border:1px solid rgba(102,240,255,.22);border-radius:50%;background:radial-gradient(circle,rgba(0,215,224,.12),transparent 51%),conic-gradient(from 45deg,transparent 0 20%,rgba(102,240,255,.14) 21% 23%,transparent 24% 49%,rgba(102,240,255,.1) 50% 51%,transparent 52%);box-shadow:inset 0 0 70px rgba(0,215,224,.08),0 0 80px rgba(0,215,224,.08)}
+.start-gt-stage::after{content:"";position:absolute;width:min(350px,70%);aspect-ratio:1;z-index:-1;border:1px dashed rgba(102,240,255,.2);border-radius:50%}
+.start-gt-label{position:absolute;top:30px;right:12px;color:rgba(102,240,255,.82);font-family:"Share Tech Mono",ui-monospace,monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.start-gt-mascot{width:min(330px,78vw);height:auto;filter:drop-shadow(0 26px 30px rgba(0,0,0,.5)) drop-shadow(0 0 24px rgba(102,240,255,.18))}
+.start-gt-ground{position:absolute;bottom:57px;width:210px;height:24px;z-index:-1;border-radius:50%;background:rgba(102,240,255,.26);filter:blur(13px)}
+.start-gt-status{position:absolute;min-width:196px;padding:13px 15px;border:1px solid rgba(102,240,255,.3);border-radius:10px;background:rgba(14,20,32,.9);box-shadow:0 14px 36px rgba(0,0,0,.34);backdrop-filter:blur(10px)}
+.start-gt-status strong{display:block;color:#66f0ff;font-family:"Share Tech Mono",ui-monospace,monospace;font-size:.72rem;letter-spacing:.1em}
+.start-gt-status span{display:block;margin-top:3px;color:var(--muted);font-size:.78rem}
+.start-gt-status-one{top:95px;left:-4px}.start-gt-status-two{right:-2px;bottom:116px}
+@media(max-width:900px){.start-gt-hero{min-height:auto;padding-top:54px}.start-gt-grid{grid-template-columns:1fr;gap:20px;text-align:center}.start-gt-copy{display:grid;justify-items:center}.start-gt-copy .lead{margin-inline:auto}.start-gt-actions,.start-gt-proof{justify-content:center}.start-gt-stage{min-height:485px}.start-gt-status-one{left:6%}.start-gt-status-two{right:6%}}
+@media(max-width:620px){.start-gt-hero{padding:48px 0 44px}.start-gt-copy h1{font-size:clamp(2.35rem,12vw,3.45rem)}.start-gt-copy .lead{font-size:1rem}.start-gt-stage{min-height:420px;margin-top:6px}.start-gt-stage::before{width:340px;max-width:100%}.start-gt-mascot{width:245px}.start-gt-ground{bottom:39px}.start-gt-status{min-width:164px;padding:10px 12px}.start-gt-status-one{top:58px;left:0}.start-gt-status-two{right:0;bottom:55px}.start-gt-label{top:10px;right:6px}}
+</style>
 <main id="main-content">
-  <section class="hero">
-    <div class="container hero-content">
-      <div class="eyebrow">// Independent ECU tuning application · Live-ECU testing in progress</div>
-      <img class="hero-icon" src="/assets/ghosttune-app-icon.png" alt="GhostTune app icon" width="112" height="112" />
-      <h1><span class="accent">Tune your MicroSquirt&reg; from your iPhone.</span><br />No laptop. No cable.</h1>
-      <p class="lead">Full VE, ignition, and AFR table editing, live data, and guarded ECU writes &mdash; verified on MicroSquirt&reg; hardware running MS2/Extra 3.4.4.</p>
+  <section class="hero start-gt-hero">
+    <div class="container start-gt-grid">
+      <div class="start-gt-copy">
+        <div class="eyebrow">// Independent ECU tuning application · Live-ECU testing in progress</div>
+        <h1><span class="accent">Tune your MicroSquirt&reg; from your iPhone.</span><br />No laptop. No cable.</h1>
+        <p class="lead">Full VE, ignition, and AFR table editing, live data, and guarded ECU writes on iPhone and iPad &mdash; verified on MicroSquirt&reg; hardware running MS2/Extra 3.4.4.</p>
+        <div class="actions start-gt-actions">
+          <a class="button button-primary" href="#updates">Get GhostTune updates</a>
+          <a class="button button-secondary" href="#preview">See GhostTune in action</a>
+        </div>
+        <div class="start-gt-proof" aria-label="GhostTune highlights">
+          <span>Live ECU data</span>
+          <span>Guarded writes</span>
+          <span>Built-in guidance</span>
+        </div>
+      </div>
+      <div class="start-gt-stage" aria-label="GT, the GhostTune garage-tech guide">
+        <span class="start-gt-label" aria-hidden="true">// GT · Garage-tech guide</span>
+        <img class="start-gt-mascot" src="/assets/gt-mascot-front.svg" alt="GT, the GhostTune garage-tech mascot" width="160" height="317" />
+        <span class="start-gt-ground" aria-hidden="true"></span>
+        <div class="start-gt-status start-gt-status-one" aria-hidden="true">
+          <strong>SCANNING ECU DATA</strong>
+          <span>Live values · active channels</span>
+        </div>
+        <div class="start-gt-status start-gt-status-two" aria-hidden="true">
+          <strong>GUIDED &amp; GUARDED</strong>
+          <span>Read → review → write</span>
+        </div>
+      </div>
     </div>
   </section>
 
