@@ -30,13 +30,24 @@ CHECKS = {
     ),
     "https://cruxresolve.com/privacy.html": (
         "Privacy Policy",
+        "Effective June 28, 2026",
+        "Version 5.1",
+        "support@cruxresolve.com",
         "Formspree",
-        "Stripe",
+        "GhostBridge checkout is provided by Stripe.",
         "https://cruxresolve.com/privacy.html",
     ),
     "https://cruxresolve.com/terms-of-sale.html": (
         "Terms of Sale",
         "All sales are final.",
+    ),
+}
+
+FORBIDDEN = {
+    "https://cruxresolve.com/privacy.html": (
+        "privacy@cruxresolve.com",
+        "Version 3.0",
+        "June 23, 2026",
     ),
 }
 
@@ -70,6 +81,9 @@ def validate_page(url: str, expected: tuple[str, ...]) -> list[str]:
     for value in expected:
         if value not in html:
             failures.append(f"missing expected text: {value}")
+    for value in FORBIDDEN.get(url, ()):
+        if value in html:
+            failures.append(f"forbidden stale text is present: {value}")
     return failures
 
 
