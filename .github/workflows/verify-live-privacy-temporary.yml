@@ -1,0 +1,80 @@
+name: Verify Live Privacy Policy (temporary)
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  verify-live-privacy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch live privacy page without cache and verify 5.2
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import time
+          import urllib.request
+
+          url = f"https://cruxresolve.com/privacy.html?verify={int(time.time())}"
+          request = urllib.request.Request(
+              url,
+              headers={
+                  "User-Agent": "GhostTune-Release-Privacy-Verification/1.0",
+                  "Accept": "text/html,application/xhtml+xml",
+                  "Cache-Control": "no-cache",
+                  "Pragma": "no-cache",
+              },
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              status = response.status
+              content_type = response.headers.get("Content-Type", "")
+              html = response.read().decode("utf-8", errors="replace")
+
+          print(f"Fetched: {url}")
+          print(f"HTTP status: {status}")
+          print(f"Content-Type: {content_type}")
+
+          expected = [
+              "Privacy Policy",
+              "Effective August 8, 2026",
+              "Version 5.2",
+              "support@cruxresolve.com",
+              "Optional Google Analytics",
+              "Formspree",
+              "GhostBridge checkout and Stripe",
+              "App Store age rating is determined separately under Apple",
+          ]
+          forbidden = [
+              "privacy@cruxresolve.com",
+              "Version 3.0",
+              "Version 5.1",
+              "June 23, 2026",
+              "Effective June 28, 2026",
+              "requires users to be at least 18 years old",
+          ]
+
+          failures = []
+          if status != 200:
+              failures.append(f"unexpected HTTP status {status}")
+          if "text/html" not in content_type:
+              failures.append(f"unexpected content type {content_type}")
+          for value in expected:
+              if value not in html:
+                  failures.append(f"missing expected text: {value}")
+          for value in forbidden:
+              if value in html:
+                  failures.append(f"forbidden stale text present: {value}")
+
+          if failures:
+              print("LIVE PRIVACY VERIFICATION FAILED")
+              for failure in failures:
+                  print(f"- {failure}")
+              raise SystemExit(1)
+
+          print("LIVE PRIVACY VERIFICATION PASSED")
+          print("Verified current GhostTune/Crux Resolve Privacy Policy Version 5.2 with support@cruxresolve.com and no obsolete 18+ EULA language.")
+          PY
