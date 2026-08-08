@@ -30,8 +30,8 @@ CHECKS = {
     ),
     "https://cruxresolve.com/privacy.html": (
         "Privacy Policy",
-        "Effective June 28, 2026",
-        "Version 5.1",
+        "Effective August 8, 2026",
+        "Version 5.2",
         "support@cruxresolve.com",
         "Formspree",
         "GhostBridge checkout is provided by Stripe.",
@@ -47,7 +47,10 @@ FORBIDDEN = {
     "https://cruxresolve.com/privacy.html": (
         "privacy@cruxresolve.com",
         "Version 3.0",
+        "Version 5.1",
         "June 23, 2026",
+        "Effective June 28, 2026",
+        "requires users to be at least 18 years old",
     ),
 }
 
