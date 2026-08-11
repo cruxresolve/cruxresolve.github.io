@@ -2,23 +2,26 @@
 <div class="container">
 <div class="section-label">// What it does</div>
 <h2>A transparent local bridge.</h2>
-<p class="section-intro">GhostBridge relays bytes between a local TCP connection and its RS232 interface. It is designed around GhostTune’s verified MicroSquirt workflow rather than broad, untested claims about every serial device.</p>
+<p class="section-intro">GhostBridge relays bytes between a local TCP connection and its RS232 interface without interpreting the application protocol. GhostTune with the published MicroSquirt configuration is the verified production use; other RS232 applications may also be compatible when their electrical, cabling, serial, and client-software requirements match the bridge.</p>
 <div class="grid grid-2">
-<article class="card"><h3><span aria-hidden="true">🔌 </span>Assembled hardware</h3><p>The bridge arrives assembled for the published GhostTune setup. Connect the DB9 interface, provide USB-C power, and join its WiFi network.</p></article>
-<article class="card"><h3><span aria-hidden="true">📡 </span>Its own WiFi network</h3><p>No router is required. The iPhone or iPad connects directly to the bridge’s local access point.</p></article>
-<article class="card"><h3><span aria-hidden="true">🔐 </span>Local communication</h3><p>ECU traffic stays on the direct local connection. GhostBridge does not provide a cloud relay or remote logging service.</p></article>
+<article class="card"><h3><span aria-hidden="true">🔌 </span>Assembled hardware</h3><p>The bridge arrives assembled with a DB9 RS232 interface and USB-C power input. Join its WiFi network and connect through the published local TCP endpoint.</p></article>
+<article class="card"><h3><span aria-hidden="true">📡 </span>Its own WiFi network</h3><p>No router or internet connection is required. A phone, tablet, computer, or other compatible TCP client can connect directly to the bridge’s local access point.</p></article>
+<article class="card"><h3><span aria-hidden="true">✅ </span>Optimized for GhostTune</h3><p>GhostBridge is designed and verified around GhostTune’s MicroSquirt workflow, providing a known hardware path for the supported ECU profile.</p></article>
+<article class="card"><h3><span aria-hidden="true">↔️ </span>Not software-locked</h3><p>The byte-relay design is not restricted to GhostTune. Other RS232 and TCP applications may work when the complete serial and electrical setup is compatible; they are not represented as verified unless Crux Resolve explicitly lists them.</p></article>
+<article class="card"><h3><span aria-hidden="true">🔐 </span>Local communication</h3><p>Serial traffic stays on the direct local connection. GhostBridge does not provide a cloud relay or remote logging service.</p></article>
 <article class="card"><h3><span aria-hidden="true">🧰 </span>Rev 12 enclosure</h3><p>The production enclosure uses a 3 mm main wall, reinforced connector closures, four M3 screw rails, internal ribs, rubber-foot recesses, and debossed branding.</p></article>
 </div>
 </div>
 </section>
 <section class="section-divider" id="setup">
 <div class="container">
-<div class="section-label">// Setup</div>
+<div class="section-label">// GhostTune setup</div>
 <h2>Three steps.</h2>
 <div class="steps">
 <article class="step"><div><h3>Connect and power</h3><p class="muted">Connect the DB9 interface to the supported ECU serial connection and power GhostBridge through USB-C.</p></div></article>
 <article class="step"><div><h3>Join the bridge network</h3><p class="muted">Choose the GhostBridge WiFi network from the iPhone or iPad WiFi settings.</p></div></article>
 <article class="step"><div><h3>Open GhostTune</h3><p class="muted">GhostTune connects to <code>192.168.4.1</code> on TCP port <code>35000</code> and verifies the supported ECU profile.</p></div></article>
 </div>
+<div class="notice" style="margin-top:18px;"><strong>Using other serial software?</strong> The host application must be able to communicate through the bridge’s local TCP endpoint, and the connected hardware, cabling, electrical interface, and serial configuration must be compatible. Crux Resolve only represents configurations as verified when they are explicitly listed.</div>
 </div>
 </section>
