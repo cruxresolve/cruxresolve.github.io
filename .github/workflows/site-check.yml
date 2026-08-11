@@ -42,7 +42,10 @@ jobs:
         continue-on-error: true
         shell: bash
         run: |
-          addresses="$(grep -RhoE '[A-Za-z0-9._%+-]+@cruxresolve\.com' --include='*.html' --include='*.md' --include='*.txt' --include='*.xml' --include='*.yml' --include='*.yaml' --include='*.py' --include='*.js' . | sort -u || true)"
+          # Inspect public/site content only. Validation scripts can intentionally
+          # contain stale addresses as negative test fixtures and must not be
+          # treated as customer-facing contact information.
+          addresses="$(grep -RhoE '[A-Za-z0-9._%+-]+@cruxresolve\.com' --include='*.html' --include='*.md' --include='*.txt' --include='*.xml' --include='*.yml' --include='*.yaml' --include='*.js' . | sort -u || true)"
           printf '%s\n' "$addresses" >> site-validation-report.txt
           test "$addresses" = "support@cruxresolve.com"
       - name: Validate JavaScript syntax
