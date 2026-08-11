@@ -4,7 +4,7 @@
 <h2>Confirm the complete setup.</h2>
 <div class="grid grid-2">
 <div class="card">
-<h3>Published production configuration</h3>
+<h3>Verified GhostTune configuration</h3>
 <ul class="spec-list">
 <li>Verified use: GhostTune with MicroSquirt hardware running MS2/Extra 3.4.4.</li>
 <li>Interfaces: DB9 RS232 and USB-C power.</li>
@@ -14,18 +14,30 @@
 </ul>
 </div>
 <div class="card">
-<h3>Purchasing and compatibility</h3>
+<h3>Other RS232 applications</h3>
 <ul class="spec-list">
-<li>Other RS232 devices and software are not represented as verified merely because they use a DB9 connector.</li>
-<li>Contact <a href="mailto:support@cruxresolve.com">support@cruxresolve.com</a> before ordering for any use outside the published GhostTune configuration.</li>
-<li>Orders normally ship by USPS within 2–4 weeks.</li>
-<li>United States shipping is offered through checkout; contact support before attempting an international order.</li>
-<li>All sales are final. Report a verified defect or transit damage within seven days of delivery.</li>
+<li>GhostBridge is a transparent local TCP-to-RS232 byte relay and is not software-locked to GhostTune.</li>
+<li>Other RS232 hardware and software may be compatible when the complete electrical, cabling, serial, and TCP-client requirements match.</li>
+<li>A DB9 connector alone does not establish compatibility. Pinout, signaling, serial configuration, timing expectations, and software behavior can differ between devices.</li>
+<li>Crux Resolve only represents configurations as verified when they are explicitly published as verified.</li>
+<li>For an unlisted use case, review the published interface details and contact <a href="mailto:support@cruxresolve.com">support@cruxresolve.com</a> if you need a compatibility check before ordering.</li>
 </ul>
 </div>
 </div>
 <div class="notice notice-danger" style="margin-top:18px;"><strong>Compatibility matters:</strong> review the supported configuration and <a href="/terms-of-sale.html">Terms of Sale</a> before purchasing. A connector that physically fits does not by itself establish electrical or protocol compatibility.</div>
-<div class="notice" style="margin-top:18px;"><strong>Independent product:</strong> Third-party hardware and firmware names identify the tested configuration only. GhostBridge is not affiliated with, endorsed by, or sponsored by the owners or developers of those products or projects.</div>
+<div class="notice" style="margin-top:18px;"><strong>Independent product:</strong> Third-party hardware and firmware names identify tested configurations only. GhostBridge is not affiliated with, endorsed by, or sponsored by the owners or developers of those products or projects.</div>
+</div>
+</section>
+<section class="section-divider" id="faq">
+<div class="container">
+<div class="section-label">// GhostBridge FAQ</div>
+<h2>Common serial-bridge questions.</h2>
+<div class="grid grid-2">
+<article class="card"><h3>Can GhostBridge be used without GhostTune?</h3><p>Yes. GhostBridge itself relays bytes between its local TCP connection and RS232 interface and is not software-locked to GhostTune. Non-GhostTune configurations are not represented as verified unless Crux Resolve explicitly lists them.</p></article>
+<article class="card"><h3>Is GhostBridge a general RS232-to-WiFi adapter?</h3><p>GhostBridge is a local TCP-to-RS232 WiFi bridge designed first around the GhostTune workflow. It can serve other compatible serial applications, but every RS232 or DB9 device should not be assumed compatible without checking the complete interface and software requirements.</p></article>
+<article class="card"><h3>Does GhostBridge require internet access or a router?</h3><p>No. GhostBridge creates its own local WiFi access point. A compatible TCP client connects directly to the bridge at <code>192.168.4.1:35000</code>.</p></article>
+<article class="card"><h3>What is verified today?</h3><p>The published verified configuration is GhostTune with MicroSquirt hardware running MS2/Extra 3.4.4. Additional verified applications can be added as they are specifically tested.</p></article>
+</div>
 </div>
 </section>
 <section class="section-divider" id="order">
@@ -44,7 +56,7 @@
 <div class="form-row">
 <input aria-label="Email address for GhostBridge stock updates" autocomplete="email" name="email" placeholder="your@email.com" required="" type="email"/>
 <input name="subject" type="hidden" value="GhostBridge Stock Updates"/>
-<input name="product" type="hidden" value="GhostBridge"/>
+<input name="product" type="hidden" value="GhostBridge GB-01"/>
 <button class="button button-primary" type="submit">Notify me</button>
 </div>
 </form>
