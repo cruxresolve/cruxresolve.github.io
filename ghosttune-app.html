@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "GhostTune — MicroSquirt & MS2/Extra ECU Tuning App for iPhone"
-description: "Tune your MicroSquirt without a laptop. GhostTune is an independent iOS app with VE, ignition, and AFR table editing, live data, and guarded ECU writes — verified on MS2/Extra 3.4.4."
+description: "Tune a verified MicroSquirt ECU from iPhone or iPad over local WiFi. GhostTune is an independent EFI tuning app with VE, ignition, AFR, live data, diagnostics, backups, and guarded ECU writes."
 canonical: https://cruxresolve.com/ghosttune-app.html
 current: ghosttune
 extra_css: /assets/css/ghosttune-video.css
@@ -11,4 +11,46 @@ extra_css: /assets/css/ghosttune-video.css
   {% include ghosttune/part2.html %}
   {% include ghosttune/part3.html %}
 </main>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"GhostTune","applicationCategory":"UtilitiesApplication","operatingSystem":"iOS and iPadOS","url":"https://cruxresolve.com/ghosttune-app.html","image":"https://cruxresolve.com/assets/ghosttune-app-icon.png","description":"Independent ECU tuning application for iPhone and iPad. Production validation is complete for MicroSquirt hardware running MS2/Extra 3.4.4, and App Store release preparation is underway.","publisher":{"@type":"Organization","name":"Crux Resolve LLC"}}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["SoftwareApplication", "MobileApplication"],
+  "@id": "https://cruxresolve.com/ghosttune-app.html#software",
+  "name": "GhostTune",
+  "softwareVersion": "1.0.0",
+  "applicationCategory": "UtilitiesApplication",
+  "applicationSubCategory": "ECU tuning and engine management",
+  "operatingSystem": "iOS and iPadOS",
+  "availableOnDevice": ["iPhone", "iPad"],
+  "url": "https://cruxresolve.com/ghosttune-app.html",
+  "image": "https://cruxresolve.com/assets/ghosttune-app-icon.png",
+  "screenshot": [
+    "https://cruxresolve.com/assets/framed/IMG_4079_framed.png",
+    "https://cruxresolve.com/assets/framed/IMG_4082_framed.png"
+  ],
+  "description": "Independent ECU tuning application for iPhone and iPad. GhostTune communicates over a local WiFi-to-RS232 bridge and is production-validated for MicroSquirt hardware running MS2/Extra 3.4.4.",
+  "keywords": "MicroSquirt tuning, MS2/Extra tuning, iPhone ECU tuning, iPad ECU tuning, EFI tuning, engine management, WiFi ECU tuning",
+  "featureList": [
+    "VE table editing",
+    "Ignition table editing",
+    "AFR target table editing",
+    "Live ECU data",
+    "Tune backups and restore",
+    "Connection diagnostics",
+    "Guarded temporary writes and permanent burns",
+    "Demo Mode",
+    "Contextual Ghost Guide help"
+  ],
+  "softwareRequirements": "For live ECU tuning, a compatible local WiFi-to-RS232 bridge and a verified ECU/firmware profile are required. Demo Mode can be used without connected ECU hardware.",
+  "softwareHelp": {
+    "@type": "WebPage",
+    "url": "https://cruxresolve.com/support.html",
+    "name": "GhostTune Support"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Crux Resolve LLC",
+    "url": "https://cruxresolve.com/"
+  }
+}
+</script>
