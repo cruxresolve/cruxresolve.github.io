@@ -12,20 +12,24 @@ CHECKS = {
     "https://cruxresolve.com/": (
         "Tune your MicroSquirt",
         "No laptop. No cable.",
-        "GhostBridge",
+        "GhostBridge GB-01",
     ),
     "https://cruxresolve.com/ghosttune-app.html": (
-        "Live-ECU testing is underway.",
+        "Production validation complete",
+        "Can I tune a MicroSquirt from an iPhone or iPad?",
         "MicroSquirt",
         "MS2/Extra 3.4.4",
     ),
     "https://cruxresolve.com/ghostbridge.html": (
+        "GhostBridge GB-01",
+        "RS232-to-WiFi TCP bridge",
         "Confirm the complete setup.",
         "97.95 × 77.01 × 22.55 mm",
         "Buy GhostBridge · $89",
     ),
     "https://cruxresolve.com/support.html": (
         "Direct product support.",
+        "Can GhostBridge be used without GhostTune?",
         "support@cruxresolve.com",
     ),
     "https://cruxresolve.com/privacy.html": (
@@ -40,6 +44,7 @@ CHECKS = {
     "https://cruxresolve.com/terms-of-sale.html": (
         "Terms of Sale",
         "All sales are final.",
+        "RS232-to-WiFi TCP bridge",
     ),
 }
 
@@ -51,6 +56,10 @@ FORBIDDEN = {
         "June 23, 2026",
         "Effective June 28, 2026",
         "requires users to be at least 18 years old",
+    ),
+    "https://cruxresolve.com/ghosttune-app.html": (
+        "Live-ECU testing is underway.",
+        "Live-ECU testing in progress",
     ),
 }
 
