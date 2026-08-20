@@ -13,6 +13,32 @@
 </div>
 </div>
 </section>
+<section class="section-divider" id="roadmap">
+<div class="container">
+<div class="section-label">// Next generation</div>
+<h2>GhostBridge v2.0 (GB-02) is in development.</h2>
+<p class="section-intro">GhostBridge v1.0 (GB-01) is the currently available RS232-to-WiFi bridge. GhostBridge v2.0 (GB-02) is being developed as a broader WiFi interface platform designed to move beyond RS232-only operation while remaining independent of any one ECU or client application.</p>
+<div class="grid grid-2">
+<figure class="card">
+<img src="/assets/ghostbridge-gb02-v2.png" alt="GhostBridge v2.0 GB-02 development concept showing a universal breakout harness and planned multi-transport interfaces" loading="lazy" style="width:100%;height:auto;border-radius:10px;" />
+<figcaption class="muted" style="margin-top:10px;">GhostBridge v2.0 (GB-02) development concept. Final production hardware may differ.</figcaption>
+</figure>
+<div class="card">
+<h3>Planned GB-02 v1 transport targets</h3>
+<ul class="spec-list">
+<li>WiFi to RS-232.</li>
+<li>WiFi to TTL UART.</li>
+<li>WiFi to RS-485.</li>
+<li>WiFi to CAN / CAN-FD.</li>
+<li>WiFi to USB Serial / Host.</li>
+<li>Universal I/O breakout-harness architecture for transport-specific connections.</li>
+</ul>
+<p class="muted"><strong>Development status:</strong> these are planned GB-02 v1 targets, not claims of currently shipping or fully validated support. Each interface will be represented as supported only after its hardware, firmware, electrical, and transport behavior has been qualified.</p>
+</div>
+</div>
+<div class="notice" style="margin-top:18px;"><strong>Transport is not protocol:</strong> GhostBridge is intended to move bytes and frames between WiFi clients and supported wired interfaces. ECU, device, or application-specific meaning remains with the client software rather than being hard-coded into the bridge.</div>
+</div>
+</section>
 <section class="section-divider" id="setup">
 <div class="container">
 <div class="section-label">// GhostTune setup</div>
