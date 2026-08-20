@@ -20,7 +20,7 @@
 <p class="section-intro">GhostBridge v1.0 (GB-01) is the currently available RS232-to-WiFi bridge. GhostBridge v2.0 (GB-02) is being developed as a broader WiFi interface platform designed to move beyond RS232-only operation while remaining independent of any one ECU or client application.</p>
 <div class="grid grid-2">
 <figure class="card">
-<img id="gb02-development-image" alt="GhostBridge v2.0 GB-02 development concept showing a universal breakout harness and planned multi-transport interfaces" loading="lazy" style="width:100%;height:auto;border-radius:10px;" />
+<img src="/assets/ghostbridge-gb02-v2.webp" alt="GhostBridge v2.0 GB-02 development concept showing a universal breakout harness and planned multi-transport interfaces" loading="lazy" style="width:100%;height:auto;border-radius:10px;" />
 <figcaption class="muted" style="margin-top:10px;">GhostBridge v2.0 (GB-02) development concept. Final production hardware may differ.</figcaption>
 </figure>
 <div class="card">
@@ -39,16 +39,6 @@
 <div class="notice" style="margin-top:18px;"><strong>Transport is not protocol:</strong> GhostBridge is intended to move bytes and frames between WiFi clients and supported wired interfaces. ECU, device, or application-specific meaning remains with the client software rather than being hard-coded into the bridge.</div>
 </div>
 </section>
-<script>
-(function(){
-  var image = document.getElementById('gb02-development-image');
-  if (!image) return;
-  fetch('/assets/ghostbridge-gb02-v2.webp')
-    .then(function(response){ if (!response.ok) throw new Error('image payload'); return response.text(); })
-    .then(function(payload){ image.src = 'data:image/webp;base64,' + payload.trim(); })
-    .catch(function(){ image.removeAttribute('src'); });
-})();
-</script>
 <section class="section-divider" id="setup">
 <div class="container">
 <div class="section-label">// GhostTune setup</div>
