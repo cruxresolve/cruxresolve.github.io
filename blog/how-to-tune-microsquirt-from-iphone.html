@@ -93,7 +93,7 @@ og_image: https://cruxresolve.com/assets/gb_hero.jpg
     <p>Connect the WiFi-to-RS232 bridge to the ECU using the correct serial wiring, then power the bridge according to its requirements.</p>
 
     <h3>Step 2 — Join the bridge's WiFi network</h3>
-    <p>On the iPhone or iPad, open WiFi settings and select the bridge's local network. Once connected, the phone and bridge are communicating on a private local network.</p>
+    <p>For GhostBridge GB-01, open WiFi settings and select the network named <code>GhostBridge-XXXXX</code>. The password is <code>1234</code> followed by the last four characters of that WiFi name. For example, <code>GhostBridge-ABCDE</code> uses password <code>1234BCDE</code>. Each GhostBridge uses device-specific credentials so nearby units do not share the same password. Once connected, the phone and bridge are communicating on a private local network.</p>
 
     <h3>Step 3 — Establish the TCP connection</h3>
     <p>The tuning application connects to the bridge's IP address and TCP port. At that point the application can begin exchanging serial commands with the ECU.</p>
