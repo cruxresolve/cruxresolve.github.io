@@ -1,0 +1,174 @@
+---
+layout: default
+title: "How to Tune a MicroSquirt From an iPhone | Wireless ECU Tuning"
+description: "Learn how wireless MicroSquirt tuning works on iPhone and iPad, what hardware is required, how WiFi-to-RS232 communication works, and what to verify before making ECU changes."
+canonical: https://cruxresolve.com/blog/how-to-tune-microsquirt-from-iphone.html
+current: blog
+og_type: article
+og_image: https://cruxresolve.com/assets/gb_hero.jpg
+---
+<style>
+.article-hero-media{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(230px,.75fr);gap:18px;align-items:stretch;margin:30px 0}
+.article-hero-media figure{margin:0;overflow:hidden;border:1px solid rgba(107,220,255,.18);border-radius:14px;background:rgba(13,18,29,.86)}
+.article-hero-media img{width:100%;height:100%;display:block;object-fit:cover}
+.article-hero-media .phone-shot img{object-fit:contain;padding:18px;background:radial-gradient(circle at 50% 35%,rgba(107,220,255,.08),transparent 62%),#0b0f18}
+.article-hero-media figcaption{padding:10px 13px;color:var(--muted);font-size:.82rem}
+.quick-answer{margin:26px 0;padding:20px 22px;border:1px solid rgba(107,220,255,.26);border-radius:12px;background:rgba(107,220,255,.055)}
+.quick-answer strong{color:#d9f8ff}
+.connection-flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:stretch;margin:26px 0 10px}
+.connection-node{position:relative;display:grid;place-items:center;min-height:112px;padding:14px 10px;text-align:center;border:1px solid rgba(107,220,255,.25);border-radius:12px;background:linear-gradient(180deg,rgba(107,220,255,.075),rgba(255,255,255,.018))}
+.connection-node strong{display:block;color:#e8fbff;font-family:"Orbitron",sans-serif;font-size:.88rem}
+.connection-node span{display:block;margin-top:6px;color:var(--muted);font-size:.76rem}
+.connection-node:not(:last-child)::after{content:"→";position:absolute;right:-17px;top:50%;z-index:2;transform:translateY(-50%);color:#6bdcff;font-size:1.25rem;font-weight:800}
+.article-image{margin:30px auto;max-width:820px}
+.article-image img{width:100%;height:auto;display:block;border-radius:12px}
+.article-image figcaption{margin-top:9px;color:var(--muted);font-size:.84rem;text-align:center}
+.write-flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:22px 0}
+.write-flow span{padding:8px 10px;border:1px solid rgba(255,154,88,.24);border-radius:999px;background:rgba(255,154,88,.055);font-size:.82rem;font-weight:700}
+.write-flow b{color:#ff9a58}
+.article-callout{margin:30px 0;padding:22px;border:1px solid rgba(255,154,88,.22);border-radius:12px;background:rgba(255,154,88,.045)}
+@media(max-width:760px){.article-hero-media{grid-template-columns:1fr}.article-hero-media .phone-shot img{max-height:560px}.connection-flow{grid-template-columns:1fr}.connection-node{min-height:auto}.connection-node:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-22px;transform:translateX(-50%)} }
+</style>
+<main id="main-content">
+  <article class="article">
+    <a href="/blog/">← Back to Blog</a>
+    <div class="eyebrow" style="margin-top:28px;">// August 25, 2026 · Crux Resolve LLC</div>
+    <h1>How to Tune a MicroSquirt From an iPhone: A Practical Wireless Setup Guide</h1>
+    <p class="lead" style="text-align:left; margin-left:0;">A MicroSquirt does not need built-in WiFi for wireless tuning. The basic architecture is straightforward: keep the ECU on its normal serial interface, bridge that serial connection onto a private local WiFi network, and let compatible tuning software on the iPhone or iPad handle the ECU protocol.</p>
+
+    <div class="article-hero-media" aria-label="Wireless MicroSquirt tuning example using GhostBridge and GhostTune">
+      <figure>
+        <img src="/assets/gb_hero.jpg" alt="GhostBridge GB-01 RS232-to-WiFi TCP bridge used for a local wireless ECU connection" width="1200" height="630" />
+        <figcaption>GhostBridge GB-01 provides the local RS232-to-WiFi transport in the currently verified GhostTune workflow.</figcaption>
+      </figure>
+      <figure class="phone-shot">
+        <img src="/assets/framed/IMG_4079_framed.png" alt="GhostTune live MicroSquirt ECU dashboard on iPhone" width="250" height="542" />
+        <figcaption>GhostTune live ECU data on iPhone.</figcaption>
+      </figure>
+    </div>
+
+    <div class="quick-answer"><strong>Quick answer:</strong> yes, a MicroSquirt can be tuned from an iPhone or iPad when compatible tuning software communicates through a suitable WiFi-to-RS232 bridge. The ECU still uses its normal serial communication; WiFi simply replaces the cable between the tuning device and the serial bridge.</div>
+
+    <h2>Can You Tune a MicroSquirt From an iPhone?</h2>
+    <p>Yes — with the right combination of software and communication hardware.</p>
+    <p>The important distinction is that an iPhone does not communicate directly with the MicroSquirt ECU. A bridge sits between the ECU's RS232 connection and the local WiFi network.</p>
+
+    <div class="connection-flow" aria-label="MicroSquirt wireless tuning communication path">
+      <div class="connection-node"><div><strong>MicroSquirt</strong><span>ECU + firmware</span></div></div>
+      <div class="connection-node"><div><strong>RS232</strong><span>Serial communication</span></div></div>
+      <div class="connection-node"><div><strong>WiFi Bridge</strong><span>Serial ↔ TCP transport</span></div></div>
+      <div class="connection-node"><div><strong>Local WiFi</strong><span>Private network</span></div></div>
+      <div class="connection-node"><div><strong>iPhone / iPad</strong><span>Compatible tuning app</span></div></div>
+    </div>
+    <p class="muted" style="text-align:center;">The bridge moves bytes. The tuning application understands what those bytes mean.</p>
+
+    <h2>What You Need</h2>
+    <h3>1. A compatible MicroSquirt ECU</h3>
+    <p>The ECU firmware version matters because tuning software needs the correct memory locations, data formats, scaling, commands, and write behavior. A connector physically fitting the ECU does not automatically make two systems compatible.</p>
+
+    <h3>2. A compatible serial connection</h3>
+    <p>MicroSquirt communication commonly uses RS232 serial communication. The connection must use the correct pinout, voltage levels, baud rate, serial configuration, wiring, and ground reference. Incorrect wiring can prevent communication and can potentially damage hardware.</p>
+
+    <h3>3. A WiFi-to-RS232 bridge</h3>
+    <p>The bridge sits between the ECU and the wireless device. Its job can remain relatively simple: receive serial bytes from the ECU and send them over TCP, then receive TCP data from the tuning application and transmit it back through RS232.</p>
+    <p>A transparent bridge does not need to understand fuel tables, ignition timing, or engine parameters. It transports the communication between two endpoints.</p>
+
+    <h3>4. Compatible tuning software</h3>
+    <p>The application is responsible for understanding the ECU data. That includes values such as RPM, MAP, TPS, AFR, coolant temperature, ignition advance, table data, and calibration parameters.</p>
+    <p><strong>Transport and protocol are separate jobs:</strong> the bridge transports data; the application interprets it.</p>
+
+    <h2>How the Wireless Connection Works</h2>
+    <p>A local WiFi ECU connection does not need the internet. A bridge can create its own wireless access point, the iPhone joins that network directly, and the tuning application opens a TCP connection to the bridge.</p>
+    <p>For example, the current GhostBridge workflow exposes the local ECU transport at <code>192.168.4.1:35000</code>. The tuning application exchanges ECU communication through that TCP socket while the bridge forwards the serial traffic to and from the ECU.</p>
+    <p>The communication path remains local:</p>
+    <p><strong>ECU ↔ serial ↔ bridge ↔ WiFi ↔ phone</strong></p>
+    <p>No router or cellular connection is required for the live ECU communication itself.</p>
+
+    <h2>Why Use WiFi Instead of a Cable?</h2>
+    <p>The main advantage is convenience. A phone is easier to keep with you than a laptop when working in a garage, beside a vehicle, on a dyno, during troubleshooting, or in a tight installation.</p>
+    <p>Wireless communication also removes the physical cable between the tuning device and the vehicle. That does not make the tuning process inherently safer, however. A wireless connection still needs reliable communication, adequate power, a correct ECU profile, and software designed to handle interrupted operations.</p>
+
+    <h2>A Typical Setup Process</h2>
+    <h3>Step 1 — Connect the serial bridge</h3>
+    <p>Connect the WiFi-to-RS232 bridge to the ECU using the correct serial wiring, then power the bridge according to its requirements.</p>
+
+    <h3>Step 2 — Join the bridge's WiFi network</h3>
+    <p>On the iPhone or iPad, open WiFi settings and select the bridge's local network. Once connected, the phone and bridge are communicating on a private local network.</p>
+
+    <h3>Step 3 — Establish the TCP connection</h3>
+    <p>The tuning application connects to the bridge's IP address and TCP port. At that point the application can begin exchanging serial commands with the ECU.</p>
+
+    <h3>Step 4 — Identify the ECU and firmware</h3>
+    <p>Before changing anything, the application should verify that the connected ECU matches a supported profile. Different firmware versions can use different memory addresses, table layouts, scales, data sizes, and command sequences.</p>
+    <p>Software should never assume that one ECU profile can safely be used with another.</p>
+
+    <h3>Step 5 — Read and save the existing tune</h3>
+    <p>Before making changes, read and save the existing ECU configuration. Keeping a known-good backup provides a recovery point if a later calibration change produces an unexpected result.</p>
+
+    <h3>Step 6 — Verify live data</h3>
+    <p>Before writing anything, check that live values appear believable. RPM should respond correctly, TPS should follow throttle movement, MAP should respond to engine vacuum and load, temperatures should be reasonable, and battery voltage should be plausible.</p>
+    <p>Incorrect live data can indicate a communication, profile, sensor, or configuration problem that should be resolved before tuning.</p>
+
+    <figure class="article-image card">
+      <img src="/assets/framed/IMG_4079_framed.png" alt="GhostTune live MicroSquirt ECU data dashboard showing gauges for operating values" loading="lazy" width="250" height="542" />
+      <figcaption>Live data provides an immediate sanity check before making ECU changes.</figcaption>
+    </figure>
+
+    <h2>Temporary Writes vs. Permanent Changes</h2>
+    <p>One useful concept in ECU tuning is separating temporary changes from permanent storage. A temporary write allows a calibration change to be evaluated before committing it permanently.</p>
+    <p>A typical workflow can look like this:</p>
+    <div class="write-flow" aria-label="Typical ECU change workflow"><span>Read</span><b>→</b><span>Edit</span><b>→</b><span>Temporary Write</span><b>→</b><span>Evaluate</span><b>→</b><span>Burn</span><b>→</b><span>Verify</span></div>
+    <p>If a temporary change is not desirable, it can be abandoned rather than permanently stored. When software performs a permanent change, a robust workflow should confirm that the ECU actually stored the requested result.</p>
+
+    <figure class="article-image card">
+      <img src="/assets/framed/IMG_4082_framed.png" alt="MicroSquirt VE table editing in GhostTune on iPhone" loading="lazy" width="250" height="542" />
+      <figcaption>GhostTune's VE table editor demonstrates the difference between viewing ECU data and making controlled calibration changes.</figcaption>
+    </figure>
+
+    <h2>Why Read-Back Verification Matters</h2>
+    <p>Communication errors are uncommon on a healthy connection, but tuning software should not assume that transmitting a command means the operation succeeded.</p>
+    <p>A guarded sequence can pause normal polling, perform the write, request the permanent burn when required, wait for the ECU operation, read the value back, compare the result, and only then resume normal polling.</p>
+    <p>The comparison is the important part. If the ECU reports something different from what the application attempted to write, the software knows the operation did not complete as expected.</p>
+
+    <h2>What Happens if WiFi Disconnects?</h2>
+    <p>This is an important consideration with any wireless tuning system. When reading live data, a lost connection usually means the values stop updating. Writing ECU settings deserves more care.</p>
+    <p>The tuning application should be designed to recognize connection interruption, invalid responses, incomplete operations, unexpected ECU state, and read-back mismatches. A disconnected wireless link should not simply be treated as a successful write.</p>
+    <p>Regardless of the software being used, keep a known-good tune backup before making significant calibration changes.</p>
+
+    <h2>GhostTune and GhostBridge</h2>
+    <p>One implementation of this architecture is GhostTune with GhostBridge.</p>
+    <p>GhostTune is an iPhone and iPad ECU tuning application designed around local wireless communication and guarded ECU-write workflows. The current verified configuration is <strong>MicroSquirt hardware running MS2/Extra 3.4.4</strong>.</p>
+    <p>GhostBridge GB-01 provides the local WiFi-to-RS232 connection between the ECU and the application. GhostBridge operates as a TCP-to-RS232 transport rather than interpreting the ECU calibration itself.</p>
+    <div class="article-callout"><strong>Current release status:</strong> at the time this guide was published, GhostTune v1.0 had completed production validation for the verified MicroSquirt / MS2/Extra 3.4.4 configuration and had been submitted to Apple for App Store review. GhostBridge GB-01 is the currently available RS232 hardware.</div>
+
+    <h2>Do You Need Internet Access?</h2>
+    <p>No. A local WiFi bridge can create its own network, and the iPhone can connect directly to it. Internet connectivity may still be useful for downloading software, reading documentation, or sharing files, but it is not required for the live ECU communication path.</p>
+
+    <h2>Does Any WiFi-to-RS232 Adapter Work?</h2>
+    <p>Not necessarily. Even when two products both advertise RS232-to-WiFi functionality, several details still need to match the application: RS232 electrical levels, DB9 pinout, TCP client/server behavior, serial baud-rate support, buffering behavior, connection recovery, latency, and power requirements.</p>
+    <p>A generic serial bridge may work perfectly in one application and fail in another. Compatibility should be determined from the complete communication requirements rather than the connector alone.</p>
+
+    <h2>Can This Work With Other MegaSquirt ECUs?</h2>
+    <p>Potentially, but ECU support is primarily a software-profile issue rather than a WiFi issue. Once bytes successfully travel between the tuning device and ECU, the tuning application still needs a verified profile for that particular ECU and firmware.</p>
+    <p>Supporting another ECU can require independent validation of identification commands, runtime data, memory layout, tables, scaling, writes, permanent burns, reconnect behavior, and recovery handling. Firmware compatibility should therefore be explicitly verified rather than assumed.</p>
+
+    <h2>Wireless MicroSquirt Tuning in Practice</h2>
+    <p>Wireless tuning does not fundamentally change how the ECU works. It changes how the tuning device reaches it.</p>
+    <p>Instead of <strong>laptop → USB/serial cable → ECU</strong>, the communication becomes <strong>phone → WiFi → serial bridge → ECU</strong>.</p>
+    <p>The ECU still receives its normal serial communication. The bridge moves the data. The tuning software provides the interface and understands the ECU.</p>
+    <p>For someone who regularly checks live data, adjusts calibrations, or works on a vehicle away from a desk, removing the laptop and phone cable can make the workflow considerably more convenient.</p>
+
+    <h2>Learn More</h2>
+    <div class="grid grid-3" style="margin-top:18px;">
+      <a class="card" href="/ghosttune-app.html"><h3>Explore GhostTune</h3><p>See the iPhone and iPad tuning interface, screenshots, features, guarded write workflow, and current verified compatibility.</p><span class="badge">GhostTune details</span></a>
+      <a class="card" href="/ghostbridge.html"><h3>See GhostBridge GB-01</h3><p>Learn how the assembled local RS232-to-WiFi bridge works, review specifications, compatibility notes, and current availability.</p><span class="badge badge-blue">GhostBridge details</span></a>
+      <a class="card" href="/blog/how-wireless-serial-bridging-works.html"><h3>How Wireless Serial Bridging Works</h3><p>Go deeper into TCP, RS232, transparent byte relay, and the practical limitations of serial-over-WiFi systems.</p><span class="badge">Read the guide</span></a>
+    </div>
+
+    <nav class="article-nav" aria-label="Article navigation">
+      <a href="/blog/">← All articles</a>
+      <a href="/support.html">Questions? Visit Support →</a>
+    </nav>
+  </article>
+</main>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"How to Tune a MicroSquirt From an iPhone: A Practical Wireless Setup Guide","description":"Learn how wireless MicroSquirt tuning works on iPhone and iPad, what hardware is required, how WiFi-to-RS232 communication works, and what to verify before making ECU changes.","datePublished":"2026-08-25","dateModified":"2026-08-25","author":{"@type":"Organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/ghosttune-app-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/how-to-tune-microsquirt-from-iphone.html","image":["https://cruxresolve.com/assets/gb_hero.jpg","https://cruxresolve.com/assets/framed/IMG_4079_framed.png","https://cruxresolve.com/assets/framed/IMG_4082_framed.png"],"keywords":"MicroSquirt iPhone tuning, MicroSquirt WiFi tuning, wireless ECU tuning, RS232 WiFi ECU, MS2 Extra 3.4.4, MegaSquirt iPhone tuning"}</script>
