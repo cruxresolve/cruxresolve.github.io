@@ -45,7 +45,7 @@
 <h2>Three steps.</h2>
 <div class="steps">
 <article class="step"><div><h3>Connect and power</h3><p class="muted">Connect the DB9 interface to the supported ECU serial connection and power GhostBridge through USB-C.</p></div></article>
-<article class="step"><div><h3>Join the bridge network</h3><p class="muted">Choose the GhostBridge WiFi network from the iPhone or iPad WiFi settings.</p></div></article>
+<article class="step"><div><h3>Join the bridge network</h3><p class="muted">In the iPhone or iPad WiFi settings, select the network named <code>GhostBridge-XXXXX</code>. The password is <code>1234</code> followed by the last four characters of that WiFi name. Example: <code>GhostBridge-ABCDE</code> uses password <code>1234BCDE</code>. Each GhostBridge uses device-specific credentials so nearby units do not share the same password.</p></div></article>
 <article class="step"><div><h3>Open GhostTune</h3><p class="muted">GhostTune connects to <code>192.168.4.1</code> on TCP port <code>35000</code> and verifies the supported ECU profile.</p></div></article>
 </div>
 <div class="notice" style="margin-top:18px;"><strong>Using other serial software?</strong> The host application must be able to communicate through the bridge’s local TCP endpoint, and the connected hardware, cabling, electrical interface, and serial configuration must be compatible. Crux Resolve only represents configurations as verified when they are explicitly listed.</div>
