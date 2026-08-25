@@ -11,8 +11,8 @@ import urllib.request
 CHECKS = {
     "https://cruxresolve.com/": (
         "Tune your MicroSquirt",
-        "No laptop. No cable.",
-        "GhostBridge GB-01",
+        "No laptop. No phone cable.",
+        "GhostBridge v1.0 (GB-01)",
     ),
     "https://cruxresolve.com/ghosttune-app.html": (
         "Production validation complete",
@@ -26,6 +26,12 @@ CHECKS = {
         "Confirm the complete setup.",
         "97.95 × 77.01 × 22.55 mm",
         "Buy GhostBridge · $89",
+    ),
+    "https://cruxresolve.com/blog/how-to-tune-microsquirt-from-iphone.html": (
+        "How to Tune a MicroSquirt From an iPhone",
+        "MicroSquirt wireless tuning communication path",
+        "Temporary Writes vs. Permanent Changes",
+        "GhostTune and GhostBridge",
     ),
     "https://cruxresolve.com/support.html": (
         "Direct product support.",
