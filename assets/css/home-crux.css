@@ -1,0 +1,669 @@
+/* Crux Resolve parent-brand homepage theme.
+   Intentionally CSS-driven: no WebP backgrounds or fragile decorative image dependencies. */
+
+:root {
+  --crux-red: #d71920;
+  --crux-red-deep: #9f0d13;
+  --crux-red-bright: #f0262d;
+  --crux-black: #080a0d;
+  --crux-black-soft: #101419;
+  --crux-panel: #151a20;
+  --crux-steel: #c9cdd1;
+  --crux-steel-dark: #6d737a;
+  --crux-white: #f7f7f5;
+  --crux-ink: #111317;
+  --crux-muted: #aeb5bd;
+  --orange: var(--crux-red);
+  --orange-hover: var(--crux-red-bright);
+  --border: rgba(215, 25, 32, .46);
+  --border-soft: rgba(215, 25, 32, .22);
+}
+
+body {
+  background: var(--crux-black);
+}
+
+body::before {
+  opacity: .16;
+  background:
+    radial-gradient(circle at 50% 5%, rgba(215,25,32,.18), transparent 34rem),
+    linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+  background-size: auto, 34px 34px, 34px 34px;
+}
+
+.site-nav {
+  border-bottom-color: rgba(215,25,32,.28);
+  background: rgba(7, 9, 12, .96);
+}
+
+.site-nav .brand img,
+.site-footer .brand img {
+  display: none;
+}
+
+.site-nav .brand::before,
+.site-footer .brand::before {
+  content: "CR";
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 2px solid var(--crux-red);
+  border-radius: 50%;
+  color: var(--crux-white);
+  background:
+    linear-gradient(135deg, transparent 48%, var(--crux-red) 49% 55%, transparent 56%),
+    var(--crux-black);
+  font-family: Orbitron, ui-monospace, monospace;
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: -.05em;
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,.04), 0 0 20px rgba(215,25,32,.16);
+}
+
+.brand-name {
+  color: #f2f3f4;
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"],
+.mobile-nav a:hover,
+.mobile-nav a[aria-current="page"] {
+  background: rgba(215,25,32,.14);
+}
+
+.crux-home {
+  overflow: hidden;
+  background: var(--crux-black);
+}
+
+.crux-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 760px;
+  padding: 82px 0 210px;
+  color: var(--crux-ink);
+  background:
+    linear-gradient(120deg, rgba(255,255,255,.98), rgba(246,247,247,.98) 54%, rgba(225,228,231,.96)),
+    var(--crux-white);
+}
+
+.crux-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    linear-gradient(30deg, rgba(32,38,44,.06) 12%, transparent 12.5%, transparent 87%, rgba(32,38,44,.06) 87.5%, rgba(32,38,44,.06)),
+    linear-gradient(150deg, rgba(32,38,44,.06) 12%, transparent 12.5%, transparent 87%, rgba(32,38,44,.06) 87.5%, rgba(32,38,44,.06)),
+    linear-gradient(30deg, rgba(32,38,44,.06) 12%, transparent 12.5%, transparent 87%, rgba(32,38,44,.06) 87.5%, rgba(32,38,44,.06)),
+    linear-gradient(150deg, rgba(32,38,44,.06) 12%, transparent 12.5%, transparent 87%, rgba(32,38,44,.06) 87.5%, rgba(32,38,44,.06)),
+    linear-gradient(60deg, rgba(55,61,68,.045) 25%, transparent 25.5%, transparent 75%, rgba(55,61,68,.045) 75%, rgba(55,61,68,.045)),
+    linear-gradient(60deg, rgba(55,61,68,.045) 25%, transparent 25.5%, transparent 75%, rgba(55,61,68,.045) 75%, rgba(55,61,68,.045));
+  background-size: 78px 137px;
+  background-position: 0 0, 0 0, 39px 68.5px, 39px 68.5px, 0 0, 39px 68.5px;
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.2) 48%, #000 100%);
+}
+
+.crux-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -7%;
+  right: -7%;
+  bottom: -145px;
+  height: 300px;
+  border-radius: 50% 50% 0 0 / 72% 72% 0 0;
+  border-top: 9px solid var(--crux-red);
+  background:
+    radial-gradient(circle at 85% 38%, rgba(215,25,32,.15), transparent 22rem),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 4px),
+    #090c10;
+  box-shadow:
+    0 -11px 0 rgba(119,125,132,.96),
+    0 -16px 0 rgba(229,231,232,.98),
+    0 -17px 28px rgba(0,0,0,.18);
+}
+
+.crux-hero-inner {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(290px, .85fr);
+  align-items: center;
+  gap: clamp(34px, 6vw, 84px);
+}
+
+.crux-brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 30px);
+  margin-bottom: 30px;
+}
+
+.crux-mark {
+  position: relative;
+  width: clamp(82px, 10vw, 126px);
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border: clamp(7px, .8vw, 11px) solid var(--crux-red);
+  border-right-color: var(--crux-black);
+  border-radius: 50%;
+  color: var(--crux-black);
+  background: rgba(255,255,255,.36);
+  font-family: Orbitron, ui-monospace, monospace;
+  font-size: clamp(1.5rem, 3.2vw, 2.75rem);
+  font-weight: 900;
+  letter-spacing: -.08em;
+  transform: rotate(-8deg);
+  box-shadow: inset 0 0 0 7px rgba(17,19,23,.04);
+}
+
+.crux-mark::after {
+  content: "";
+  position: absolute;
+  right: -13%;
+  top: 6%;
+  width: 54%;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--crux-black);
+  transform: rotate(-43deg);
+  transform-origin: right center;
+}
+
+.crux-wordmark {
+  min-width: 0;
+  font-family: Orbitron, ui-monospace, monospace;
+  text-transform: uppercase;
+  line-height: .9;
+}
+
+.crux-wordmark-main {
+  display: block;
+  color: #0b0d10;
+  font-size: clamp(2.5rem, 7vw, 5.7rem);
+  font-weight: 900;
+  letter-spacing: -.075em;
+  text-shadow: 0 2px 0 #fff, 0 5px 12px rgba(0,0,0,.13);
+}
+
+.crux-wordmark-sub {
+  display: block;
+  margin-top: 13px;
+  color: var(--crux-red);
+  font-size: clamp(1rem, 2.7vw, 2.15rem);
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+
+.crux-wordmark-sub em {
+  margin-left: .24em;
+  color: var(--crux-black);
+  font-size: .55em;
+  font-style: normal;
+  letter-spacing: .08em;
+}
+
+.crux-hero-copy .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 7px 11px;
+  border: 1px solid rgba(159,13,19,.28);
+  border-radius: 999px;
+  color: var(--crux-red-deep);
+  background: rgba(215,25,32,.055);
+}
+
+.crux-hero-copy h1 {
+  max-width: 760px;
+  margin-bottom: 20px;
+  color: var(--crux-ink);
+  font-size: clamp(2rem, 4.8vw, 4.1rem);
+  letter-spacing: -.035em;
+}
+
+.crux-hero-copy .lead {
+  max-width: 760px;
+  margin: 0;
+  color: #4b5158;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+}
+
+.crux-hero-copy .actions {
+  justify-content: flex-start;
+  margin-top: 30px;
+}
+
+.crux-home .button-primary {
+  border-color: var(--crux-red-deep);
+  background: linear-gradient(180deg, var(--crux-red-bright), var(--crux-red));
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(159,13,19,.22);
+}
+
+.crux-home .button-primary:hover {
+  background: linear-gradient(180deg, #ff343a, #c81118);
+  color: #fff;
+}
+
+.crux-hero .button-secondary {
+  border-color: #70767d;
+  color: #191c20;
+  background: rgba(255,255,255,.56);
+}
+
+.crux-hero .button-secondary:hover {
+  color: #090b0e;
+  background: #fff;
+}
+
+.crux-hero-aside {
+  position: relative;
+  padding: 28px;
+  border: 1px solid rgba(23,27,31,.13);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(255,255,255,.8), rgba(222,225,228,.7));
+  box-shadow: 0 24px 70px rgba(18,22,26,.16);
+  overflow: hidden;
+}
+
+.crux-hero-aside::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  background: linear-gradient(var(--crux-red-bright), var(--crux-red-deep));
+}
+
+.crux-hero-aside .aside-label {
+  margin-bottom: 12px;
+  color: var(--crux-red-deep);
+  font-family: "Share Tech Mono", ui-monospace, monospace;
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.crux-hero-aside strong {
+  display: block;
+  margin-bottom: 12px;
+  color: #111317;
+  font-family: Orbitron, ui-monospace, monospace;
+  font-size: 1.18rem;
+}
+
+.crux-hero-aside p {
+  margin: 0;
+  color: #555b62;
+}
+
+.crux-products {
+  position: relative;
+  padding: 74px 0 88px;
+  color: var(--crux-white);
+  background:
+    radial-gradient(circle at 100% 22%, rgba(215,25,32,.12), transparent 24rem),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 4px),
+    var(--crux-black);
+}
+
+.crux-products::before,
+.crux-about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .34;
+  background-image:
+    linear-gradient(30deg, rgba(215,25,32,.12) 12%, transparent 12.5%, transparent 87%, rgba(215,25,32,.12) 87.5%, rgba(215,25,32,.12)),
+    linear-gradient(150deg, rgba(215,25,32,.12) 12%, transparent 12.5%, transparent 87%, rgba(215,25,32,.12) 87.5%, rgba(215,25,32,.12));
+  background-size: 86px 150px;
+  mask-image: linear-gradient(90deg, transparent 0 62%, #000 100%);
+}
+
+.crux-section-head {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  margin-bottom: 34px;
+}
+
+.crux-home .section-label,
+.crux-home .card-label {
+  color: #f02c32;
+}
+
+.crux-section-head h2 {
+  color: #fff;
+}
+
+.crux-section-head p {
+  color: var(--crux-muted);
+}
+
+.crux-product-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.crux-product-card {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 145px 1fr;
+  gap: 24px;
+  align-items: center;
+  padding: 26px;
+  border: 1px solid rgba(215,25,32,.24);
+  border-radius: 16px;
+  color: inherit;
+  text-decoration: none;
+  background: linear-gradient(145deg, rgba(24,29,35,.96), rgba(11,14,18,.96));
+  box-shadow: 0 18px 40px rgba(0,0,0,.26);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.crux-product-card:hover {
+  color: inherit;
+  transform: translateY(-3px);
+  border-color: rgba(240,38,45,.62);
+  box-shadow: 0 24px 58px rgba(0,0,0,.34), 0 0 30px rgba(215,25,32,.08);
+}
+
+.crux-product-media {
+  display: grid;
+  place-items: center;
+  width: 145px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 18px;
+  background: #0c1015;
+}
+
+.crux-product-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.crux-product-card:first-child .crux-product-media img {
+  width: 86%;
+  height: 86%;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+.crux-product-card h3 {
+  margin: 6px 0 10px;
+  color: #fff;
+  font-family: Orbitron, ui-monospace, monospace;
+  font-size: clamp(1.15rem, 2.1vw, 1.55rem);
+}
+
+.crux-product-card p {
+  margin-bottom: 16px;
+  color: #b8c0c8;
+}
+
+.crux-home .badge {
+  border-color: rgba(215,25,32,.45);
+  color: #fff;
+  background: rgba(215,25,32,.13);
+}
+
+.crux-home .badge-blue {
+  border-color: rgba(215,25,32,.48);
+  color: #ff9ca0;
+  background: rgba(215,25,32,.12);
+}
+
+.crux-pillars {
+  padding: 82px 0;
+  color: #15181c;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.97), rgba(224,227,230,.97)),
+    #f2f3f3;
+}
+
+.crux-pillars .section-label {
+  color: var(--crux-red-deep);
+}
+
+.crux-pillars h2 {
+  color: #111317;
+}
+
+.crux-pillars .section-intro {
+  color: #555c63;
+}
+
+.crux-pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.crux-pillar {
+  position: relative;
+  padding: 26px;
+  border: 1px solid rgba(25,29,33,.14);
+  border-radius: 14px;
+  background: rgba(255,255,255,.62);
+  box-shadow: 0 12px 32px rgba(20,24,28,.08);
+}
+
+.crux-pillar::before {
+  content: "";
+  display: block;
+  width: 46px;
+  height: 4px;
+  margin-bottom: 18px;
+  border-radius: 99px;
+  background: var(--crux-red);
+}
+
+.crux-pillar h3 {
+  color: #111317;
+  font-family: Orbitron, ui-monospace, monospace;
+}
+
+.crux-pillar p {
+  margin: 0;
+  color: #596067;
+}
+
+.crux-about {
+  position: relative;
+  padding: 86px 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(215,25,32,.12), transparent 30rem),
+    #0b0e12;
+}
+
+.crux-about-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+  gap: 28px;
+}
+
+.crux-about-card,
+.crux-social-card {
+  padding: 30px;
+  border: 1px solid rgba(215,25,32,.22);
+  border-radius: 16px;
+  background: rgba(18,23,29,.9);
+}
+
+.crux-about h2,
+.crux-social-card h2 {
+  color: #fff;
+}
+
+.crux-about p {
+  color: #b4bdc6;
+}
+
+.crux-social-card .actions,
+.crux-about-card .actions {
+  justify-content: flex-start;
+}
+
+.crux-home .button-secondary {
+  border-color: rgba(215,25,32,.45);
+}
+
+.site-footer {
+  border-top-color: rgba(215,25,32,.25);
+  background: #07090c;
+}
+
+.site-footer .footer-note:first-of-type {
+  color: #f08286;
+  font-weight: 700;
+}
+
+@media (max-width: 860px) {
+  .crux-hero {
+    min-height: auto;
+    padding-top: 58px;
+    padding-bottom: 185px;
+  }
+
+  .crux-hero-inner,
+  .crux-about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .crux-hero-aside {
+    max-width: 640px;
+  }
+
+  .crux-product-card {
+    grid-template-columns: 112px 1fr;
+  }
+
+  .crux-product-media {
+    width: 112px;
+  }
+
+  .crux-pillar-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .crux-hero-inner {
+    width: min(100% - 28px, 1120px);
+  }
+
+  .crux-brand-lockup {
+    align-items: center;
+  }
+
+  .crux-mark {
+    width: 72px;
+    border-width: 6px;
+  }
+
+  .crux-wordmark-main {
+    font-size: clamp(2.15rem, 14vw, 4.2rem);
+  }
+
+  .crux-wordmark-sub {
+    margin-top: 9px;
+    font-size: clamp(.8rem, 4.8vw, 1.35rem);
+  }
+
+  .crux-product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .crux-product-card {
+    grid-template-columns: 96px 1fr;
+    padding: 20px;
+    gap: 18px;
+  }
+
+  .crux-product-media {
+    width: 96px;
+  }
+
+  .crux-hero-copy .actions,
+  .crux-social-card .actions,
+  .crux-about-card .actions {
+    align-items: stretch;
+  }
+
+  .crux-hero-copy .button,
+  .crux-social-card .button,
+  .crux-about-card .button {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .crux-hero {
+    padding-top: 42px;
+    padding-bottom: 166px;
+  }
+
+  .crux-brand-lockup {
+    gap: 13px;
+  }
+
+  .crux-mark {
+    width: 58px;
+    border-width: 5px;
+    font-size: 1rem;
+  }
+
+  .crux-mark::after {
+    height: 5px;
+  }
+
+  .crux-hero-copy h1 {
+    font-size: clamp(1.8rem, 10vw, 2.7rem);
+  }
+
+  .crux-hero-aside,
+  .crux-about-card,
+  .crux-social-card {
+    padding: 22px;
+  }
+
+  .crux-product-card {
+    grid-template-columns: 1fr;
+  }
+
+  .crux-product-media {
+    width: 100%;
+    max-height: 190px;
+    aspect-ratio: 16 / 8.5;
+  }
+
+  .crux-product-card:first-child .crux-product-media img {
+    width: 34%;
+    height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crux-product-card {
+    transition: none;
+  }
+}
