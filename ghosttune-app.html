@@ -128,7 +128,7 @@ extra_css: /assets/css/ghosttune-video.css
           "name": "What ECUs does GhostTune support?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The current release is verified with MicroSquirt hardware running MS2/Extra 3.4.4 firmware. Additional ECU platforms are under development, but they are not represented as supported unless they are explicitly added to the compatibility table after independent validation."
+            "text": "The current release is verified with MicroSquirt hardware running MS2/Extra 3.4.4 firmware. Only configurations explicitly listed by Crux Resolve should be treated as supported."
           }
         },
         {
@@ -136,7 +136,7 @@ extra_css: /assets/css/ghosttune-video.css
           "name": "What happens if the connection is interrupted during a write?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "GhostTune uses guarded sequencing, response validation, re-reading, and verification. If an interruption or mismatch is detected, the app stops the operation, reports the detected state, and provides recovery guidance. No software can guarantee protection from every power, hardware, or firmware failure, so a known-good backup remains essential."
+            "text": "GhostTune checks the result of supported ECU changes and reports an interruption or mismatch instead of presenting the operation as successful. A known-good backup remains essential because no software can eliminate every power, wiring, hardware, or firmware risk."
           }
         },
         {
@@ -160,7 +160,7 @@ extra_css: /assets/css/ghosttune-video.css
           "name": "Does GhostTune support MS3 or other MegaSquirt variants?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Not in the current release. Additional MegaSquirt-family and other ECU-platform compatibility work is underway, and each platform remains blocked until its reads, writes, burns, safety gates, and recovery behavior are validated."
+            "text": "Not in the current release unless a configuration is explicitly listed on the GhostTune compatibility information. The current verified configuration is MicroSquirt hardware running MS2/Extra 3.4.4."
           }
         },
         {
@@ -168,7 +168,7 @@ extra_css: /assets/css/ghosttune-video.css
           "name": "Do I have to use GhostBridge with GhostTune?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "GhostBridge v1.0 (GB-01) is the Crux Resolve hardware designed and verified for the published workflow. GhostTune is not intentionally locked to a GhostBridge identity; another compatible WiFi-to-RS232 bridge must still meet the communication requirements of the supported configuration."
+            "text": "GhostBridge v1.0 (GB-01) is the Crux Resolve hardware designed and verified for the published workflow. Another compatible WiFi-to-RS232 bridge must still meet the communication requirements of the supported configuration."
           }
         }
       ]
