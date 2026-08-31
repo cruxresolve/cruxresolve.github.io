@@ -1,0 +1,159 @@
+---
+layout: default
+title: "GhostTune MicroSquirt Compatibility: Current Requirements"
+description: "See the current GhostTune compatibility requirements for MicroSquirt, MS2/Extra 3.4.4, iPhone and iPad, WiFi communication, and GhostBridge GB-01."
+canonical: https://cruxresolve.com/blog/ghosttune-microsquirt-compatibility-requirements.html
+current: blog
+og_type: article
+og_image: https://cruxresolve.com/assets/framed/IMG_4079_framed.png
+---
+<style>
+.quick-answer{margin:26px 0;padding:20px 22px;border:1px solid rgba(107,220,255,.26);border-radius:12px;background:rgba(107,220,255,.055)}
+.quick-answer strong{color:#d9f8ff}
+.compat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:28px 0}
+.compat-card{padding:18px;border:1px solid rgba(107,220,255,.2);border-radius:12px;background:rgba(107,220,255,.035)}
+.compat-card strong{display:block;color:#e8fbff;margin-bottom:6px}
+.article-image{margin:30px auto;max-width:760px}
+.article-image img{width:100%;height:auto;display:block;border-radius:12px;object-fit:contain}
+.article-image figcaption{margin-top:9px;color:var(--muted);font-size:.84rem;text-align:center}
+.related-guides{margin:34px 0;padding:22px;border:1px solid rgba(107,220,255,.2);border-radius:12px;background:rgba(255,255,255,.018)}
+.related-guides ul{margin-bottom:0}
+@media(max-width:700px){.compat-grid{grid-template-columns:1fr}}
+</style>
+<main id="main-content">
+  <article class="article">
+    <a href="/blog/">← Back to Blog</a>
+    <div class="eyebrow" style="margin-top:28px;">// August 31, 2026 · Crux Resolve LLC</div>
+    <h1>Can GhostTune Tune MicroSquirt? Current Compatibility and Requirements</h1>
+    <p class="lead" style="text-align:left; margin-left:0;">Yes. GhostTune is currently available for iPhone and iPad and the published verified ECU configuration is MicroSquirt hardware running MS2/Extra 3.4.4. Live communication uses a compatible local WiFi-to-RS232 bridge, with GhostBridge GB-01 being the Crux Resolve hardware designed and verified for this setup.</p>
+
+    <div class="quick-answer"><strong>Quick answer:</strong> the current verified combination is <strong>GhostTune + MicroSquirt + MS2/Extra 3.4.4 + a compatible local WiFi-to-RS232 bridge</strong>. GhostBridge GB-01 is the published Crux Resolve bridge for this workflow. If your ECU hardware or software version is different, do not assume compatibility from the connector alone.</div>
+
+    <h2>Current Verified GhostTune Setup</h2>
+    <div class="compat-grid">
+      <div class="compat-card"><strong>ECU hardware</strong>MicroSquirt</div>
+      <div class="compat-card"><strong>ECU software</strong>MS2/Extra 3.4.4</div>
+      <div class="compat-card"><strong>Mobile devices</strong>iPhone and iPad</div>
+      <div class="compat-card"><strong>Wireless connection</strong>Local WiFi through a compatible RS232 bridge</div>
+      <div class="compat-card"><strong>Published bridge</strong>GhostBridge GB-01</div>
+      <div class="compat-card"><strong>App availability</strong>GhostTune v1.0 on the App Store</div>
+    </div>
+
+    <h2>Why the Exact MicroSquirt Software Version Matters</h2>
+    <p>ECU tuning software must know exactly how the connected ECU represents its settings and live information. Two units that look physically identical can still require different software support if their ECU software versions differ.</p>
+    <p>For that reason, the current GhostTune compatibility statement is intentionally specific: <strong>MicroSquirt hardware running MS2/Extra 3.4.4</strong>.</p>
+    <p>If your MicroSquirt reports a different version, confirm compatibility before making ECU changes.</p>
+
+    <h2>Does GhostTune Work on iPhone and iPad?</h2>
+    <p>Yes. GhostTune is designed for iPhone and iPad. For live ECU communication, the Apple device joins the local WiFi network created by a compatible RS232 bridge attached to the MicroSquirt.</p>
+    <p>The live ECU connection itself does not require internet access.</p>
+
+    <figure class="article-image card">
+      <img src="/assets/framed/IMG_4079_framed.png" alt="GhostTune displaying live MicroSquirt ECU data on an iPhone" loading="lazy" width="250" height="542" />
+      <figcaption>GhostTune provides live MicroSquirt information directly on iPhone and iPad in the verified configuration.</figcaption>
+    </figure>
+
+    <h2>Do You Have to Use GhostBridge?</h2>
+    <p>GhostBridge GB-01 is the Crux Resolve WiFi-to-RS232 bridge designed and verified for the current GhostTune workflow.</p>
+    <p>GhostTune is not presented as being locked to a product name alone, but another bridge still has to match the complete communication requirements of the supported setup. A generic RS232-to-WiFi label does not guarantee that a particular bridge will work correctly.</p>
+    <p>If you want the published Crux Resolve hardware combination, GhostBridge GB-01 is the straightforward choice.</p>
+
+    <h2>What Does the Wireless Connection Replace?</h2>
+    <p>The wireless bridge replaces the cable between the mobile tuning device and the ECU's serial connection. The MicroSquirt continues communicating through its normal serial interface.</p>
+    <div class="notice"><strong>Connection path:</strong> MicroSquirt → RS232 → WiFi bridge → local WiFi → iPhone or iPad running GhostTune</div>
+    <p>This is why having a working WiFi connection is not the same thing as having confirmed ECU compatibility. The phone still needs the correct application support for the connected ECU.</p>
+
+    <h2>How Do I Check My Setup Before Connecting?</h2>
+    <ol>
+      <li>Confirm the ECU is a MicroSquirt.</li>
+      <li>Confirm it is running MS2/Extra 3.4.4 for the currently published GhostTune configuration.</li>
+      <li>Use a compatible RS232 connection and cable.</li>
+      <li>Use a compatible local WiFi-to-RS232 bridge.</li>
+      <li>Install the current GhostTune release from the App Store.</li>
+      <li>After connecting, confirm live values update normally before making changes.</li>
+    </ol>
+
+    <h2>What Live Values Should You Check First?</h2>
+    <p>Once connected, use values that are easy to compare with what the vehicle is actually doing. RPM should respond to engine speed, TPS should follow throttle position, MAP should react to engine vacuum and load, and temperature and battery-voltage readings should be plausible.</p>
+    <p>If values are obviously wrong or frozen, resolve the connection or compatibility issue before making tuning changes.</p>
+
+    <h2>Can I Explore GhostTune Without Connecting to a MicroSquirt?</h2>
+    <p>Yes. GhostTune includes Demo Mode so the interface can be explored without a live ECU connection. This is useful for seeing the app before connecting it to a vehicle.</p>
+
+    <h2>Does GhostTune Send Tune Data to the Cloud?</h2>
+    <p>No. ECU communication and tune data stay on the device and local WiFi connection unless you deliberately export or share a file.</p>
+
+    <h2>What If My ECU Is Not the Verified Configuration?</h2>
+    <p>Do not assume that a similar connector, product family, or ECU name means the setup is compatible. Check the current <a href="/ghosttune-app.html">GhostTune product page</a> or contact <a href="mailto:support@cruxresolve.com">support@cruxresolve.com</a> before attempting live tuning with an unlisted configuration.</p>
+    <p>Keeping compatibility statements narrow protects the user from treating an unverified combination as equivalent to the published setup.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <h3>What MicroSquirt version works with GhostTune?</h3>
+    <p>The current published verified setup is MicroSquirt hardware running MS2/Extra 3.4.4.</p>
+
+    <h3>Does GhostTune work on iPad?</h3>
+    <p>Yes. GhostTune supports iPhone and iPad.</p>
+
+    <h3>Does GhostTune use WiFi or Bluetooth?</h3>
+    <p>The current live ECU connection uses local WiFi through a compatible WiFi-to-RS232 bridge.</p>
+
+    <h3>Does live tuning require internet access?</h3>
+    <p>No. The phone or tablet communicates with the bridge over a local WiFi network.</p>
+
+    <h3>Where can I get GhostTune?</h3>
+    <p>GhostTune v1.0 is available on the Apple App Store from the <a href="/ghosttune-app.html">GhostTune product page</a>.</p>
+
+    <div class="related-guides">
+      <h2>Related Guides and Products</h2>
+      <ul>
+        <li><a href="/blog/how-to-tune-microsquirt-from-iphone.html">How to Tune a MicroSquirt From an iPhone</a></li>
+        <li><a href="/blog/how-to-connect-microsquirt-to-wifi-rs232-bridge.html">How to Connect MicroSquirt to WiFi With an RS232 Bridge</a></li>
+        <li><a href="/blog/microsquirt-wifi-troubleshooting-no-ecu-data.html">MicroSquirt WiFi Troubleshooting</a></li>
+        <li><a href="/blog/microsquirt-wifi-vs-bluetooth-mobile-tuning.html">MicroSquirt WiFi vs Bluetooth for Mobile Tuning</a></li>
+        <li><a href="/ghosttune-app.html">GhostTune for iPhone and iPad</a></li>
+        <li><a href="/ghostbridge.html">GhostBridge GB-01</a></li>
+      </ul>
+    </div>
+
+    <nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← All articles</a><a href="/ghosttune-app.html">View GhostTune →</a></nav>
+  </article>
+</main>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"BlogPosting",
+      "@id":"https://cruxresolve.com/blog/ghosttune-microsquirt-compatibility-requirements.html#article",
+      "headline":"Can GhostTune Tune MicroSquirt? Current Compatibility and Requirements",
+      "description":"See the current GhostTune compatibility requirements for MicroSquirt, MS2/Extra 3.4.4, iPhone and iPad, WiFi communication, and GhostBridge GB-01.",
+      "datePublished":"2026-08-31",
+      "dateModified":"2026-08-31",
+      "author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},
+      "publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},
+      "mainEntityOfPage":"https://cruxresolve.com/blog/ghosttune-microsquirt-compatibility-requirements.html",
+      "image":"https://cruxresolve.com/assets/framed/IMG_4079_framed.png",
+      "about":["GhostTune","MicroSquirt","MS2/Extra 3.4.4","iPhone ECU tuning","GhostBridge"]
+    },
+    {
+      "@type":"FAQPage",
+      "@id":"https://cruxresolve.com/blog/ghosttune-microsquirt-compatibility-requirements.html#faq",
+      "mainEntity":[
+        {"@type":"Question","name":"What MicroSquirt version works with GhostTune?","acceptedAnswer":{"@type":"Answer","text":"The current published verified setup is MicroSquirt hardware running MS2/Extra 3.4.4."}},
+        {"@type":"Question","name":"Does GhostTune work on iPad?","acceptedAnswer":{"@type":"Answer","text":"Yes. GhostTune supports iPhone and iPad."}},
+        {"@type":"Question","name":"Does GhostTune use WiFi or Bluetooth?","acceptedAnswer":{"@type":"Answer","text":"The current live ECU connection uses local WiFi through a compatible WiFi-to-RS232 bridge."}},
+        {"@type":"Question","name":"Does live tuning require internet access?","acceptedAnswer":{"@type":"Answer","text":"No. The phone or tablet communicates with the bridge over a local WiFi network."}},
+        {"@type":"Question","name":"Where can I get GhostTune?","acceptedAnswer":{"@type":"Answer","text":"GhostTune v1.0 is available on the Apple App Store through the GhostTune product page at cruxresolve.com."}}
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Crux Resolve","item":"https://cruxresolve.com/"},
+        {"@type":"ListItem","position":2,"name":"Blog","item":"https://cruxresolve.com/blog/"},
+        {"@type":"ListItem","position":3,"name":"GhostTune MicroSquirt Compatibility","item":"https://cruxresolve.com/blog/ghosttune-microsquirt-compatibility-requirements.html"}
+      ]
+    }
+  ]
+}
+</script>
