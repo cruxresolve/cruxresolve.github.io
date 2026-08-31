@@ -1,0 +1,323 @@
+/* Adaptive 3D Crux Resolve homepage hero.
+   Loads the existing parent-brand theme, then replaces only the homepage header/hero treatment. */
+@import url("/assets/css/home-crux.css");
+
+:root {
+  --crux-hero-overlay: rgba(5, 7, 10, .88);
+}
+
+/* Homepage navigation floats over the dimensional hero artwork. */
+.site-nav {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 1000;
+  min-height: 72px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+  background:
+    linear-gradient(180deg, rgba(4,6,9,.90) 0%, rgba(4,6,9,.64) 72%, rgba(4,6,9,.18) 100%);
+  backdrop-filter: blur(8px);
+}
+
+.site-nav .nav-inner {
+  min-height: 72px;
+}
+
+.site-nav .brand::before {
+  display: none;
+}
+
+.site-nav .brand {
+  gap: 0;
+}
+
+.site-nav .brand-name {
+  color: #f4f5f6;
+  text-shadow: 0 2px 12px rgba(0,0,0,.72);
+}
+
+.site-nav .nav-links a {
+  color: #d8dde2;
+  text-shadow: 0 2px 10px rgba(0,0,0,.75);
+}
+
+.site-nav .nav-links a:hover,
+.site-nav .nav-links a[aria-current="page"] {
+  color: #fff;
+  background: rgba(215,25,32,.20);
+}
+
+/* New hero: the generated dimensional artwork carries the brand;
+   all navigation, copy, and controls remain real HTML. */
+.crux-hero.crux-hero-3d {
+  position: relative;
+  isolation: isolate;
+  min-height: 620px;
+  padding: 0;
+  color: #fff;
+  background-color: #07090c;
+  background-image: url("/assets/crux-resolve-hero-3d.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+/* Protected readability zone for live text on the intentionally dark side. */
+.crux-hero.crux-hero-3d::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg,
+      rgba(4,6,8,.03) 0%,
+      rgba(4,6,8,.05) 34%,
+      rgba(4,6,8,.30) 49%,
+      rgba(4,6,8,.72) 63%,
+      rgba(4,6,8,.90) 100%),
+    linear-gradient(180deg,
+      rgba(0,0,0,.22) 0%,
+      transparent 28%,
+      transparent 72%,
+      rgba(0,0,0,.46) 100%);
+  mask-image: none;
+}
+
+.crux-hero.crux-hero-3d::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 5px;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(90deg, #68070b, #e01b22 48%, #68070b);
+  box-shadow: 0 -1px 18px rgba(215,25,32,.35);
+}
+
+.crux-hero-inner.crux-hero-inner-3d {
+  position: relative;
+  z-index: 3;
+  width: min(1120px, calc(100% - 40px));
+  min-height: 620px;
+  margin: 0 auto;
+  padding: 118px 0 64px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.crux-hero-copy.crux-hero-copy-3d {
+  width: min(54%, 590px);
+  margin-left: auto;
+  padding: 30px 0 26px;
+}
+
+.crux-hero-copy.crux-hero-copy-3d .eyebrow {
+  margin-bottom: 18px;
+  border-color: rgba(255,255,255,.18);
+  color: #ffb3b6;
+  background: rgba(146,12,18,.32);
+  box-shadow: inset 0 0 0 1px rgba(215,25,32,.08);
+}
+
+.crux-hero-copy.crux-hero-copy-3d h1 {
+  max-width: 620px;
+  margin-bottom: 20px;
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 3.55rem);
+  line-height: 1.08;
+  letter-spacing: -.035em;
+  text-shadow: 0 4px 22px rgba(0,0,0,.82);
+}
+
+.crux-hero-copy.crux-hero-copy-3d .lead {
+  max-width: 590px;
+  margin: 0;
+  color: #d1d6db;
+  font-size: clamp(1rem, 1.45vw, 1.12rem);
+  text-shadow: 0 2px 14px rgba(0,0,0,.82);
+}
+
+.crux-hero-copy.crux-hero-copy-3d .actions {
+  justify-content: flex-start;
+  margin-top: 28px;
+}
+
+.crux-hero-copy.crux-hero-copy-3d .button-primary {
+  border-color: #f02a31;
+  background: linear-gradient(180deg, #f12a31, #bd1016);
+  box-shadow: 0 10px 28px rgba(152,10,15,.36);
+}
+
+.crux-hero-copy.crux-hero-copy-3d .button-secondary {
+  border-color: rgba(255,255,255,.34);
+  color: #fff;
+  background: rgba(7,9,12,.58);
+  backdrop-filter: blur(6px);
+}
+
+.crux-hero-copy.crux-hero-copy-3d .button-secondary:hover {
+  color: #fff;
+  background: rgba(255,255,255,.12);
+}
+
+.crux-hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 22px;
+  color: #9ea7af;
+  font-family: "Share Tech Mono", ui-monospace, monospace;
+  font-size: .74rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.crux-hero-trust span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.crux-hero-trust span::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #e01b22;
+  box-shadow: 0 0 8px rgba(224,27,34,.65);
+}
+
+/* Old CSS-only hero logo/card are intentionally retired. */
+.crux-brand-lockup,
+.crux-hero-aside {
+  display: none;
+}
+
+/* Pull the first content section tightly against the new banner. */
+.crux-products {
+  padding-top: 76px;
+}
+
+/* Tablet / mobile: preserve the actual artwork instead of letting cover crop it randomly. */
+@media (max-width: 900px) {
+  .site-nav {
+    min-height: 68px;
+    background: linear-gradient(180deg, rgba(4,6,9,.96), rgba(4,6,9,.78));
+  }
+
+  .site-nav .nav-inner {
+    min-height: 68px;
+  }
+
+  .mobile-nav {
+    border-color: rgba(215,25,32,.32);
+    background: rgba(9,12,16,.97);
+  }
+
+  .crux-hero.crux-hero-3d {
+    min-height: 790px;
+    background-size: 1040px auto;
+    background-position: -105px 58px;
+  }
+
+  .crux-hero.crux-hero-3d::before {
+    background:
+      linear-gradient(180deg,
+        rgba(5,7,10,.03) 0px,
+        rgba(5,7,10,.04) 250px,
+        rgba(5,7,10,.72) 340px,
+        rgba(5,7,10,.96) 470px,
+        #07090c 100%);
+  }
+
+  .crux-hero-inner.crux-hero-inner-3d {
+    width: min(100% - 40px, 720px);
+    min-height: 790px;
+    padding: 375px 0 58px;
+    align-items: flex-start;
+  }
+
+  .crux-hero-copy.crux-hero-copy-3d {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .crux-hero-copy.crux-hero-copy-3d h1,
+  .crux-hero-copy.crux-hero-copy-3d .lead {
+    max-width: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .site-nav .brand-name {
+    font-size: .76rem;
+    letter-spacing: .10em;
+  }
+
+  .crux-hero.crux-hero-3d {
+    min-height: 790px;
+    background-size: 760px auto;
+    background-position: -72px 64px;
+  }
+
+  .crux-hero.crux-hero-3d::before {
+    background:
+      linear-gradient(180deg,
+        rgba(5,7,10,.02) 0px,
+        rgba(5,7,10,.06) 205px,
+        rgba(5,7,10,.75) 285px,
+        rgba(5,7,10,.98) 365px,
+        #07090c 100%);
+  }
+
+  .crux-hero-inner.crux-hero-inner-3d {
+    width: min(100% - 28px, 560px);
+    min-height: 790px;
+    padding: 315px 0 46px;
+  }
+
+  .crux-hero-copy.crux-hero-copy-3d h1 {
+    font-size: clamp(1.92rem, 9.4vw, 2.7rem);
+  }
+
+  .crux-hero-copy.crux-hero-copy-3d .actions {
+    flex-direction: column;
+  }
+
+  .crux-hero-copy.crux-hero-copy-3d .button {
+    width: 100%;
+  }
+
+  .crux-hero-trust {
+    gap: 6px 12px;
+    font-size: .69rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .crux-hero.crux-hero-3d {
+    background-size: 700px auto;
+    background-position: -78px 66px;
+  }
+
+  .crux-hero-inner.crux-hero-inner-3d {
+    padding-top: 292px;
+  }
+
+  .crux-hero-copy.crux-hero-copy-3d h1 {
+    font-size: 1.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crux-hero-copy.crux-hero-copy-3d .button {
+    transition: none;
+  }
+}
