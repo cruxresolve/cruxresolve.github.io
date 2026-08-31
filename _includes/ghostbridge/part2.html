@@ -6,41 +6,15 @@
 <div class="grid grid-2">
 <article class="card"><h3><span aria-hidden="true">🔌 </span>Assembled hardware</h3><p>The bridge arrives assembled with a DB9 RS232 interface and USB-C power input. Join its WiFi network and connect through the published local TCP endpoint.</p></article>
 <article class="card"><h3><span aria-hidden="true">📡 </span>Its own WiFi network</h3><p>No router or internet connection is required. A phone, tablet, computer, or other compatible TCP client can connect directly to the bridge’s local access point.</p></article>
-<article class="card"><h3><span aria-hidden="true">✅ </span>Optimized for GhostTune</h3><p>GhostBridge is designed and verified around GhostTune’s MicroSquirt workflow, providing a known hardware path for the supported ECU profile.</p></article>
+<article class="card"><h3><span aria-hidden="true">✅ </span>Optimized for GhostTune</h3><p>GhostBridge is designed and verified around GhostTune’s MicroSquirt workflow, providing a known hardware path for the supported ECU configuration.</p></article>
 <article class="card"><h3><span aria-hidden="true">↔️ </span>Not software-locked</h3><p>The byte-relay design is not restricted to GhostTune. Other RS232 and TCP applications may work when the complete serial and electrical setup is compatible; they are not represented as verified unless Crux Resolve explicitly lists them.</p></article>
 <article class="card"><h3><span aria-hidden="true">🔐 </span>Local communication</h3><p>Serial traffic stays on the direct local connection. GhostBridge does not provide a cloud relay or remote logging service.</p></article>
-<article class="card"><h3><span aria-hidden="true">🧰 </span>Rev 12 enclosure</h3><p>The production enclosure uses a 3 mm main wall, reinforced connector closures, four M3 screw rails, internal ribs, rubber-foot recesses, and debossed branding.</p></article>
+<article class="card"><h3><span aria-hidden="true">🧰 </span>Built for practical use</h3><p>The assembled enclosure protects the board and connectors while keeping the DB9 serial interface and USB-C power connection easy to access.</p></article>
 </div>
 <figure class="card" style="max-width:720px;margin:28px auto 0;">
 <img src="/assets/gb01/gb01-db9-front.webp" alt="GhostBridge GB-01 production bridge front view showing the DB9 RS232 connector" loading="lazy" width="1538" height="1376" style="width:100%;height:auto;border-radius:10px;" />
-<figcaption class="muted" style="margin-top:10px;">Production GB-01 enclosure and DB9 RS232 interface.</figcaption>
+<figcaption class="muted" style="margin-top:10px;">GhostBridge GB-01 assembled enclosure and DB9 RS232 interface.</figcaption>
 </figure>
-</div>
-</section>
-<section class="section-divider" id="roadmap">
-<div class="container">
-<div class="section-label">// Next generation</div>
-<h2>GhostBridge v2.0 (GB-02) is in development.</h2>
-<p class="section-intro">GhostBridge v1.0 (GB-01) is the currently available RS232-to-WiFi bridge. GhostBridge v2.0 (GB-02) is being developed as a broader WiFi interface platform designed to move beyond RS232-only operation while remaining independent of any one ECU or client application.</p>
-<div class="grid grid-2">
-<figure class="card">
-<img src="/assets/ghostbridge-gb02-v2.jpg" alt="GhostBridge v2.0 GB-02 development concept showing a universal breakout harness and planned multi-transport interfaces" loading="lazy" style="width:100%;height:auto;border-radius:10px;" />
-<figcaption class="muted" style="margin-top:10px;">GhostBridge v2.0 (GB-02) development concept. Final production hardware may differ.</figcaption>
-</figure>
-<div class="card">
-<h3>Planned GB-02 v1 transport targets</h3>
-<ul class="spec-list">
-<li>WiFi to RS-232.</li>
-<li>WiFi to TTL UART.</li>
-<li>WiFi to RS-485.</li>
-<li>WiFi to CAN / CAN-FD.</li>
-<li>WiFi to USB Serial / Host.</li>
-<li>Universal I/O breakout-harness architecture for transport-specific connections.</li>
-</ul>
-<p class="muted"><strong>Development status:</strong> these are planned GB-02 v1 targets, not claims of currently shipping or fully validated support. Each interface will be represented as supported only after its hardware, firmware, electrical, and transport behavior has been qualified.</p>
-</div>
-</div>
-<div class="notice" style="margin-top:18px;"><strong>Transport is not protocol:</strong> GhostBridge is intended to move bytes and frames between WiFi clients and supported wired interfaces. ECU, device, or application-specific meaning remains with the client software rather than being hard-coded into the bridge.</div>
 </div>
 </section>
 <section class="section-divider" id="setup">
@@ -50,7 +24,7 @@
 <div class="steps">
 <article class="step"><div><h3>Connect and power</h3><p class="muted">Connect the DB9 interface to the supported ECU serial connection and power GhostBridge through USB-C.</p></div></article>
 <article class="step"><div><h3>Join the bridge network</h3><p class="muted">In the iPhone or iPad WiFi settings, select the network named <code>GhostBridge-XXXXX</code>. The password is <code>1234</code> followed by the last four characters of that WiFi name. Example: <code>GhostBridge-ABCDE</code> uses password <code>1234BCDE</code>. Each GhostBridge uses device-specific credentials so nearby units do not share the same password.</p></div></article>
-<article class="step"><div><h3>Open GhostTune</h3><p class="muted">GhostTune connects to <code>192.168.4.1</code> on TCP port <code>35000</code> and verifies the supported ECU profile.</p></div></article>
+<article class="step"><div><h3>Open GhostTune</h3><p class="muted">GhostTune connects to <code>192.168.4.1</code> on TCP port <code>35000</code> and confirms the supported ECU configuration.</p></div></article>
 </div>
 <div class="notice" style="margin-top:18px;"><strong>Using other serial software?</strong> The host application must be able to communicate through the bridge’s local TCP endpoint, and the connected hardware, cabling, electrical interface, and serial configuration must be compatible. Crux Resolve only represents configurations as verified when they are explicitly listed.</div>
 </div>
