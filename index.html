@@ -5,6 +5,12 @@ description: "Crux Resolve LLC is a veteran-owned small business building GhostT
 canonical: https://cruxresolve.com/
 extra_css: /assets/css/home-crux-3d.css
 ---
+{% capture crux_hero_art %}{% include crux-hero-3d/part-00.b64 %}{% include crux-hero-3d/part-01.b64 %}{% include crux-hero-3d/part-02.b64 %}{% include crux-hero-3d/part-03.b64 %}{% include crux-hero-3d/part-04.b64 %}{% include crux-hero-3d/part-05.b64 %}{% include crux-hero-3d/part-06.b64 %}{% endcapture %}
+<style>
+  .crux-hero.crux-hero-3d {
+    --crux-hero-art: url("data:image/jpeg;base64,{{ crux_hero_art | strip_newlines | strip }}");
+  }
+</style>
 <main id="main-content" class="crux-home">
   <section class="crux-hero crux-hero-3d" aria-labelledby="crux-home-title">
     <div class="crux-hero-inner crux-hero-inner-3d">
