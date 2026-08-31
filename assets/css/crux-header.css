@@ -1,0 +1,87 @@
+/* Global Crux Resolve dimensional header, promoted from the validated isolated header test. */
+.site-nav {
+  min-height: 138px;
+  background-color: #05070b;
+  background-image:
+    linear-gradient(90deg, rgba(5, 7, 11, .02) 0%, rgba(5, 7, 11, .08) 38%, rgba(5, 7, 11, .72) 66%, rgba(5, 7, 11, .94) 100%),
+    url('/assets/crux-resolve-header.webp');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, left center;
+  background-size: 100% 100%, auto 260px;
+  backdrop-filter: none;
+}
+
+.site-nav .nav-inner {
+  min-height: 138px;
+}
+
+.site-nav .brand {
+  margin-left: 240px;
+}
+
+.site-nav .brand img {
+  display: none;
+}
+
+.site-nav .brand-name {
+  color: #f5f7fb;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .9);
+}
+
+.site-nav .nav-links a,
+.site-nav .mobile-nav a {
+  color: #d9e0ec;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .9);
+}
+
+@media (max-width: 900px) {
+  .site-nav {
+    min-height: 112px;
+    background-size: 100% 100%, auto 220px;
+  }
+
+  .site-nav .nav-inner {
+    min-height: 112px;
+  }
+
+  .site-nav .brand {
+    margin-left: 165px;
+  }
+}
+
+@media (max-width: 620px) {
+  .site-nav {
+    min-height: 108px;
+    background-size: 100% 100%, auto 205px;
+    background-position: center, -8px center;
+  }
+
+  .site-nav .nav-inner {
+    min-height: 108px;
+    gap: 12px;
+  }
+
+  .site-nav .brand {
+    margin-left: 150px;
+  }
+
+  .site-nav .brand-name {
+    font-size: .70rem;
+    letter-spacing: .08em;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-nav {
+    background-position: center, -20px center;
+  }
+
+  .site-nav .brand {
+    margin-left: 132px;
+  }
+
+  .site-nav .brand-name {
+    font-size: .64rem;
+    letter-spacing: .06em;
+  }
+}
