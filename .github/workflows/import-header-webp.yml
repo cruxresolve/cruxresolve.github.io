@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/import-header-webp.yml'
       - '.github/header-transfer/part10.txt'
+  workflow_dispatch:
 
 permissions:
   contents: write
