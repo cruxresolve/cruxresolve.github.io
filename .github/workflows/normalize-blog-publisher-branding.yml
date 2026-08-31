@@ -1,0 +1,57 @@
+name: Normalize blog publisher branding
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/normalize-blog-publisher-branding.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Normalize Crux Resolve author and publisher entities
+        shell: python
+        run: |
+          from pathlib import Path
+
+          old_author = '"author":{"@type":"Organization","name":"Crux Resolve LLC"}'
+          new_author = '"author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"}'
+          old_publisher = '"publisher":{"@type":"Organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/ghosttune-app-icon.png"}}'
+          new_publisher = '"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}}'
+
+          changed = []
+          for path in sorted(Path("blog").glob("*.html")):
+              text = path.read_text(encoding="utf-8")
+              updated = text.replace(old_author, new_author).replace(old_publisher, new_publisher)
+              if updated != text:
+                  path.write_text(updated, encoding="utf-8")
+                  changed.append(str(path))
+
+          print("Changed blog files:")
+          for path in changed:
+              print(path)
+
+          remaining = []
+          for path in sorted(Path("blog").glob("*.html")):
+              text = path.read_text(encoding="utf-8")
+              if old_publisher in text:
+                  remaining.append(str(path))
+          if remaining:
+              raise SystemExit(f"Old publisher branding remains in: {remaining}")
+      - name: Commit normalized blog metadata
+        shell: bash
+        run: |
+          if git diff --quiet -- blog; then
+            echo "No blog metadata changes needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add blog
+          git commit -m "Normalize Crux Resolve blog publisher identity"
+          git push
