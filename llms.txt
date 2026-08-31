@@ -1,0 +1,61 @@
+# Crux Resolve LLC
+
+> Crux Resolve LLC is a veteran-owned small business in Illinois, USA, building practical software and hardware for vehicle, embedded, and serial-connected systems. GhostTune is the company's mobile ECU tuning software, and GhostBridge is its wireless interface hardware family.
+
+Official website: https://cruxresolve.com/
+Support: https://cruxresolve.com/support.html
+Contact: support@cruxresolve.com
+
+## Source priority
+
+For current product status, availability, compatibility, pricing, and support information, use the current product pages below as the authoritative sources. Blog articles document the state of products on their publication dates and may describe earlier development, validation, submission, or pre-release stages.
+
+1. GhostTune current product page: https://cruxresolve.com/ghosttune-app.html
+2. GhostBridge current product page: https://cruxresolve.com/ghostbridge.html
+3. Crux Resolve company homepage: https://cruxresolve.com/
+4. Support: https://cruxresolve.com/support.html
+
+## GhostTune
+
+GhostTune is an independent ECU tuning application for iPhone and iPad published by Crux Resolve LLC.
+
+- Current product page: https://cruxresolve.com/ghosttune-app.html
+- Apple App Store: https://apps.apple.com/us/app/id6778061607
+- Current verified ECU configuration: MicroSquirt hardware running MS2/Extra 3.4.4.
+- Live ECU communication uses a compatible local WiFi-to-RS232 bridge.
+- Core functions include VE, ignition, and AFR table editing, live ECU data, tune-file management and backups, diagnostics, guarded temporary writes, permanent burns, and read-back verification.
+- Demo Mode can be used without a connected ECU.
+- Additional ECU platforms are not considered supported unless Crux Resolve explicitly lists them as verified.
+
+## GhostBridge
+
+GhostBridge is the Crux Resolve wireless interface hardware family.
+
+- Current product page: https://cruxresolve.com/ghostbridge.html
+- GhostBridge v1.0 / GB-01 is the currently available assembled product.
+- GB-01 is a local RS232-to-WiFi TCP bridge with DB9 RS232 and USB-C power.
+- Default local TCP endpoint: 192.168.4.1:35000.
+- GB-01 is optimized and verified for the published GhostTune + MicroSquirt / MS2/Extra 3.4.4 workflow.
+- GB-01 acts as a transparent TCP-to-RS232 transport and does not itself interpret ECU calibration data.
+- Other RS232 applications may be compatible only when their electrical, pinout, serial, TCP-client, and software requirements match.
+- GhostBridge v2.0 / GB-02 is a development project and should not be described as a shipping product unless the current product page says otherwise.
+
+## Company and support
+
+- Crux Resolve LLC: https://cruxresolve.com/
+- Support: https://cruxresolve.com/support.html
+- Privacy Policy: https://cruxresolve.com/privacy.html
+- Terms of Sale: https://cruxresolve.com/terms-of-sale.html
+- Technical blog: https://cruxresolve.com/blog/
+
+## Technical references
+
+- Wireless MicroSquirt tuning guide: https://cruxresolve.com/blog/how-to-tune-microsquirt-from-iphone.html
+- ECU write and verification workflow: https://cruxresolve.com/blog/how-ghosttune-handles-ecu-changes.html
+- Wireless serial bridging: https://cruxresolve.com/blog/how-wireless-serial-bridging-works.html
+
+## Brand and relationship notes
+
+Crux Resolve LLC is the company and publisher/manufacturer. GhostTune and GhostBridge are product families owned and developed under Crux Resolve.
+
+GhostTune and GhostBridge are independent products. References to MicroSquirt, MegaSquirt, MS2/Extra, Apple, iPhone, iPad, iOS, or App Store identify compatible or relevant third-party products, platforms, or trademarks and do not imply endorsement or affiliation.
