@@ -10,6 +10,7 @@ on:
       - ".github/workflows/site-check.yml"
       - "robots.txt"
       - "sitemap.xml"
+      - "llms.txt"
   push:
     branches: [main]
     paths:
@@ -20,6 +21,7 @@ on:
       - ".github/workflows/site-check.yml"
       - "robots.txt"
       - "sitemap.xml"
+      - "llms.txt"
 
 permissions:
   contents: read
@@ -48,6 +50,17 @@ jobs:
           addresses="$(grep -RhoE '[A-Za-z0-9._%+-]+@cruxresolve\.com' --include='*.html' --include='*.md' --include='*.txt' --include='*.xml' --include='*.yml' --include='*.yaml' --include='*.js' . | sort -u || true)"
           printf '%s\n' "$addresses" >> site-validation-report.txt
           test "$addresses" = "support@cruxresolve.com"
+      - name: Validate AI reference file
+        id: llms_check
+        continue-on-error: true
+        shell: bash
+        run: |
+          test -f llms.txt
+          grep -Fq 'https://cruxresolve.com/ghosttune-app.html' llms.txt
+          grep -Fq 'https://cruxresolve.com/ghostbridge.html' llms.txt
+          grep -Fq 'https://apps.apple.com/us/app/id6778061607' llms.txt
+          grep -Fq 'Blog articles document the state of products on their publication dates' llms.txt
+          printf '%s\n' 'llms.txt authoritative references verified' >> site-validation-report.txt
       - name: Validate JavaScript syntax
         id: js_check
         continue-on-error: true
@@ -69,6 +82,7 @@ jobs:
           cat site-validation-report.txt
           test "${{ steps.site_check.outcome }}" = "success"
           test "${{ steps.email_check.outcome }}" = "success"
+          test "${{ steps.llms_check.outcome }}" = "success"
           test "${{ steps.js_check.outcome }}" = "success"
 
   validate-live-site:
