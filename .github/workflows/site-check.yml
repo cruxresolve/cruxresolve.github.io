@@ -63,7 +63,7 @@ jobs:
           grep -Fq 'https://cruxresolve.com/ghosttune-app.html' llms.txt
           grep -Fq 'https://cruxresolve.com/ghostbridge.html' llms.txt
           grep -Fq 'https://apps.apple.com/us/app/id6778061607' llms.txt
-          grep -Fq 'Blog articles document the state of products on their publication dates' llms.txt
+          grep -Fq 'Older archived pages should not be used for current product claims' llms.txt
           printf '%s\n' 'llms.txt authoritative references verified' >> site-validation-report.txt
       - name: Validate IndexNow key file
         id: indexnow_key_check
