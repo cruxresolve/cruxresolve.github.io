@@ -1,0 +1,191 @@
+---
+layout: default
+title: "MicroSquirt WiFi Troubleshooting: Connected but No ECU Data"
+description: "Troubleshoot a MicroSquirt WiFi connection when your iPhone or iPad joins the bridge network but the tuning app shows no ECU data or disconnects."
+canonical: https://cruxresolve.com/blog/microsquirt-wifi-troubleshooting-no-ecu-data.html
+current: blog
+og_type: article
+og_image: https://cruxresolve.com/assets/gb_hero.jpg
+---
+<style>
+.quick-answer{margin:26px 0;padding:20px 22px;border:1px solid rgba(107,220,255,.26);border-radius:12px;background:rgba(107,220,255,.055)}
+.quick-answer strong{color:#d9f8ff}
+.check-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:26px 0}
+.check-step{padding:16px;border:1px solid rgba(107,220,255,.22);border-radius:12px;background:rgba(107,220,255,.04)}
+.check-step strong{display:block;color:#e8fbff;margin-bottom:6px}
+.trouble-card{margin:24px 0;padding:20px 22px;border:1px solid rgba(255,255,255,.13);border-radius:12px;background:rgba(255,255,255,.018)}
+.trouble-card h3{margin-top:0}
+.related-guides{margin:34px 0;padding:22px;border:1px solid rgba(107,220,255,.2);border-radius:12px;background:rgba(255,255,255,.018)}
+.related-guides ul{margin-bottom:0}
+@media(max-width:760px){.check-flow{grid-template-columns:1fr}}
+</style>
+<main id="main-content">
+  <article class="article">
+    <a href="/blog/">← Back to Blog</a>
+    <div class="eyebrow" style="margin-top:28px;">// August 31, 2026 · Crux Resolve LLC</div>
+    <h1>MicroSquirt WiFi Troubleshooting: Connected to WiFi but No ECU Data</h1>
+    <p class="lead" style="text-align:left; margin-left:0;">If your iPhone or iPad can see and join a WiFi bridge but the tuning application still shows no MicroSquirt data, the wireless connection is only part of the path. The fastest way to find the problem is to check the system in order: bridge power, phone connection, ECU power and serial connection, then application compatibility.</p>
+
+    <div class="quick-answer"><strong>Quick answer:</strong> being connected to the bridge's WiFi does not by itself prove that the MicroSquirt is communicating. Confirm that the bridge stays powered, the phone remains on the bridge network, the ECU is powered, the RS232 cable is correct, and the tuning application supports the connected ECU configuration. Do not make tuning changes until live values are updating normally and look believable.</div>
+
+    <h2>Start With the Connection Path</h2>
+    <div class="check-flow" aria-label="MicroSquirt WiFi troubleshooting order">
+      <div class="check-step"><strong>1. Bridge</strong>Can the phone see the bridge's WiFi network?</div>
+      <div class="check-step"><strong>2. Phone</strong>Can the phone join and stay on that network?</div>
+      <div class="check-step"><strong>3. ECU</strong>Is the MicroSquirt powered and connected by the correct RS232 cable?</div>
+      <div class="check-step"><strong>4. App</strong>Does the tuning application support this ECU and connection?</div>
+    </div>
+    <p>Working in that order prevents a common mistake: spending time changing app settings when the ECU is simply not powered, or replacing hardware when the phone has quietly moved to another WiFi network.</p>
+
+    <h2>Problem 1: The Bridge WiFi Network Does Not Appear</h2>
+    <div class="trouble-card">
+      <h3>Check bridge power first</h3>
+      <p>If the bridge is not powered, the phone cannot see its network. Confirm the bridge is receiving stable power through the connection intended for that product.</p>
+      <p>For GhostBridge GB-01, USB-C provides power. If the network appears and disappears repeatedly, treat power stability as the first thing to verify.</p>
+    </div>
+    <div class="trouble-card">
+      <h3>Move closer to the vehicle</h3>
+      <p>Wireless range depends on the bridge, antenna location, enclosure, nearby metal, and the surrounding environment. Test from close range before assuming the bridge has failed.</p>
+    </div>
+    <div class="trouble-card">
+      <h3>Restart the connection cleanly</h3>
+      <p>Turn the bridge off, wait briefly, then power it normally and reopen WiFi settings on the phone or tablet. This is a simple way to separate a temporary wireless issue from a persistent hardware or power problem.</p>
+    </div>
+
+    <h2>Problem 2: The Phone Sees the Network but Will Not Join</h2>
+    <p>For GhostBridge GB-01, the WiFi network is named <code>GhostBridge-XXXXX</code>, with the ending identifying the individual bridge.</p>
+    <p>The password is <code>1234</code> followed by the final four characters shown in that network name. For example, <code>GhostBridge-ABCDE</code> uses password <code>1234BCDE</code>.</p>
+    <p>If the password is rejected, compare the characters carefully. Letters and numbers can be easy to misread on a small screen.</p>
+
+    <h2>Problem 3: The Phone Is Connected to WiFi but the App Shows No ECU Data</h2>
+    <p>This is where it helps to separate the WiFi side from the ECU side. The bridge can create a perfectly healthy WiFi network even when nothing is reaching the MicroSquirt.</p>
+
+    <div class="trouble-card">
+      <h3>Confirm the MicroSquirt is powered</h3>
+      <p>The ECU must be powered normally before it can answer the tuning application. If the bridge is powered separately, seeing its WiFi network does not prove that the ECU is on.</p>
+    </div>
+    <div class="trouble-card">
+      <h3>Check the RS232 cable and connector</h3>
+      <p>Make sure the bridge is connected to the correct MicroSquirt serial connection with the correct cable and orientation. A DB9 connector alone does not prove that two devices are wired the same way.</p>
+    </div>
+    <div class="trouble-card">
+      <h3>Confirm the supported ECU configuration</h3>
+      <p>A working wireless link cannot make unsupported ECU software compatible with a tuning application. For the current GhostTune release, the published verified configuration is MicroSquirt hardware running MS2/Extra 3.4.4.</p>
+    </div>
+    <div class="trouble-card">
+      <h3>Reconnect in a known order</h3>
+      <p>Close the tuning application, confirm ECU and bridge power, reconnect the phone to the bridge WiFi, then reopen the application. This creates a clean starting point without changing multiple things at once.</p>
+    </div>
+
+    <h2>Problem 4: The Phone Keeps Leaving the Bridge WiFi</h2>
+    <p>A local ECU bridge normally does not provide internet access. Some phones may prefer another remembered WiFi network when one is available.</p>
+    <p>If communication suddenly disappears, check WiFi settings and make sure the phone is still connected to the bridge network. If it moved to another network, reconnect to the bridge before continuing.</p>
+    <p>You do not need internet service for live ECU communication. The tuning connection can remain entirely local between the phone, wireless bridge, and ECU.</p>
+
+    <h2>Problem 5: Live Data Appears but Looks Wrong</h2>
+    <p>Do not treat a connection as ready for tuning just because numbers are appearing on the screen. Live values should also make sense.</p>
+    <p>Useful checks include:</p>
+    <ul>
+      <li>RPM responds correctly when the engine runs.</li>
+      <li>TPS changes with throttle movement.</li>
+      <li>MAP responds to engine vacuum and load.</li>
+      <li>Coolant and air temperatures are plausible.</li>
+      <li>Battery voltage is reasonable for the vehicle's current condition.</li>
+    </ul>
+    <p>If values are frozen, obviously incorrect, or inconsistent with the vehicle, stop and resolve the connection or compatibility issue before making ECU changes.</p>
+
+    <h2>Problem 6: The Connection Drops Intermittently</h2>
+    <p>Intermittent problems are usually easier to diagnose when you change one variable at a time.</p>
+    <ul>
+      <li><strong>Test close to the bridge.</strong> This helps separate range from other causes.</li>
+      <li><strong>Verify stable power.</strong> A brief bridge or ECU power interruption can look like a wireless failure.</li>
+      <li><strong>Inspect the serial cable.</strong> Loose connectors and damaged wiring can produce communication that comes and goes.</li>
+      <li><strong>Watch the phone's WiFi connection.</strong> Confirm it remains on the bridge network during the failure.</li>
+      <li><strong>Reduce unnecessary variables.</strong> Test with the normal verified hardware and supported ECU configuration before adding adapters or alternate cables.</li>
+    </ul>
+
+    <h2>Problem 7: WiFi Works but a Generic Bridge Does Not</h2>
+    <p>Two products can both be described as “RS232-to-WiFi” bridges and still behave differently. Wiring, electrical levels, power requirements, serial settings, network behavior, and compatibility with the tuning application all matter.</p>
+    <p>If a generic bridge creates a network but the tuning application cannot reach the ECU, verify that the complete combination is supported rather than assuming the WiFi label guarantees compatibility.</p>
+
+    <h2>GhostBridge GB-01 Quick Connection Check</h2>
+    <ol>
+      <li>Power the MicroSquirt normally.</li>
+      <li>Connect GhostBridge GB-01 to the correct RS232 connection.</li>
+      <li>Power GhostBridge through USB-C.</li>
+      <li>On iPhone or iPad, join <code>GhostBridge-XXXXX</code>.</li>
+      <li>Use <code>1234</code> plus the last four characters of the network name as the password.</li>
+      <li>Open GhostTune.</li>
+      <li>Confirm live ECU values update normally before making changes.</li>
+    </ol>
+
+    <h2>When to Contact Support</h2>
+    <p>If the verified setup still will not communicate after the checks above, email <a href="mailto:support@cruxresolve.com">support@cruxresolve.com</a>. Include the iPhone or iPad model, operating-system version, ECU hardware, ECU software version, what the phone shows in WiFi settings, and what occurs when you try to connect.</p>
+    <p>A screenshot or short screen recording can also help show whether the problem is at the WiFi connection or inside the tuning application.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <h3>Why can I connect to GhostBridge WiFi but not see MicroSquirt data?</h3>
+    <p>The bridge can create its WiFi network even when the ECU is not powered or the RS232 connection is not communicating. Check ECU power, cable connection, and supported configuration next.</p>
+
+    <h3>Does GhostBridge need internet access?</h3>
+    <p>No. The phone, bridge, and ECU communicate over a local WiFi connection.</p>
+
+    <h3>What should I check before tuning?</h3>
+    <p>Confirm that the ECU is supported, the connection is stable, and live values such as RPM, TPS, MAP, temperatures, and battery voltage look believable.</p>
+
+    <h3>What MicroSquirt configuration is currently verified with GhostTune?</h3>
+    <p>The current published verified configuration is MicroSquirt hardware running MS2/Extra 3.4.4.</p>
+
+    <div class="related-guides">
+      <h2>Related Guides and Products</h2>
+      <ul>
+        <li><a href="/blog/how-to-connect-microsquirt-to-wifi-rs232-bridge.html">How to Connect MicroSquirt to WiFi With an RS232 Bridge</a></li>
+        <li><a href="/blog/microsquirt-wifi-vs-bluetooth-mobile-tuning.html">MicroSquirt WiFi vs Bluetooth for Mobile Tuning</a></li>
+        <li><a href="/blog/how-to-tune-microsquirt-from-iphone.html">How to Tune a MicroSquirt From an iPhone</a></li>
+        <li><a href="/ghosttune-app.html">GhostTune for iPhone and iPad</a></li>
+        <li><a href="/ghostbridge.html">GhostBridge GB-01</a></li>
+        <li><a href="/support.html">Crux Resolve Support</a></li>
+      </ul>
+    </div>
+
+    <nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← All articles</a><a href="/support.html">Get Support →</a></nav>
+  </article>
+</main>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"BlogPosting",
+      "@id":"https://cruxresolve.com/blog/microsquirt-wifi-troubleshooting-no-ecu-data.html#article",
+      "headline":"MicroSquirt WiFi Troubleshooting: Connected to WiFi but No ECU Data",
+      "description":"Troubleshoot a MicroSquirt WiFi connection when your iPhone or iPad joins the bridge network but the tuning app shows no ECU data or disconnects.",
+      "datePublished":"2026-08-31",
+      "dateModified":"2026-08-31",
+      "author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},
+      "publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},
+      "mainEntityOfPage":"https://cruxresolve.com/blog/microsquirt-wifi-troubleshooting-no-ecu-data.html",
+      "image":"https://cruxresolve.com/assets/gb_hero.jpg",
+      "about":["MicroSquirt troubleshooting","WiFi ECU connection","GhostBridge","GhostTune","RS232"]
+    },
+    {
+      "@type":"FAQPage",
+      "@id":"https://cruxresolve.com/blog/microsquirt-wifi-troubleshooting-no-ecu-data.html#faq",
+      "mainEntity":[
+        {"@type":"Question","name":"Why can I connect to GhostBridge WiFi but not see MicroSquirt data?","acceptedAnswer":{"@type":"Answer","text":"The bridge can create its WiFi network even when the ECU is not powered or the RS232 connection is not communicating. Check ECU power, cable connection, and supported configuration next."}},
+        {"@type":"Question","name":"Does GhostBridge need internet access?","acceptedAnswer":{"@type":"Answer","text":"No. The phone, bridge, and ECU communicate over a local WiFi connection."}},
+        {"@type":"Question","name":"What should I check before tuning?","acceptedAnswer":{"@type":"Answer","text":"Confirm that the ECU is supported, the connection is stable, and live values such as RPM, TPS, MAP, temperatures, and battery voltage look believable."}},
+        {"@type":"Question","name":"What MicroSquirt configuration is currently verified with GhostTune?","acceptedAnswer":{"@type":"Answer","text":"The current published verified configuration is MicroSquirt hardware running MS2/Extra 3.4.4."}}
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Crux Resolve","item":"https://cruxresolve.com/"},
+        {"@type":"ListItem","position":2,"name":"Blog","item":"https://cruxresolve.com/blog/"},
+        {"@type":"ListItem","position":3,"name":"MicroSquirt WiFi Troubleshooting","item":"https://cruxresolve.com/blog/microsquirt-wifi-troubleshooting-no-ecu-data.html"}
+      ]
+    }
+  ]
+}
+</script>
