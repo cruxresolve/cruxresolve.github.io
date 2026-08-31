@@ -1,60 +1,33 @@
 ---
 layout: default
-title: "From Ladder Logic to useTheme(): One Controls Engineer's Very Slow iOS Education — Crux Resolve LLC"
-description: "How a solo controls engineer taught himself iOS development and PCB design, with an AI collaborator, to build GhostTune and GhostBridge from scratch."
+title: "Crux Resolve Product Origin Story — Archived Article"
+description: "Archived company story. See the current Crux Resolve, GhostTune, and GhostBridge pages for product information."
 canonical: https://cruxresolve.com/blog/from-ladder-logic-to-usetheme.html
+robots: noindex, follow
 current: blog
 og_type: article
 ---
 <main id="main-content">
   <article class="article">
-    <a href="/blog/">← Back to Blog</a>
-    <div class="eyebrow" style="margin-top:28px;">// July 4, 2026 · Crux Resolve LLC</div>
-    <h1>From Ladder Logic to useTheme(): One Controls Engineer's Very Slow iOS Education</h1>
-    <p class="lead" style="text-align:left; margin-left:0;">I'm a controls engineer, not an app developer. Here's the honest story of how GhostTune and GhostBridge actually got built — including the AI collaborator who was there for nearly all of it.</p>
+    <a href="/blog/">← Back to Technical Library</a>
+    <div class="eyebrow" style="margin-top:28px;">// July 4, 2026 · Archived August 31, 2026 · Crux Resolve LLC</div>
+    <h1>Crux Resolve product origin story</h1>
+    <p class="lead" style="text-align:left; margin-left:0;">This earlier behind-the-scenes article has been retired from the public technical library so current customer information remains focused on released products, supported configurations, setup, and use.</p>
 
-    <p>I've spent my career in a world where things are simple in a specific, brutal way. A relay is either energized or it isn't. A rung of ladder logic scans top to bottom, left to right, every cycle, forever, in an order you can predict on paper before you ever touch a PLC. If something's wrong, you check the wire. There's a wire, or there isn't.</p>
-    <p>None of that prepared me for React Native.</p>
-    <p>I'm a controls engineer by trade — PLCs, DeviceNet, industrial automation, the whole deterministic, ladder-logic universe. I decided to build an iOS app to tune motorcycle ECUs, because the niche I ride in (Harley-Davidsons running MicroSquirt-based standalone engine management) had no good tuning software built for a phone. So I taught myself iOS development. Except "taught myself" undersells what actually happened, and I don't want to cover that part up: I built this with an AI collaborator sitting next to me for nearly the entire project — Claude, mostly, across many sessions, plus other models along the way. This isn't a story about a guy who quietly became a self-taught iOS engineer. It's a story about a PLC guy and a language model arguing with a crash log together until it made sense.</p>
-
-    <h2>The App and the Problem</h2>
-    <p>The app is called GhostTune. It talks to MicroSquirt-based engine controllers — Alpha-N fueling, wasted-spark ignition, the works — over serial, live-tuning VE tables, ignition timing, and AFR targets, then writing and burning changes to the ECU's flash. My own test mule is a 2001 Harley FLHTCUI with a 110ci Screamin' Eagle Twin Cam and a MicroSquirt conversion, which means every bug I found, I found while trying to keep my own bike from stalling in my driveway.</p>
-    <p>Writing to a running ECU's flash memory over serial is not a place where "good enough" software is acceptable. If you write garbage, you brick the ECU or, worse, corrupt live ignition timing on an engine that's running. So GhostTune's write path follows a strict sequence — stop polling, silence the port, write, burn, wait, re-read, verify, resume polling — and every screen that touches the ECU has to respect that sequence perfectly, every time, no exceptions.</p>
-    <p>That's a very controls-engineer way to think about the problem. It's also, as I learned, not remotely how a React Native app naturally behaves.</p>
-
-    <h2>The Crash That Would Not Die</h2>
-    <p>For a long stretch of development — something like 22 build iterations — the app would hard-crash on launch. <code>EXC_CRASH</code>, <code>SIGABRT</code>, buried inside <code>com.facebook.react.ExceptionsManagerQueue</code>. If you've never seen that particular flavor of iOS crash, consider yourself lucky. It tells you almost nothing. It doesn't point at a line of your code. It points at React Native's own internals, which is a bit like a PLC fault light that just says "something, somewhere, is wrong," with no rung number.</p>
-    <p>In ladder logic, this doesn't happen. Execution order is not a mystery; it's the entire point of the language. So my instinct, every single time, was to look for a wire that wasn't connected — a missing import, a null prop, something concrete. Claude and I went through that instinct together build after build, ruling things out, adding logging, stripping screens down to nothing and rebuilding them one piece at a time to isolate where the crash actually lived.</p>
-    <p>The eventual answer had nothing to do with a broken wire. It was a broken assumption about time.</p>
-    <p>Three screens — WarmUpScreen, ConstantsScreen, and SensorMonitorScreen — had theme-dependent styles built with <code>StyleSheet.create()</code> at the module level, meaning the styles were being evaluated the instant the file loaded, before any component had actually mounted. But those styles depended on a theme value pulled from <code>useTheme()</code>, a React hook that only exists inside a rendered component. The app was trying to read the theme before there was any component context for the theme to live in. In ladder logic terms, imagine a rung trying to read the state of a relay that hasn't been wired into the rack yet — except the PLC would simply refuse to compile. React Native just... crashed, unhelpfully, somewhere in Facebook's exception plumbing, and left us to reconstruct the crime scene ourselves.</p>
-    <p>The fix was to move every theme-dependent style into a <code>createStyles(theme)</code> factory function, called at render time, once a real theme value existed. Simple, once you see it. Getting to "once you see it" took a lot of back-and-forth between me describing symptoms, Claude proposing isolation tests, both of us being wrong a few times, and eventually narrowing it down to those three files.</p>
-    <p>I want to be direct about the shape of that collaboration, because I think it's the actually interesting part of this story: I understood the stakes of the bug (a tuning app that crashes is a tuning app nobody trusts near their engine) and the domain (what a burn-and-verify cycle needs to guarantee), but I did not walk in already knowing React's render lifecycle or hook rules. Claude didn't walk in knowing anything about my motorcycle, my ECU protocol, or why a corrupted flash write is a much worse outcome than a corrupted npm install. Neither of us solved this alone. The debugging loop — where I fed back real device behavior and Claude proposed structural theories about why React was behaving that way — is what actually closed the gap.</p>
-
-    <h2>Why the Bug Mattered Beyond Itself</h2>
-    <p>Fixing the crash wasn't just about getting the app to open. It forced me to actually understand React's component lifecycle and hook rules for the first time, which mattered a lot for the rest of the app — because GhostTune's ECU write path has its own version of the same timing problem. Multiple screens can, in principle, try to grab control of the serial connection at once. In the PLC world you'd call this a race condition and reach for a mutex without thinking twice. In React Native, that pattern doesn't exist by default — you have to build it.</p>
-    <p>So we built one: a shared hook called <code>useECUManagerGuard</code> that every ECU-touching screen has to go through, acting like the guarded-access patterns I'd use in an industrial control system to make sure only one process ever has the floor. The same "before" I'd bring from PLC work — never let two things write to the same output unguarded — turned out to translate directly into JavaScript, once I had the vocabulary (again, mostly borrowed from Claude explaining React idioms) to express it.</p>
-
-    <h2>Then the Software Needed a Body</h2>
-    <p>An app that talks to an ECU over serial is only as good as the thing standing between your phone and that serial port. Phones don't have RS232 ports. So somewhere in the middle of all this, I went looking for an existing WiFi-to-serial bridge I could just buy and drop in.</p>
-    <p>What I found was a lot of general-purpose serial bridges built for things like industrial telemetry or generic IoT sensors — closed firmware, fixed baud assumptions, no real visibility into what was happening on the wire, and nothing built with the specific assumption that the "sensor" on the other end was a live engine controller mid-burn. I didn't need a black box that mostly worked. I needed something I could fully control and trust down to the byte, because the app's entire safety model depends on nothing sneaking a stray byte onto that serial line at the wrong moment. A bridge with hidden firmware behavior is a bridge I can't reason about, and I don't put things on my own bike's ECU that I can't reason about.</p>
-    <p>So, same as with the app: I built the thing I couldn't find. This time the gap wasn't React's render lifecycle, it was PCB design and RF-adjacent hardware, both of which I'd never touched. I sat down with Claude again, this time trading a completely different kind of ignorance back and forth — I understood exactly what the serial protocol needed to guarantee and why, but I'd never laid out a board, picked a level-shifter, or thought about trace routing in my life.</p>
-    <p>We worked through it in EasyEDA together: an ESP32-WROOM-32E as the brains, a MAX3232 for RS232 level shifting, a CH340C for USB-serial during development, an AMS1117 for the 3.3V rail, DB9 and USB-C connectors. The firmware itself is intentionally dumb — a transparent TCP-to-serial passthrough over WiFi. All the protocol intelligence, the part that actually knows what a legal ECU write sequence looks like, stays in the app, on purpose, so the bridge itself has nothing hidden to distrust.</p>
-    <p>From there it was the very unglamorous, very real part of hardware prototyping that software people don't always appreciate: ordering assembled boards from JLCPCB, waiting, testing, finding what didn't work, and iterating. It's called GhostBridge now, it runs its own WiFi network, and it does exactly one job, transparently, with nothing the app can't see or control.</p>
-
-    <h2>Where It Stands Now</h2>
-    <p>GhostTune is built and in TestFlight testing, headed toward the App Store, under a real company (Crux Resolve LLC) with a filed trademark and a registered copyright. GhostBridge has gone through assembled prototype runs and is a working companion product, available now. The bike it was all built for — 110ci, Alpha-N, wideband O2 feedback, all of it — starts, idles, and is in active tuning refinement, which is the whole reason any of this exists.</p>
-    <p>All of it — the crash, the guard hook, the board, the whole thing — happened in about six to eight months, alongside a full-time day job. That timeline is part of the point: none of this was a sabbatical project. It was nights and weekends, an AI collaborator who didn't need to sleep, and a lot of stubbornness.</p>
-    <p>None of it happened because I quietly became a React Native expert, or a PCB designer, in isolation. It happened because a controls engineer who thinks in relays and scan cycles sat down with an AI that thinks in hooks, render trees, and trace widths, twice — once for the crash log, once for the board — and both times the two of us spent a long time arguing with something neither of us fully understood alone until it finally told us the truth. I'm not sure that's a less interesting story than "self-taught developer ships app and hardware." I think it might be a more honest one.</p>
+    <h2>Why Crux Resolve exists</h2>
+    <p>Crux Resolve grew from a practical need for better ways to connect mobile devices with vehicle and serial-connected systems. That work became two separate products: GhostTune for mobile ECU tuning and GhostBridge for local wireless serial communication.</p>
+    <p>The current website focuses on what those products do today, which configurations are verified, how to set them up, and where to get direct support.</p>
 
     <div class="actions">
-      <a class="button button-primary" href="/ghosttune-app.html">Explore GhostTune</a>
-      <a class="button button-secondary" href="/ghostbridge.html">See GhostBridge</a>
+      <a class="button button-primary" href="/">Crux Resolve home</a>
+      <a class="button button-secondary" href="/ghosttune-app.html">Explore GhostTune</a>
+      <a class="button button-secondary" href="/ghostbridge.html">Explore GhostBridge</a>
     </div>
 
     <nav class="article-nav" aria-label="Article navigation">
-      <a href="/blog/">← All articles</a>
-      <a href="/support.html">Questions? Visit Support →</a>
+      <a href="/blog/">← Technical Library</a>
+      <a href="/support.html">Visit Support →</a>
     </nav>
   </article>
 </main>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"From Ladder Logic to useTheme(): One Controls Engineer's Very Slow iOS Education","description":"How a solo controls engineer taught himself iOS development and PCB design, with an AI collaborator, to build GhostTune and GhostBridge from scratch.","datePublished":"2026-07-04","dateModified":"2026-07-04","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/from-ladder-logic-to-usetheme.html","image":"https://cruxresolve.com/assets/og-banner.png"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Crux Resolve Product Origin Story — Archived Article","description":"Archived company story. See the current Crux Resolve, GhostTune, and GhostBridge pages for product information.","datePublished":"2026-07-04","dateModified":"2026-08-31","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/from-ladder-logic-to-usetheme.html","image":"https://cruxresolve.com/assets/og-banner.png"}</script>
