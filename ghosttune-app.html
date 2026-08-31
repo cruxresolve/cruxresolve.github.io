@@ -14,46 +14,165 @@ extra_css: /assets/css/ghosttune-video.css
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": ["SoftwareApplication", "MobileApplication"],
-  "@id": "https://cruxresolve.com/ghosttune-app.html#software",
-  "name": "GhostTune",
-  "softwareVersion": "1.0.0",
-  "applicationCategory": "UtilitiesApplication",
-  "applicationSubCategory": "ECU tuning and engine management",
-  "operatingSystem": "iOS and iPadOS",
-  "availableOnDevice": ["iPhone", "iPad"],
-  "url": "https://cruxresolve.com/ghosttune-app.html",
-  "downloadUrl": "https://apps.apple.com/us/app/id6778061607",
-  "sameAs": ["https://apps.apple.com/us/app/id6778061607"],
-  "image": "https://cruxresolve.com/assets/ghosttune-app-icon.png",
-  "screenshot": [
-    "https://cruxresolve.com/assets/framed/IMG_4079_framed.png",
-    "https://cruxresolve.com/assets/framed/IMG_4082_framed.png"
-  ],
-  "description": "Independent ECU tuning application for iPhone and iPad. GhostTune communicates over a local WiFi-to-RS232 bridge and is production-validated for MicroSquirt hardware running MS2/Extra 3.4.4.",
-  "keywords": "MicroSquirt tuning, MS2/Extra tuning, iPhone ECU tuning, iPad ECU tuning, EFI tuning, engine management, WiFi ECU tuning",
-  "featureList": [
-    "VE table editing",
-    "Ignition table editing",
-    "AFR target table editing",
-    "Live ECU data",
-    "Tune backups and restore",
-    "Connection diagnostics",
-    "Guarded temporary writes and permanent burns",
-    "Demo Mode",
-    "Contextual Ghost Guide help"
-  ],
-  "softwareRequirements": "For live ECU tuning, a compatible local WiFi-to-RS232 bridge and a verified ECU/firmware profile are required. Demo Mode can be used without connected ECU hardware.",
-  "softwareHelp": {
-    "@type": "WebPage",
-    "url": "https://cruxresolve.com/support.html",
-    "name": "GhostTune Support"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "@id": "https://cruxresolve.com/#organization",
-    "name": "Crux Resolve LLC",
-    "url": "https://cruxresolve.com/"
-  }
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://cruxresolve.com/ghosttune-app.html#webpage",
+      "url": "https://cruxresolve.com/ghosttune-app.html",
+      "name": "GhostTune — MicroSquirt & MS2/Extra ECU Tuning App for iPhone",
+      "description": "Tune a verified MicroSquirt ECU from iPhone or iPad over local WiFi. GhostTune is an independent EFI tuning app with VE, ignition, AFR, live data, diagnostics, backups, and guarded ECU writes.",
+      "isPartOf": {
+        "@id": "https://cruxresolve.com/#organization"
+      },
+      "mainEntity": {
+        "@id": "https://cruxresolve.com/ghosttune-app.html#software"
+      }
+    },
+    {
+      "@type": ["SoftwareApplication", "MobileApplication"],
+      "@id": "https://cruxresolve.com/ghosttune-app.html#software",
+      "name": "GhostTune",
+      "softwareVersion": "1.0.0",
+      "applicationCategory": "UtilitiesApplication",
+      "applicationSubCategory": "ECU tuning and engine management",
+      "operatingSystem": "iOS and iPadOS",
+      "availableOnDevice": ["iPhone", "iPad"],
+      "url": "https://cruxresolve.com/ghosttune-app.html",
+      "downloadUrl": "https://apps.apple.com/us/app/id6778061607",
+      "sameAs": ["https://apps.apple.com/us/app/id6778061607"],
+      "image": "https://cruxresolve.com/assets/ghosttune-app-icon.png",
+      "screenshot": [
+        "https://cruxresolve.com/assets/framed/IMG_4079_framed.png",
+        "https://cruxresolve.com/assets/framed/IMG_4082_framed.png"
+      ],
+      "description": "Independent ECU tuning application for iPhone and iPad. GhostTune communicates over a local WiFi-to-RS232 bridge and is production-validated for MicroSquirt hardware running MS2/Extra 3.4.4.",
+      "keywords": "MicroSquirt tuning, MS2/Extra tuning, iPhone ECU tuning, iPad ECU tuning, EFI tuning, engine management, WiFi ECU tuning",
+      "featureList": [
+        "VE table editing",
+        "Ignition table editing",
+        "AFR target table editing",
+        "Live ECU data",
+        "Tune backups and restore",
+        "Connection diagnostics",
+        "Guarded temporary writes and permanent burns",
+        "Demo Mode",
+        "Contextual Ghost Guide help"
+      ],
+      "softwareRequirements": "For live ECU tuning, a compatible local WiFi-to-RS232 bridge and a verified ECU/firmware profile are required. The current production-validated configuration is MicroSquirt hardware running MS2/Extra 3.4.4. Demo Mode can be used without connected ECU hardware.",
+      "mainEntityOfPage": {
+        "@id": "https://cruxresolve.com/ghosttune-app.html#webpage"
+      },
+      "softwareHelp": {
+        "@type": "WebPage",
+        "url": "https://cruxresolve.com/support.html",
+        "name": "GhostTune Support"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://cruxresolve.com/#organization",
+        "name": "Crux Resolve LLC",
+        "url": "https://cruxresolve.com/"
+      },
+      "provider": {
+        "@type": "Organization",
+        "@id": "https://cruxresolve.com/#organization",
+        "name": "Crux Resolve LLC",
+        "url": "https://cruxresolve.com/"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://apps.apple.com/us/app/id6778061607",
+        "availability": "https://schema.org/InStock",
+        "seller": {
+          "@type": "Organization",
+          "@id": "https://cruxresolve.com/#organization",
+          "name": "Crux Resolve LLC"
+        }
+      },
+      "potentialAction": {
+        "@type": "DownloadAction",
+        "target": "https://apps.apple.com/us/app/id6778061607"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://cruxresolve.com/ghosttune-app.html#faq-schema",
+      "url": "https://cruxresolve.com/ghosttune-app.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I tune a MicroSquirt from an iPhone or iPad?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. GhostTune is built for iPhone and iPad and the current release is production-validated with MicroSquirt hardware running MS2/Extra 3.4.4. Live ECU communication uses a compatible local WiFi-to-RS232 bridge."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can GhostTune tune without a laptop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. GhostTune provides its tuning interface directly on iPhone and iPad. For the verified live setup, the Apple device connects over local WiFi to a compatible RS232 bridge attached to the ECU."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does GhostTune use Bluetooth or WiFi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GhostTune uses a local WiFi connection through a compatible WiFi-to-RS232 bridge for live ECU communication. GhostBridge v1.0 (GB-01) is Crux Resolve’s assembled bridge optimized and verified for this workflow."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What ECUs does GhostTune support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The current release is verified with MicroSquirt hardware running MS2/Extra 3.4.4 firmware. Additional ECU platforms are under development, but they are not represented as supported unless they are explicitly added to the compatibility table after independent validation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if the connection is interrupted during a write?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GhostTune uses guarded sequencing, response validation, re-reading, and verification. If an interruption or mismatch is detected, the app stops the operation, reports the detected state, and provides recovery guidance. No software can guarantee protection from every power, hardware, or firmware failure, so a known-good backup remains essential."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does GhostTune work without a connected ECU?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Demo Mode lets you explore the interface and simulated live data before connecting to an ECU."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is tune data sent to the cloud?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. ECU communication, tune files, and engine data remain on your device and local WiFi connection unless you deliberately export or share a file."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does GhostTune support MS3 or other MegaSquirt variants?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not in the current release. Additional MegaSquirt-family and other ECU-platform compatibility work is underway, and each platform remains blocked until its reads, writes, burns, safety gates, and recovery behavior are validated."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I have to use GhostBridge with GhostTune?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GhostBridge v1.0 (GB-01) is the Crux Resolve hardware designed and verified for the published workflow. GhostTune is not intentionally locked to a GhostBridge identity; another compatible WiFi-to-RS232 bridge must still meet the communication requirements of the supported configuration."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
