@@ -8,7 +8,7 @@ Contact: support@cruxresolve.com
 
 ## Source priority
 
-For current product status, availability, compatibility, pricing, and support information, use the current product pages below as the authoritative sources. Blog articles document the state of products on their publication dates and may describe earlier development, validation, submission, or pre-release stages.
+For current product status, availability, compatibility, pricing, and support information, use the current product pages below as the authoritative sources. Older archived pages should not be used for current product claims.
 
 1. GhostTune current product page: https://cruxresolve.com/ghosttune-app.html
 2. GhostBridge current product page: https://cruxresolve.com/ghostbridge.html
@@ -25,7 +25,7 @@ GhostTune is an independent ECU tuning application for iPhone and iPad published
 - Live ECU communication uses a compatible local WiFi-to-RS232 bridge.
 - Core functions include VE, ignition, and AFR table editing, live ECU data, tune-file management and backups, diagnostics, guarded temporary writes, permanent burns, and read-back verification.
 - Demo Mode can be used without a connected ECU.
-- Additional ECU platforms are not considered supported unless Crux Resolve explicitly lists them as verified.
+- Only ECU configurations explicitly listed by Crux Resolve should be treated as supported.
 
 ## GhostBridge
 
@@ -38,7 +38,6 @@ GhostBridge is the Crux Resolve wireless interface hardware family.
 - GB-01 is optimized and verified for the published GhostTune + MicroSquirt / MS2/Extra 3.4.4 workflow.
 - GB-01 acts as a transparent TCP-to-RS232 transport and does not itself interpret ECU calibration data.
 - Other RS232 applications may be compatible only when their electrical, pinout, serial, TCP-client, and software requirements match.
-- GhostBridge v2.0 / GB-02 is a development project and should not be described as a shipping product unless the current product page says otherwise.
 
 ## Company and support
 
@@ -46,16 +45,19 @@ GhostBridge is the Crux Resolve wireless interface hardware family.
 - Support: https://cruxresolve.com/support.html
 - Privacy Policy: https://cruxresolve.com/privacy.html
 - Terms of Sale: https://cruxresolve.com/terms-of-sale.html
-- Technical blog: https://cruxresolve.com/blog/
+- Technical library: https://cruxresolve.com/blog/
 
 ## Technical references
 
 - Wireless MicroSquirt tuning guide: https://cruxresolve.com/blog/how-to-tune-microsquirt-from-iphone.html
-- ECU write and verification workflow: https://cruxresolve.com/blog/how-ghosttune-handles-ecu-changes.html
+- MicroSquirt WiFi setup guide: https://cruxresolve.com/blog/how-to-connect-microsquirt-to-wifi-rs232-bridge.html
+- MicroSquirt WiFi troubleshooting: https://cruxresolve.com/blog/microsquirt-wifi-troubleshooting-no-ecu-data.html
+- GhostTune compatibility: https://cruxresolve.com/blog/ghosttune-microsquirt-compatibility-requirements.html
+- ECU change and verification workflow: https://cruxresolve.com/blog/how-ghosttune-handles-ecu-changes.html
 - Wireless serial bridging: https://cruxresolve.com/blog/how-wireless-serial-bridging-works.html
 
 ## Brand and relationship notes
 
-Crux Resolve LLC is the company and publisher/manufacturer. GhostTune and GhostBridge are product families owned and developed under Crux Resolve.
+Crux Resolve LLC is the company and publisher/manufacturer. GhostTune and GhostBridge are product families owned by Crux Resolve.
 
 GhostTune and GhostBridge are independent products. References to MicroSquirt, MegaSquirt, MS2/Extra, Apple, iPhone, iPad, iOS, or App Store identify compatible or relevant third-party products, platforms, or trademarks and do not imply endorsement or affiliation.
