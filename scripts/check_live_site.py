@@ -25,14 +25,14 @@ CHECKS = {
         "GhostBridge GB-01",
         "RS232-to-WiFi TCP bridge",
         "Confirm the complete setup.",
-        "97.95 × 77.01 × 22.55 mm",
+        "Built for practical use",
         "Buy GhostBridge · $89",
     ),
     "https://cruxresolve.com/blog/how-to-tune-microsquirt-from-iphone.html": (
         "How to Tune a MicroSquirt From an iPhone",
-        "MicroSquirt wireless tuning communication path",
-        "Temporary Writes vs. Permanent Changes",
-        "GhostTune and GhostBridge",
+        "How the wireless connection works",
+        "Step 5: Make supported calibration changes",
+        "Related guides",
     ),
     "https://cruxresolve.com/support.html": (
         "Direct product support.",
@@ -68,6 +68,18 @@ FORBIDDEN = {
         "Live-ECU testing is underway.",
         "Live-ECU testing in progress",
         "Join release updates",
+        "Additional ECU platforms are under development",
+    ),
+    "https://cruxresolve.com/ghostbridge.html": (
+        "GhostBridge v2.0",
+        "GB-02",
+        "Next generation",
+        "Planned GB-02",
+    ),
+    "https://cruxresolve.com/": (
+        "GhostBridge v2.0",
+        "GB-02",
+        "development progress",
     ),
 }
 
