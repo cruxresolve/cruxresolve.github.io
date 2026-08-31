@@ -1,0 +1,162 @@
+---
+layout: default
+title: "How to Connect MicroSquirt to WiFi With an RS232 Bridge"
+description: "Connect a MicroSquirt ECU to iPhone or iPad over local WiFi using an RS232 bridge, with setup steps, connection checks, and troubleshooting tips."
+canonical: https://cruxresolve.com/blog/how-to-connect-microsquirt-to-wifi-rs232-bridge.html
+current: blog
+og_type: article
+og_image: https://cruxresolve.com/assets/gb_hero.jpg
+---
+<style>
+.quick-answer{margin:26px 0;padding:20px 22px;border:1px solid rgba(107,220,255,.26);border-radius:12px;background:rgba(107,220,255,.055)}
+.quick-answer strong{color:#d9f8ff}
+.setup-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:26px 0}
+.setup-step{padding:16px;border:1px solid rgba(107,220,255,.22);border-radius:12px;background:rgba(107,220,255,.045)}
+.setup-step strong{display:block;color:#e8fbff;margin-bottom:6px}
+.article-image{margin:30px auto;max-width:820px}
+.article-image img{width:100%;height:auto;display:block;border-radius:12px}
+.article-image figcaption{margin-top:9px;color:var(--muted);font-size:.84rem;text-align:center}
+.related-guides{margin:34px 0;padding:22px;border:1px solid rgba(107,220,255,.2);border-radius:12px;background:rgba(255,255,255,.018)}
+.related-guides ul{margin-bottom:0}
+@media(max-width:760px){.setup-flow{grid-template-columns:1fr}}
+</style>
+<main id="main-content">
+  <article class="article">
+    <a href="/blog/">← Back to Blog</a>
+    <div class="eyebrow" style="margin-top:28px;">// August 31, 2026 · Crux Resolve LLC</div>
+    <h1>How to Connect MicroSquirt to WiFi With an RS232 Bridge</h1>
+    <p class="lead" style="text-align:left; margin-left:0;">A MicroSquirt does not need built-in WiFi to communicate wirelessly with an iPhone or iPad. A compatible RS232-to-WiFi bridge can sit between the ECU and the mobile device, allowing supported tuning software to communicate over a private local network instead of a cable.</p>
+
+    <div class="quick-answer"><strong>Quick answer:</strong> connect the RS232 bridge to the MicroSquirt, power the bridge, join the bridge's local WiFi network from the phone or tablet, then use compatible tuning software to connect through the bridge. With GhostBridge GB-01, the local connection is provided over WiFi and the current verified GhostTune configuration is MicroSquirt hardware running MS2/Extra 3.4.4.</div>
+
+    <figure class="article-image card">
+      <img src="/assets/gb_hero.jpg" alt="GhostBridge GB-01 RS232-to-WiFi bridge for a local MicroSquirt connection" width="1200" height="630" />
+      <figcaption>GhostBridge GB-01 provides an RS232-to-WiFi connection for the currently verified GhostTune and MicroSquirt setup.</figcaption>
+    </figure>
+
+    <h2>What the WiFi Bridge Actually Does</h2>
+    <p>The bridge replaces the physical cable between the tuning device and the ECU's serial connection. The MicroSquirt continues using its normal serial interface; the bridge makes that connection available over local WiFi.</p>
+    <p>The basic path is:</p>
+    <div class="notice"><strong>MicroSquirt → RS232 → WiFi bridge → local WiFi → iPhone or iPad</strong></div>
+    <p>The bridge is not a replacement ECU and does not change the calibration by itself. It provides the communication path. The tuning application on the phone or tablet is what displays live ECU information and, when supported, allows calibration work.</p>
+
+    <h2>What You Need</h2>
+    <ul>
+      <li>A MicroSquirt ECU with a supported firmware configuration.</li>
+      <li>A compatible RS232 connection and cable.</li>
+      <li>An RS232-to-WiFi bridge that matches the electrical and connection requirements of the setup.</li>
+      <li>An iPhone or iPad with compatible tuning software.</li>
+      <li>Stable power for the ECU and bridge.</li>
+    </ul>
+    <p>For the current Crux Resolve setup, GhostBridge GB-01 provides the wireless RS232 connection and GhostTune provides the iPhone/iPad tuning application. The published verified ECU configuration is MicroSquirt hardware running MS2/Extra 3.4.4.</p>
+
+    <h2>Step-by-Step: Connecting MicroSquirt to WiFi</h2>
+    <div class="setup-flow" aria-label="MicroSquirt WiFi connection steps">
+      <div class="setup-step"><strong>1. Connect</strong>Attach the RS232 bridge to the correct MicroSquirt serial connection.</div>
+      <div class="setup-step"><strong>2. Power</strong>Power the ECU and the WiFi bridge using their normal power connections.</div>
+      <div class="setup-step"><strong>3. Join WiFi</strong>Open WiFi settings on the iPhone or iPad and join the bridge's local network.</div>
+      <div class="setup-step"><strong>4. Open the app</strong>Launch compatible tuning software and establish the ECU connection.</div>
+    </div>
+
+    <h3>1. Connect the RS232 bridge to the MicroSquirt</h3>
+    <p>Start with the ECU powered off. Connect the bridge using the correct serial cable and pinout for the installation. A DB9 connector by itself does not guarantee compatibility, so use wiring intended for the specific ECU and bridge combination.</p>
+    <p>With GhostBridge GB-01, the DB9 side is the RS232 connection and USB-C is used to power the bridge.</p>
+
+    <h3>2. Power the ECU and bridge</h3>
+    <p>Apply normal power to the MicroSquirt and power the bridge. A wireless connection can only be reliable when both devices have stable power. If the bridge repeatedly disappears from the phone's WiFi list, check power before troubleshooting software.</p>
+
+    <h3>3. Join the bridge's WiFi network</h3>
+    <p>For GhostBridge GB-01, open WiFi settings on the iPhone or iPad and select the network named <code>GhostBridge-XXXXX</code>. The final characters identify the individual bridge.</p>
+    <p>The password is <code>1234</code> followed by the final four characters shown in that GhostBridge network name. For example, if the network is <code>GhostBridge-ABCDE</code>, the password is <code>1234BCDE</code>.</p>
+    <p>This is a local connection between the mobile device and the bridge. Internet access is not required for live ECU communication.</p>
+
+    <h3>4. Open the tuning application</h3>
+    <p>Once the phone is connected to the bridge's WiFi network, open the supported tuning application. In the GhostTune and GhostBridge setup, the bridge's local connection is available at <code>192.168.4.1:35000</code>.</p>
+    <p>GhostTune is designed to use this local connection with the verified MicroSquirt configuration. If the connection succeeds, live ECU values should begin responding to the running engine and sensor inputs.</p>
+
+    <figure class="article-image card">
+      <img src="/assets/framed/IMG_4079_framed.png" alt="GhostTune live MicroSquirt data displayed on an iPhone" loading="lazy" width="250" height="542" />
+      <figcaption>Once communication is established, live ECU values provide a useful confirmation that the phone, bridge, and ECU are communicating.</figcaption>
+    </figure>
+
+    <h2>How to Confirm the Connection Is Working</h2>
+    <p>Seeing the WiFi network is only the first step. The most useful confirmation is live ECU data that behaves normally.</p>
+    <p>Check values that should be easy to recognize. With the engine running, RPM should respond correctly. TPS should move with throttle position. MAP should respond to engine load and vacuum. Temperatures and battery voltage should also be believable for the vehicle's condition.</p>
+    <p>If those values update normally, the complete communication path is working rather than just the WiFi portion.</p>
+
+    <h2>WiFi Connected but No ECU Data?</h2>
+    <p>If the phone joins the bridge network but the tuning application cannot communicate with the ECU, work from the physical connection outward:</p>
+    <ul>
+      <li><strong>Confirm the MicroSquirt is powered.</strong> The bridge can create a WiFi network even if the ECU itself is not communicating.</li>
+      <li><strong>Check the RS232 connection.</strong> Make sure the correct cable, connector orientation, and wiring are being used.</li>
+      <li><strong>Confirm the phone is still connected to the bridge WiFi.</strong> Mobile devices may try to move back to another known network.</li>
+      <li><strong>Verify the supported ECU configuration.</strong> A working WiFi connection does not make an unsupported ECU or firmware automatically compatible with the tuning application.</li>
+      <li><strong>Restart the connection cleanly.</strong> Power the ECU and bridge normally, reconnect the phone to the bridge WiFi, then reopen the tuning application.</li>
+    </ul>
+
+    <h2>Why Use a Local WiFi Network?</h2>
+    <p>A dedicated local network keeps the communication path simple. The vehicle does not need to be near a home router, shop network, or internet connection. This can be useful in a garage, driveway, trailer, dyno area, or anywhere else the vehicle is being serviced.</p>
+    <p>The tradeoff is that the iPhone or iPad may not have normal internet access while it is connected to the bridge's WiFi network. That does not prevent the local ECU connection from working.</p>
+
+    <h2>Will Any RS232-to-WiFi Bridge Work?</h2>
+    <p>Not automatically. Products that all advertise “RS232 to WiFi” can differ in wiring, electrical behavior, serial settings, network behavior, power requirements, and how they handle the connection.</p>
+    <p>For that reason, compatibility should be based on the complete setup rather than the connector name alone. GhostBridge GB-01 is the Crux Resolve bridge specifically published for the current GhostTune and MicroSquirt workflow.</p>
+
+    <h2>Can You Use WiFi Without GhostTune?</h2>
+    <p>A transparent RS232-to-WiFi bridge may be usable with other software when that software supports the same connection method and the complete serial requirements match. That is separate from saying a particular combination has been tested or supported.</p>
+    <p>For Crux Resolve products, the current published verified combination is GhostTune with GhostBridge GB-01 and MicroSquirt hardware running MS2/Extra 3.4.4.</p>
+
+    <h2>Where to Go Next</h2>
+    <p>If your goal is full mobile tuning rather than only establishing the wireless link, the next step is understanding what the tuning application can do once connected. The broader <a href="/blog/how-to-tune-microsquirt-from-iphone.html">MicroSquirt from iPhone setup guide</a> covers the complete wireless workflow, while the <a href="/blog/how-wireless-serial-bridging-works.html">wireless serial bridging guide</a> explains the communication concept in more detail.</p>
+
+    <div class="related-guides">
+      <h2>Related Guides and Products</h2>
+      <ul>
+        <li><a href="/blog/how-to-tune-microsquirt-from-iphone.html">How to Tune a MicroSquirt From an iPhone</a></li>
+        <li><a href="/blog/how-wireless-serial-bridging-works.html">How Wireless Serial Bridging Works</a></li>
+        <li><a href="/ghosttune-app.html">GhostTune for iPhone and iPad</a></li>
+        <li><a href="/ghostbridge.html">GhostBridge GB-01</a></li>
+      </ul>
+    </div>
+
+    <nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← All articles</a><a href="/ghostbridge.html">View GhostBridge →</a></nav>
+  </article>
+</main>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"BlogPosting",
+      "@id":"https://cruxresolve.com/blog/how-to-connect-microsquirt-to-wifi-rs232-bridge.html#article",
+      "headline":"How to Connect MicroSquirt to WiFi With an RS232 Bridge",
+      "description":"Connect a MicroSquirt ECU to iPhone or iPad over local WiFi using an RS232 bridge, with setup steps, connection checks, and troubleshooting tips.",
+      "datePublished":"2026-08-31",
+      "dateModified":"2026-08-31",
+      "author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},
+      "publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},
+      "mainEntityOfPage":"https://cruxresolve.com/blog/how-to-connect-microsquirt-to-wifi-rs232-bridge.html",
+      "image":"https://cruxresolve.com/assets/gb_hero.jpg",
+      "about":["MicroSquirt","RS232","WiFi ECU communication","GhostBridge","GhostTune"]
+    },
+    {
+      "@type":"FAQPage",
+      "@id":"https://cruxresolve.com/blog/how-to-connect-microsquirt-to-wifi-rs232-bridge.html#faq",
+      "mainEntity":[
+        {"@type":"Question","name":"Does MicroSquirt have to have built-in WiFi?","acceptedAnswer":{"@type":"Answer","text":"No. A compatible RS232-to-WiFi bridge can provide the local wireless connection while the MicroSquirt continues using its normal serial interface."}},
+        {"@type":"Question","name":"Does the iPhone need internet access to communicate with MicroSquirt?","acceptedAnswer":{"@type":"Answer","text":"No. The phone or tablet can communicate with the ECU over the bridge's private local WiFi network without internet access."}},
+        {"@type":"Question","name":"What is the GhostBridge local address?","acceptedAnswer":{"@type":"Answer","text":"For the current GhostBridge GB-01 workflow, the local connection is available at 192.168.4.1 on TCP port 35000."}},
+        {"@type":"Question","name":"What MicroSquirt configuration is currently verified with GhostTune?","acceptedAnswer":{"@type":"Answer","text":"The current published verified configuration is MicroSquirt hardware running MS2/Extra 3.4.4."}}
+      ]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Crux Resolve","item":"https://cruxresolve.com/"},
+        {"@type":"ListItem","position":2,"name":"Blog","item":"https://cruxresolve.com/blog/"},
+        {"@type":"ListItem","position":3,"name":"Connect MicroSquirt to WiFi","item":"https://cruxresolve.com/blog/how-to-connect-microsquirt-to-wifi-rs232-bridge.html"}
+      ]
+    }
+  ]
+}
+</script>
