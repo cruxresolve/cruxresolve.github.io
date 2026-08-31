@@ -55,7 +55,7 @@
   padding: 0;
   color: #fff;
   background-color: #07090c;
-  background-image: url("/assets/crux-resolve-hero-3d.jpg");
+  background-image: var(--crux-hero-art, linear-gradient(135deg, #15191e, #06080b 62%, #0b0d10));
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
