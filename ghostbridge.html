@@ -14,71 +14,164 @@ og_image: https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Product",
-  "@id": "https://cruxresolve.com/ghostbridge.html#product",
-  "name": "Crux Resolve GhostBridge v1.0 (GB-01)",
-  "alternateName": "GhostBridge GB-01",
-  "sku": "GB-01",
-  "mpn": "GB-01",
-  "model": "GB-01",
-  "category": "RS232-to-WiFi TCP serial bridge",
-  "description": "GhostBridge v1.0 (GB-01) is an assembled local RS232-to-WiFi TCP bridge optimized and verified for GhostTune. Its transparent TCP-to-RS232 byte relay can also serve compatible serial applications when electrical, cabling, serial, and host-software requirements match. GhostBridge v2.0 (GB-02) is separately in development as a broader multi-transport platform.",
-  "image": [
-    "https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp",
-    "https://cruxresolve.com/assets/gb01/gb01-usbc-angle.webp",
-    "https://cruxresolve.com/assets/gb01/gb01-db9-front.webp"
-  ],
-  "brand": {
-    "@type": "Brand",
-    "name": "Crux Resolve",
-    "url": "https://cruxresolve.com/"
-  },
-  "manufacturer": {
-    "@type": "Organization",
-    "@id": "https://cruxresolve.com/#organization",
-    "name": "Crux Resolve LLC",
-    "url": "https://cruxresolve.com/"
-  },
-  "additionalProperty": [
+  "@graph": [
     {
-      "@type": "PropertyValue",
-      "name": "Serial interface",
-      "value": "DB9 RS232"
+      "@type": "WebPage",
+      "@id": "https://cruxresolve.com/ghostbridge.html#webpage",
+      "url": "https://cruxresolve.com/ghostbridge.html",
+      "name": "GhostBridge v1.0 (GB-01) — RS232-to-WiFi TCP Serial Bridge | Crux Resolve",
+      "description": "GhostBridge v1.0 (GB-01) is an assembled RS232-to-WiFi TCP bridge available now. GhostBridge v2.0 (GB-02) is in development as a next-generation multi-transport platform.",
+      "about": {
+        "@id": "https://cruxresolve.com/ghostbridge.html#product"
+      },
+      "mainEntity": {
+        "@id": "https://cruxresolve.com/ghostbridge.html#product"
+      },
+      "publisher": {
+        "@id": "https://cruxresolve.com/#organization"
+      }
     },
     {
-      "@type": "PropertyValue",
-      "name": "Network",
-      "value": "Local WiFi access point"
+      "@type": "Product",
+      "@id": "https://cruxresolve.com/ghostbridge.html#product",
+      "url": "https://cruxresolve.com/ghostbridge.html",
+      "mainEntityOfPage": {
+        "@id": "https://cruxresolve.com/ghostbridge.html#webpage"
+      },
+      "name": "Crux Resolve GhostBridge v1.0 (GB-01)",
+      "alternateName": "GhostBridge GB-01",
+      "sku": "GB-01",
+      "mpn": "GB-01",
+      "model": "GB-01",
+      "category": "RS232-to-WiFi TCP serial bridge",
+      "description": "GhostBridge v1.0 (GB-01) is an assembled local RS232-to-WiFi TCP bridge optimized and verified for GhostTune. Its transparent TCP-to-RS232 byte relay can also serve compatible serial applications when electrical, cabling, serial, and host-software requirements match. GhostBridge v2.0 (GB-02) is separately in development as a broader multi-transport platform.",
+      "image": [
+        "https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp",
+        "https://cruxresolve.com/assets/gb01/gb01-usbc-angle.webp",
+        "https://cruxresolve.com/assets/gb01/gb01-db9-front.webp"
+      ],
+      "brand": {
+        "@type": "Brand",
+        "name": "Crux Resolve",
+        "url": "https://cruxresolve.com/"
+      },
+      "manufacturer": {
+        "@type": "Organization",
+        "@id": "https://cruxresolve.com/#organization",
+        "name": "Crux Resolve LLC",
+        "url": "https://cruxresolve.com/"
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Serial interface",
+          "value": "DB9 RS232"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Power input",
+          "value": "USB-C"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Network",
+          "value": "Local WiFi access point"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Transport",
+          "value": "TCP"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Default local endpoint",
+          "value": "192.168.4.1:35000"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Verified configuration",
+          "value": "GhostTune with MicroSquirt hardware running MS2/Extra 3.4.4"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Shipping region",
+          "value": "United States"
+        }
+      ],
+      "offers": {
+        "@type": "Offer",
+        "url": "https://cruxresolve.com/ghostbridge.html",
+        "price": "89.00",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "seller": {
+          "@type": "Organization",
+          "@id": "https://cruxresolve.com/#organization",
+          "name": "Crux Resolve LLC",
+          "url": "https://cruxresolve.com/"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "8.00",
+            "currency": "USD"
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "US"
+          }
+        }
+      }
     },
     {
-      "@type": "PropertyValue",
-      "name": "Transport",
-      "value": "TCP"
-    },
-    {
-      "@type": "PropertyValue",
-      "name": "Default local endpoint",
-      "value": "192.168.4.1:35000"
-    },
-    {
-      "@type": "PropertyValue",
-      "name": "Verified configuration",
-      "value": "GhostTune with MicroSquirt hardware running MS2/Extra 3.4.4"
+      "@type": "FAQPage",
+      "@id": "https://cruxresolve.com/ghostbridge.html#faq-schema",
+      "url": "https://cruxresolve.com/ghostbridge.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can GhostBridge be used without GhostTune?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. GhostBridge itself relays bytes between its local TCP connection and RS232 interface and is not software-locked to GhostTune. Non-GhostTune configurations are not represented as verified unless Crux Resolve explicitly lists them."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is GhostBridge a general RS232-to-WiFi adapter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GhostBridge is a local TCP-to-RS232 WiFi bridge designed first around the GhostTune workflow. It can serve other compatible serial applications, but every RS232 or DB9 device should not be assumed compatible without checking the complete interface and software requirements."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I connect to the GhostBridge WiFi network?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Select the network named GhostBridge-XXXXX in your phone, tablet, or computer WiFi settings. The password is 1234 followed by the last four characters of that WiFi name. For example, GhostBridge-ABCDE uses password 1234BCDE. The device-specific password helps prevent nearby GhostBridge units from sharing the same credentials."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does GhostBridge require internet access or a router?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. GhostBridge creates its own local WiFi access point. A compatible TCP client connects directly to the bridge at 192.168.4.1:35000."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is verified today?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The published verified configuration is GhostTune with MicroSquirt hardware running MS2/Extra 3.4.4. Additional verified applications can be added as they are specifically tested."
+          }
+        }
+      ]
     }
-  ],
-  "offers": {
-    "@type": "Offer",
-    "url": "https://cruxresolve.com/ghostbridge.html",
-    "price": "89.00",
-    "priceCurrency": "USD",
-    "availability": "https://schema.org/InStock",
-    "itemCondition": "https://schema.org/NewCondition",
-    "seller": {
-      "@type": "Organization",
-      "@id": "https://cruxresolve.com/#organization",
-      "name": "Crux Resolve LLC",
-      "url": "https://cruxresolve.com/"
-    }
-  }
+  ]
 }
 </script>
