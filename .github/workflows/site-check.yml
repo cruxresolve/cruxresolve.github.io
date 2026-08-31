@@ -7,10 +7,12 @@ on:
       - "assets/**"
       - "scripts/check_site.py"
       - "scripts/check_live_site.py"
+      - "scripts/submit_indexnow.py"
       - ".github/workflows/site-check.yml"
       - "robots.txt"
       - "sitemap.xml"
       - "llms.txt"
+      - "a30252b4152841dbbd7ec13fe4e10dd2.txt"
   push:
     branches: [main]
     paths:
@@ -18,10 +20,12 @@ on:
       - "assets/**"
       - "scripts/check_site.py"
       - "scripts/check_live_site.py"
+      - "scripts/submit_indexnow.py"
       - ".github/workflows/site-check.yml"
       - "robots.txt"
       - "sitemap.xml"
       - "llms.txt"
+      - "a30252b4152841dbbd7ec13fe4e10dd2.txt"
 
 permissions:
   contents: read
@@ -61,6 +65,22 @@ jobs:
           grep -Fq 'https://apps.apple.com/us/app/id6778061607' llms.txt
           grep -Fq 'Blog articles document the state of products on their publication dates' llms.txt
           printf '%s\n' 'llms.txt authoritative references verified' >> site-validation-report.txt
+      - name: Validate IndexNow key file
+        id: indexnow_key_check
+        continue-on-error: true
+        shell: bash
+        run: |
+          key_file='a30252b4152841dbbd7ec13fe4e10dd2.txt'
+          test -f "$key_file"
+          test "$(tr -d '\r\n' < "$key_file")" = "${key_file%.txt}"
+          printf '%s\n' 'IndexNow root key verified' >> site-validation-report.txt
+      - name: Validate automation script syntax
+        id: python_check
+        continue-on-error: true
+        shell: bash
+        run: |
+          python3 -m py_compile scripts/check_site.py scripts/check_live_site.py scripts/submit_indexnow.py
+          printf '%s\n' 'Python validation scripts compile successfully' >> site-validation-report.txt
       - name: Validate JavaScript syntax
         id: js_check
         continue-on-error: true
@@ -83,6 +103,8 @@ jobs:
           test "${{ steps.site_check.outcome }}" = "success"
           test "${{ steps.email_check.outcome }}" = "success"
           test "${{ steps.llms_check.outcome }}" = "success"
+          test "${{ steps.indexnow_key_check.outcome }}" = "success"
+          test "${{ steps.python_check.outcome }}" = "success"
           test "${{ steps.js_check.outcome }}" = "success"
 
   validate-live-site:
@@ -93,6 +115,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           show-progress: false
+          fetch-depth: 0
       - name: Defer live deployment validation until merge
         if: github.event_name == 'pull_request'
         shell: bash
@@ -116,3 +139,12 @@ jobs:
         run: |
           cat live-site-report.txt
           test "${{ steps.live_check.outcome }}" = "success"
+      - name: Notify IndexNow of changed public URLs
+        if: github.event_name == 'push'
+        env:
+          BASE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+          INDEXNOW_KEY_FILE: a30252b4152841dbbd7ec13fe4e10dd2.txt
+          INDEXNOW_ENDPOINT: https://api.indexnow.org/indexnow
+        shell: bash
+        run: python3 scripts/submit_indexnow.py
