@@ -1,126 +1,37 @@
 ---
 layout: default
-title: "GhostTune v1.0 Is Submitted — and GhostBridge Is Growing Beyond RS232 | Crux Resolve LLC"
-description: "GhostTune v1.0 has been submitted for App Store review while GhostBridge v2.0 moves toward a broader multi-transport architecture built around separating transport from protocol."
+title: "GhostTune v1.0 Historical Release Update | Crux Resolve LLC"
+description: "Archived August 2026 release update. See the current GhostTune and GhostBridge product pages for availability and supported configurations."
 canonical: https://cruxresolve.com/blog/ghosttune-v1-submitted-ghostbridge-growing-beyond-rs232.html
+robots: noindex, follow
 current: blog
 og_type: article
 ---
 <main id="main-content">
   <article class="article">
-    <a href="/blog/">← Back to Blog</a>
-    <div class="eyebrow" style="margin-top:28px;">// August 20, 2026 · Crux Resolve LLC</div>
-    <h1>GhostTune v1.0 Is Submitted — and GhostBridge Is Growing Beyond RS232</h1>
-    <p class="lead" style="text-align:left; margin-left:0;">GhostTune has reached a major milestone: v1.0 has been submitted to Apple for App Store review. At the same time, GhostBridge is beginning its next chapter with a broader multi-transport architecture.</p>
+    <a href="/blog/">← Back to Technical Library</a>
+    <div class="eyebrow" style="margin-top:28px;">// August 20, 2026 · Archived August 31, 2026 · Crux Resolve LLC</div>
+    <h1>GhostTune v1.0 historical release update</h1>
+    <p class="lead" style="text-align:left; margin-left:0;">This page originally documented an earlier GhostTune release milestone. It has been condensed so older product-status information does not compete with the current product pages.</p>
 
-    <p>GhostTune has reached a milestone I’ve been working toward for a long time: <strong>GhostTune v1.0 has been submitted to Apple for App Store review.</strong></p>
-    <p>That does not mean it is approved yet, and I don’t want to blur that distinction. But it does mean the first production release has moved out of development and validation and into Apple’s review process.</p>
-    <p>At the same time, GhostBridge is beginning its next chapter.</p>
-    <p>The current <strong>GhostBridge v1.0 (GB-01)</strong> is still the product that exists today: a local WiFi-to-RS232 TCP bridge, built and verified around the GhostTune + MicroSquirt workflow.</p>
-    <p>But GhostBridge v2.0 — internally GB-02 — is being designed to become something much broader.</p>
+    <div class="notice"><strong>Current status:</strong> GhostTune v1.0 is available on the App Store. GhostBridge GB-01 is the currently available Crux Resolve RS232-to-WiFi bridge.</div>
 
-    <h2>What GhostTune v1.0 Actually Supports</h2>
-    <p>One thing I’ve tried to be careful about throughout this project is separating what is planned from what has actually been verified.</p>
-    <p>The current GhostTune release is validated around:</p>
-    <ul>
-      <li>MicroSquirt hardware</li>
-      <li>MS2/Extra 3.4.4</li>
-      <li>local WiFi communication</li>
-      <li>live ECU data</li>
-      <li>VE, ignition, and AFR table editing</li>
-      <li>temporary ECU writes</li>
-      <li>permanent burns</li>
-      <li>tune-file management and backups</li>
-      <li>diagnostics and guided workflows</li>
-    </ul>
-    <p>There are other ECU platforms I want GhostTune to support, but I’m not going to call them supported simply because they are technically interesting or theoretically compatible.</p>
-    <p>Each platform has to earn that status through real communication testing, write verification, burn behavior, reconnect behavior, failure handling, and recovery testing.</p>
-    <p>That same philosophy is now influencing how I’m approaching GhostBridge v2.0.</p>
+    <h2>Current GhostTune information</h2>
+    <p>GhostTune is available for iPhone and iPad. The current published verified ECU configuration is MicroSquirt hardware running MS2/Extra 3.4.4 through a compatible local WiFi-to-RS232 bridge.</p>
+    <p>For current features, compatibility, App Store access, and support information, use the GhostTune product page.</p>
 
-    <h2>GhostBridge v1.0 Is Not Going Away</h2>
-    <p>GhostBridge v1.0, also known as GB-01, is intentionally simple.</p>
-    <p>It creates its own local WiFi network and transparently relays data between a TCP client and an RS232 device.</p>
-    <p>For GhostTune, that means the iPhone or iPad can communicate with a supported ECU without a physical cable connected to the Apple device.</p>
-    <p>But GhostBridge itself does not actually need to understand an ECU.</p>
-    <p>It does not know what a VE table is. It does not know what ignition timing means. It does not know whether the bytes passing through it belong to an engine controller, a piece of industrial equipment, a test instrument, or something else entirely.</p>
-    <p>That distinction became increasingly important as I worked on the next version.</p>
-
-    <h2>Transport Is Not Protocol</h2>
-    <p>One of the central design rules behind GhostBridge v2.0 is:</p>
-    <p><strong>Transport is not protocol.</strong></p>
-    <p>A wired interface such as RS232, RS485, CAN, TTL UART, or USB defines how information physically moves.</p>
-    <p>The application protocol defines what those bytes or frames mean.</p>
-    <p>Those are not the same thing.</p>
-    <p>That sounds obvious when written down, but treating them as separate layers changes the entire architecture of the product.</p>
-    <p>Rather than designing GB-02 as “a box that talks to a specific ECU,” the goal is to build a platform that can move bytes and frames between WiFi clients and several different physical interfaces.</p>
-    <p>The software on the other end remains responsible for understanding the device. That could be GhostTune. It could also be completely different software talking to completely different hardware.</p>
-
-    <h2>GhostBridge v2.0</h2>
-    <p>GB-02 is currently in development as the next-generation GhostBridge platform.</p>
-
-    <figure class="card" style="margin:28px 0;">
-      <img src="/assets/ghostbridge-gb02-v2.jpg" alt="GhostBridge v2.0 GB-02 development concept with a universal breakout harness and planned multi-transport interfaces" loading="lazy" style="width:100%;height:auto;border-radius:10px;display:block;" />
-      <figcaption class="muted" style="margin-top:10px;">GhostBridge v2.0 (GB-02) development concept. Final production hardware may differ.</figcaption>
-    </figure>
-
-    <p>The present design direction includes planned support for interfaces such as:</p>
-    <ul>
-      <li>RS232</li>
-      <li>TTL UART</li>
-      <li>RS485</li>
-      <li>CAN / CAN-FD</li>
-      <li>USB serial / USB host</li>
-      <li>a universal breakout-harness architecture for transport-specific connections</li>
-    </ul>
-    <p>Those are <strong>development targets</strong>, not shipping feature claims.</p>
-    <p>The hardware, firmware, protection circuitry, connector system, PCB layout, and factory-test strategy are still being engineered and qualified.</p>
-    <p>That distinction matters.</p>
-    <p>I would rather publish a shorter list of things that actually work than a longer list of things that only exist in marketing copy.</p>
-
-    <h2>Why Build a Universal Interface?</h2>
-    <p>GB-01 worked because its job was narrow.</p>
-    <p>RS232 in one side. WiFi on the other.</p>
-    <p>That simplicity is one of its strengths.</p>
-    <p>But once I started thinking about broader hardware support, simply adding more connectors to the enclosure stopped making sense.</p>
-    <p>Different devices need different electrical interfaces. Some use differential signaling. Some use single-ended serial. Some use CAN. Some may need USB.</p>
-    <p>So GB-02 is being designed around a universal I/O connection and a breakout harness that can adapt the main unit to the interface required by the connected device.</p>
-    <p>Internally, I’ve jokingly referred to that breakout as the “octopus cable.”</p>
-    <p>The final name may be more dignified.</p>
-    <p>Maybe.</p>
-
-    <h2>The Same Safety Philosophy</h2>
-    <p>The architecture is broader, but the engineering philosophy has not changed.</p>
-    <p>For GhostTune, I’ve always treated communication with a live ECU as something that deserves deterministic behavior.</p>
-    <p>Pause polling. Control the connection. Perform the operation. Verify the response. Read the result back. Resume only when the state is known.</p>
-    <p>GB-02 is being approached the same way.</p>
-    <p>The objective is not simply to make something that can move data.</p>
-    <p>It is to make something whose behavior can be understood, tested, and trusted.</p>
-    <p>That means protection circuitry matters. Power architecture matters. Connector strain matters. PCB routing matters. Factory test access matters.</p>
-    <p>And each transport has to be tested as its own electrical system rather than treated as another label on a feature list.</p>
-
-    <h2>What Happens Next</h2>
-    <p>For GhostTune, the immediate milestone is now outside my hands for a moment: Apple’s App Store review process.</p>
-    <p>Development does not stop there.</p>
-    <p>Additional ECU support remains part of the roadmap, including further MegaSquirt-family work and Teensy-based platforms.</p>
-    <p>For GhostBridge, development continues on GB-02 while GB-01 remains the currently available RS232 product.</p>
-    <p>The two projects are also becoming more independent from each other.</p>
-    <p>GhostTune can grow into a tuning platform that supports additional hardware.</p>
-    <p>GhostBridge can grow into a general-purpose wireless transport interface that is useful well beyond GhostTune.</p>
-    <p>They work well together, but neither needs to exist solely for the other.</p>
-    <p>That is probably the biggest architectural change since I started building this system.</p>
-    <p>What began as “how do I tune this ECU from my phone?” is slowly becoming two separate products:</p>
-    <p><strong>software that understands machines, and hardware that connects to them.</strong></p>
-    <p>And that feels like the right direction.</p>
+    <h2>Current GhostBridge information</h2>
+    <p>GhostBridge GB-01 is an assembled local RS232-to-WiFi TCP bridge available through Crux Resolve. Current pricing, compatibility details, setup instructions, and ordering information are maintained on the GhostBridge product page.</p>
 
     <div class="actions">
-      <a class="button button-primary" href="/ghosttune-app.html">Explore GhostTune</a>
-      <a class="button button-secondary" href="/ghostbridge.html">See GhostBridge</a>
+      <a class="button button-primary" href="/ghosttune-app.html">Current GhostTune information</a>
+      <a class="button button-secondary" href="/ghostbridge.html">Current GhostBridge information</a>
     </div>
 
     <nav class="article-nav" aria-label="Article navigation">
-      <a href="/blog/">← All articles</a>
-      <a href="/support.html">Questions? Visit Support →</a>
+      <a href="/blog/">← Technical Library</a>
+      <a href="/support.html">Visit Support →</a>
     </nav>
   </article>
 </main>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"GhostTune v1.0 Is Submitted — and GhostBridge Is Growing Beyond RS232","description":"GhostTune v1.0 has been submitted for App Store review while GhostBridge v2.0 moves toward a broader multi-transport architecture built around separating transport from protocol.","datePublished":"2026-08-20","dateModified":"2026-08-20","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/ghosttune-v1-submitted-ghostbridge-growing-beyond-rs232.html","image":"https://cruxresolve.com/assets/ghostbridge-gb02-v2.jpg"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"GhostTune v1.0 Historical Release Update","description":"Archived August 2026 release update. See the current GhostTune and GhostBridge product pages for availability and supported configurations.","datePublished":"2026-08-20","dateModified":"2026-08-31","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/ghosttune-v1-submitted-ghostbridge-growing-beyond-rs232.html","image":"https://cruxresolve.com/assets/og-banner.png"}</script>
