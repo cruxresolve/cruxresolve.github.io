@@ -1,49 +1,48 @@
 ---
 layout: default
 title: "How GhostTune Handles ECU Changes — Crux Resolve LLC"
-description: "A factual explanation of how GhostTune separates temporary writes from permanent burns, pauses polling during changes, and verifies results by reading data back from the ECU."
+description: "How GhostTune separates temporary changes from permanent burns and checks the result of supported ECU changes before reporting success."
 canonical: https://cruxresolve.com/blog/how-ghosttune-handles-ecu-changes.html
 current: blog
 og_type: article
 ---
 <main id="main-content">
   <article class="article">
-    <a href="/blog/">← Back to Blog</a>
-    <div class="eyebrow" style="margin-top:28px;">// June 29, 2026 · Crux Resolve LLC</div>
+    <a href="/blog/">← Back to Technical Library</a>
+    <div class="eyebrow" style="margin-top:28px;">// June 29, 2026 · Updated August 31, 2026 · Crux Resolve LLC</div>
     <h1>How GhostTune handles ECU changes</h1>
-    <p class="lead" style="text-align:left; margin-left:0;">Changing an ECU value is more than editing a number on a screen. GhostTune keeps temporary changes, permanent storage, communication control, and verification as separate parts of one guarded workflow.</p>
+    <p class="lead" style="text-align:left; margin-left:0;">Changing an ECU value is more than editing a number on a screen. GhostTune keeps temporary changes, permanent storage, and result checking as separate parts of a guarded workflow.</p>
 
-    <div class="notice"><strong>Current status:</strong> GhostTune remains in live-ECU testing. This article describes the implemented write workflow for supported profiles and does not claim compatibility with unsupported hardware or firmware.</div>
+    <div class="notice"><strong>Current release:</strong> GhostTune v1.0 is available on the App Store. The published verified configuration is MicroSquirt hardware running MS2/Extra 3.4.4.</div>
 
     <h2>Temporary Write and Permanent Burn are different actions</h2>
-    <p>GhostTune does not treat every saved edit as a permanent change. It presents two distinct choices:</p>
+    <p>GhostTune does not treat every edit as a permanent change. It presents two distinct choices:</p>
     <ul>
       <li><strong>Temporary Write</strong> changes the active ECU value for the current powered session. The change does not survive an ECU power cycle.</li>
-      <li><strong>Permanent Burn</strong> stores the supported change in retained ECU memory so it remains after a power cycle.</li>
+      <li><strong>Permanent Burn</strong> stores the supported change so it remains after a power cycle.</li>
     </ul>
     <p>Keeping these actions separate lets a user evaluate a supported change temporarily before deciding whether it should be retained.</p>
 
-    <h2>The active ECU profile controls what can be written</h2>
-    <p>GhostTune uses the detected ECU profile to determine addresses, data sizes, scaling, option definitions, and write capability. It does not reuse another profile’s constants when the active profile is unknown or unsupported.</p>
-    <p>If the required profile or capability is not available, the write path remains locked rather than guessing.</p>
+    <h2>Compatibility is checked before changes are enabled</h2>
+    <p>GhostTune only enables supported ECU changes when the connected hardware and firmware match a published supported configuration. A working network connection by itself does not establish compatibility.</p>
 
-    <h2>What happens during a supported change</h2>
+    <h2>What the user sees during a supported change</h2>
     <ol>
-      <li><strong>The current data is already known.</strong> GhostTune begins from values read from the active ECU profile rather than from an assumed default.</li>
-      <li><strong>Live polling is paused.</strong> Normal live-data traffic is coordinated so it does not continue through the write sequence.</li>
-      <li><strong>The requested value is written.</strong> The change uses the active profile’s defined storage location and encoding.</li>
-      <li><strong>A permanent request adds the burn step.</strong> Temporary Write stops after the active value is changed; Permanent Burn continues through the profile’s guarded burn sequence.</li>
-      <li><strong>The changed data is read again.</strong> GhostTune re-reads the relevant ECU data after the operation.</li>
-      <li><strong>The result is verified.</strong> The value read back is compared with the requested value before the app reports the operation as complete.</li>
-      <li><strong>Polling resumes.</strong> Normal live communication returns after the guarded operation finishes or exits.</li>
+      <li><strong>Current ECU data is read.</strong> The app starts from the connected ECU's current information.</li>
+      <li><strong>The user chooses temporary or permanent.</strong> Temporary changes and permanent storage remain separate choices.</li>
+      <li><strong>Normal live updates pause briefly.</strong> This prevents routine display traffic from competing with the change.</li>
+      <li><strong>The requested change is applied.</strong></li>
+      <li><strong>The affected data is read again.</strong></li>
+      <li><strong>The result is compared.</strong> GhostTune checks the returned value before reporting the operation as complete.</li>
+      <li><strong>Normal live updates resume.</strong></li>
     </ol>
 
-    <h2>Why read-back verification matters</h2>
-    <p>Sending a command does not, by itself, prove that the ECU accepted and retained the expected value. A connection interruption, rejected response, unexpected data, or hardware problem can prevent the requested result.</p>
-    <p>GhostTune therefore re-reads the affected data and checks the returned value. A mismatch is reported as a mismatch rather than being presented as a successful write.</p>
+    <h2>Why result checking matters</h2>
+    <p>Sending a command does not by itself prove that the ECU accepted and retained the expected value. A connection interruption, rejected response, unexpected data, power issue, or hardware problem can prevent the requested result.</p>
+    <p>GhostTune therefore reads the affected information again and compares the result. A mismatch is reported as a mismatch rather than being presented as a successful change.</p>
 
-    <h2>What happens when the sequence is interrupted</h2>
-    <p>If communication does not complete normally, GhostTune stops the operation, reports the detected condition, and uses its recovery and stale-data handling rather than silently assuming success.</p>
+    <h2>What happens when communication is interrupted</h2>
+    <p>If communication does not complete normally, GhostTune reports the detected condition rather than silently assuming success. Restore the connection and confirm the relevant ECU state before continuing.</p>
     <p>This does not eliminate every possible risk. Power loss, wiring faults, ECU faults, firmware behavior, and other hardware conditions can still affect an operation. A known-good backup and a safe working environment remain essential.</p>
 
     <h2>A practical way to use the workflow</h2>
@@ -51,22 +50,19 @@ og_type: article
       <li>Keep a known-good tune backup before making live changes.</li>
       <li>Use Temporary Write when evaluating a supported adjustment that should not yet survive a power cycle.</li>
       <li>Use Permanent Burn only after confirming that the change is intended to remain.</li>
-      <li>Do not bypass a locked or unsupported profile path.</li>
+      <li>Do not attempt ECU changes with an unsupported configuration.</li>
       <li>Treat a reported mismatch or interruption as unresolved until the ECU state is confirmed.</li>
     </ul>
 
-    <h2>Why the workflow is intentionally conservative</h2>
-    <p>GhostTune’s goal is not to make every ECU operation available under every condition. Its write paths are enabled only where the required profile information and guarded operation are present. Unsupported operations remain unavailable until they can be validated independently.</p>
-
     <div class="actions">
       <a class="button button-primary" href="/ghosttune-app.html">Explore GhostTune</a>
-      <a class="button button-secondary" href="/blog/what-ghosttune-verifies-during-live-ecu-testing.html">Read about live-ECU testing</a>
+      <a class="button button-secondary" href="/blog/ghosttune-microsquirt-compatibility-requirements.html">View compatibility guide</a>
     </div>
 
     <nav class="article-nav" aria-label="Article navigation">
-      <a href="/blog/">← All articles</a>
+      <a href="/blog/">← Technical Library</a>
       <a href="/support.html">Questions? Visit Support →</a>
     </nav>
   </article>
 </main>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"How GhostTune Handles ECU Changes","description":"A factual explanation of how GhostTune separates temporary writes from permanent burns, pauses polling during changes, and verifies results by reading data back from the ECU.","datePublished":"2026-06-29","dateModified":"2026-06-29","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/how-ghosttune-handles-ecu-changes.html","image":"https://cruxresolve.com/assets/og-banner.png"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"How GhostTune Handles ECU Changes","description":"How GhostTune separates temporary changes from permanent burns and checks the result of supported ECU changes before reporting success.","datePublished":"2026-06-29","dateModified":"2026-08-31","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/how-ghosttune-handles-ecu-changes.html","image":"https://cruxresolve.com/assets/og-banner.png"}</script>
