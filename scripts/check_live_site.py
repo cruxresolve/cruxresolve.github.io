@@ -10,12 +10,13 @@ import urllib.request
 
 CHECKS = {
     "https://cruxresolve.com/": (
-        "Tune your MicroSquirt",
-        "No laptop. No phone cable.",
+        "Engineering practical connections between vehicles, hardware, and software.",
+        "Veteran-Owned Small Business",
         "GhostBridge v1.0 (GB-01)",
     ),
     "https://cruxresolve.com/ghosttune-app.html": (
         "Production validation complete",
+        "Get GhostTune on the App Store",
         "Can I tune a MicroSquirt from an iPhone or iPad?",
         "MicroSquirt",
         "MS2/Extra 3.4.4",
@@ -66,6 +67,7 @@ FORBIDDEN = {
     "https://cruxresolve.com/ghosttune-app.html": (
         "Live-ECU testing is underway.",
         "Live-ECU testing in progress",
+        "Join release updates",
     ),
 }
 
