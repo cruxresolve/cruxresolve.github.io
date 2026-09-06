@@ -5,6 +5,30 @@ description: "Crux Resolve LLC builds GhostTune mobile ECU tuning software and G
 canonical: https://cruxresolve.com/
 extra_css: /assets/css/home-crux.css
 ---
+<style>
+.crux-direct-actions{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:24px;padding:22px 24px;border:1px solid rgba(215,25,32,.26);border-radius:14px;background:rgba(255,255,255,.035)}
+.crux-direct-actions>div:first-child{display:grid;gap:4px}
+.crux-direct-actions strong{color:#fff;font-family:Orbitron,ui-monospace,monospace;font-size:.96rem}
+.crux-direct-actions span{color:var(--crux-muted);font-size:.9rem}
+.crux-direct-actions .actions{margin:0;flex:0 0 auto}
+.crux-guides{position:relative;padding:82px 0 88px;color:var(--crux-white);background:radial-gradient(circle at 15% 20%,rgba(215,25,32,.1),transparent 24rem),linear-gradient(180deg,#0d1116,#090c10)}
+.crux-guides::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.2;background-image:linear-gradient(30deg,rgba(215,25,32,.1) 12%,transparent 12.5%,transparent 87%,rgba(215,25,32,.1) 87.5%,rgba(215,25,32,.1)),linear-gradient(150deg,rgba(215,25,32,.1) 12%,transparent 12.5%,transparent 87%,rgba(215,25,32,.1) 87.5%,rgba(215,25,32,.1));background-size:92px 160px;mask-image:linear-gradient(90deg,#000 0,transparent 70%)}
+.crux-guides .container{position:relative;z-index:1}
+.crux-guides-head{display:flex;align-items:end;justify-content:space-between;gap:26px;margin-bottom:30px}
+.crux-guides-head>div{max-width:760px}
+.crux-guides-head h2{margin-bottom:10px;color:#fff}
+.crux-guides-head p{margin:0;color:#aeb7c0}
+.crux-guide-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.crux-guide-card{min-width:0;display:flex;flex-direction:column;padding:24px;border:1px solid rgba(215,25,32,.22);border-radius:15px;color:inherit;text-decoration:none;background:linear-gradient(145deg,rgba(25,30,36,.96),rgba(12,15,19,.96));box-shadow:0 16px 36px rgba(0,0,0,.24);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.crux-guide-card:hover{color:inherit;transform:translateY(-3px);border-color:rgba(240,38,45,.58);box-shadow:0 22px 48px rgba(0,0,0,.32),0 0 26px rgba(215,25,32,.07)}
+.crux-guide-card .post-meta{margin-bottom:12px;color:#f08286;font-family:"Share Tech Mono",ui-monospace,monospace;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase}
+.crux-guide-card h3{margin:0 0 12px;color:#fff;font-family:Orbitron,ui-monospace,monospace;font-size:1.03rem;line-height:1.35}
+.crux-guide-card p{margin:0 0 20px;color:#b2bac3;line-height:1.65}
+.crux-guide-link{margin-top:auto;color:#ff9498;font-weight:800}
+@media(max-width:860px){.crux-direct-actions,.crux-guides-head{align-items:flex-start;flex-direction:column}.crux-direct-actions .actions{width:100%}.crux-guide-grid{grid-template-columns:1fr}}
+@media(max-width:720px){.crux-direct-actions .actions,.crux-guides-head .button{width:100%}.crux-direct-actions .button,.crux-guides-head .button{flex:1 1 100%;text-align:center}.crux-guides{padding:68px 0 72px}}
+@media(prefers-reduced-motion:reduce){.crux-guide-card{transition:none}}
+</style>
 <main id="main-content" class="crux-home">
   <section class="crux-hero" aria-labelledby="crux-home-title">
     <div class="crux-hero-inner">
