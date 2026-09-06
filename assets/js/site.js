@@ -132,7 +132,7 @@
     });
   });
 
-  document.querySelectorAll('a[href*="apps.apple.com"][href*="id6778061607"]').forEach((link) => {
+  document.querySelectorAll('a[href*="apps.apple.com"][href*="id6778061607"], a[href="/go/ghosttune.html"]').forEach((link) => {
     link.addEventListener("click", () => {
       track("ghosttune_app_store_click", {
         product: "GhostTune",
@@ -142,7 +142,7 @@
     });
   });
 
-  document.querySelectorAll('a[href*="buy.stripe.com"]').forEach((link) => {
+  document.querySelectorAll('a[href*="buy.stripe.com"], a[href="/go/ghostbridge-checkout.html"]').forEach((link) => {
     link.addEventListener("click", () => {
       const context = clickContext(link);
 
