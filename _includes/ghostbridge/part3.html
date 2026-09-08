@@ -22,15 +22,43 @@
 <li>A DB9 connector alone does not prove the device uses compatible RS232 signaling.</li>
 <li>Some DTE-to-DTE or DCE-to-DCE combinations require a null-modem/crossover cable.</li>
 <li>Unusual timing, BREAK behavior, nonstandard UART modes, or application-specific control-line behavior may require additional validation.</li>
-<li>Contact <a href="mailto:support@cruxresolve.com">support@cruxresolve.com</a> with the device model and manual if you want a compatibility review before ordering.</li>
+<li>For repeat deployments or application-specific firmware behavior, see <a href="/oem-serial-solutions.html">Custom &amp; OEM Serial Solutions</a>.</li>
 </ul>
 </div>
 </div>
 <div class="notice notice-danger" style="margin-top:18px;"><strong>Do not connect by connector shape alone:</strong> confirm the device documentation identifies a compatible RS232 interface and pinout before connecting GhostBridge.</div>
 <div class="notice" style="margin-top:18px;"><strong>Verified automotive use:</strong> GhostTune with MicroSquirt hardware running MS2/Extra 3.4.4 remains the currently published verified ECU configuration. That verified application does not limit the GB-01 hardware to ECU use.</div>
 <div class="actions" style="margin-top:22px;">
-<a class="button button-primary" href="mailto:support@cruxresolve.com?subject=GhostBridge%20Compatibility%20Check">Ask about my device</a>
+<a class="button button-primary" href="#compatibility-request">Check my device</a>
 <a class="button button-secondary" href="/rs232-wifi.html">Read the RS232 WiFi guide</a>
+</div>
+</div>
+</section>
+
+<section class="section-divider" id="compatibility-request">
+<div class="container">
+<div class="section-label">// Compatibility request</div>
+<h2>Tell us what you want to connect.</h2>
+<p class="section-intro">If your equipment is not already listed as verified, send the details you know. Crux Resolve can review the interface requirements and point out obvious compatibility issues before you order.</p>
+<div class="card" style="max-width:900px;margin:0 auto;">
+<form action="https://formspree.io/f/xqeveryb" aria-describedby="compatibility-form-status" data-async-form="" method="POST">
+<input name="subject" type="hidden" value="GhostBridge Compatibility Request"/>
+<input name="product" type="hidden" value="GhostBridge GB-01"/>
+<div class="grid grid-2">
+<div><label for="compat-email">Email</label><input id="compat-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required /></div>
+<div><label for="compat-manufacturer">Device manufacturer</label><input id="compat-manufacturer" name="manufacturer" type="text" placeholder="Manufacturer" /></div>
+<div><label for="compat-model">Device model</label><input id="compat-model" name="model" type="text" placeholder="Model number" required /></div>
+<div><label for="compat-connector">Serial connector / interface</label><input id="compat-connector" name="serial_interface" type="text" placeholder="Example: DB9 RS232" /></div>
+<div><label for="compat-settings">Serial settings</label><input id="compat-settings" name="serial_settings" type="text" placeholder="Example: 9600 8N1" /></div>
+<div><label for="compat-software">Host software</label><input id="compat-software" name="host_software" type="text" placeholder="Application or software name" /></div>
+<div><label for="compat-os">Computer / device OS</label><input id="compat-os" name="operating_system" type="text" placeholder="Windows, macOS, iOS, Linux, etc." /></div>
+<div><label for="compat-use">Use case</label><input id="compat-use" name="use_case" type="text" placeholder="What are you trying to connect or control?" /></div>
+</div>
+<div style="margin-top:18px;"><label for="compat-notes">Manual link, pinout, or additional details</label><textarea id="compat-notes" name="details" rows="5" placeholder="Paste a public manual/specification link or any serial pinout and communication details you know."></textarea></div>
+<p class="muted" style="margin-top:14px;">Formspree processes this submission as described in the <a href="/privacy.html">Privacy Policy</a>. Do not submit passwords, payment information, or other sensitive credentials.</p>
+<button class="button button-primary" type="submit">Send compatibility request</button>
+</form>
+<p aria-live="polite" class="form-status" id="compatibility-form-status" role="status"></p>
 </div>
 </div>
 </section>
@@ -59,7 +87,7 @@
 <p class="section-intro">Need it for non-automotive serial equipment? Review the compatibility checklist above or send Crux Resolve the device model before ordering.</p>
 <div class="actions">
 <a class="button button-primary" href="/go/ghostbridge-checkout.html" rel="noopener noreferrer" target="_blank">Buy now · $89</a>
-<a class="button button-secondary" href="mailto:support@cruxresolve.com?subject=GhostBridge%20Compatibility%20Check">Check my device</a>
+<a class="button button-secondary" href="#compatibility-request">Check my device</a>
 </div>
 <p class="section-intro" style="margin-top:12px; margin-bottom:0; font-size:.95rem;">$89 product price + $8 USPS Ground Advantage shipping. Tax calculated at checkout.</p>
 <div class="card" style="margin-top:28px; text-align:left;">

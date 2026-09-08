@@ -1,0 +1,104 @@
+---
+layout: default
+title: "OEM WiFi Serial Bridge & Custom Firmware | Crux Resolve"
+description: "Custom GhostBridge firmware and OEM serial-connectivity evaluation for products that need local WiFi-to-RS232 communication, application-specific defaults, or deployment-specific behavior."
+canonical: https://cruxresolve.com/oem-serial-solutions.html
+og_image: https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp
+---
+<main id="main-content">
+<section class="hero">
+<div class="container hero-content">
+<div class="eyebrow">// Custom firmware · OEM serial connectivity</div>
+<h1><span class="accent">Need a WiFi serial bridge for your product?</span><br/>Start with the interface requirements.</h1>
+<p class="lead">Crux Resolve can evaluate GhostBridge-based deployments that need application-specific firmware behavior, serial defaults, network behavior, integration guidance, or repeatable configuration for a particular device or workflow.</p>
+<div class="actions">
+<a class="button button-primary" href="#oem-request">Discuss a project</a>
+<a class="button button-secondary" href="/ghostbridge.html">See GhostBridge GB-01</a>
+</div>
+</div>
+</section>
+
+<section class="section-divider">
+<div class="container">
+<div class="section-label">// What can be evaluated</div>
+<h2>More than a one-off adapter.</h2>
+<p class="section-intro">Because the bridge firmware is under Crux Resolve control, a deployment can be evaluated around the behavior your application actually needs rather than forcing every use case into one fixed configuration.</p>
+<div class="grid grid-2">
+<article class="card"><h3>Serial defaults</h3><p>Application-specific baud rate, parity, stop-bit, framing, timeout, or connection defaults can be evaluated when the hardware supports the required interface.</p></article>
+<article class="card"><h3>Network behavior</h3><p>Projects can be evaluated for deployment-specific WiFi naming, credentials, local addressing, TCP behavior, reconnect logic, keepalive behavior, and similar firmware-controlled functions.</p></article>
+<article class="card"><h3>Application-specific firmware</h3><p>Where a transparent bridge needs additional connection management, status behavior, diagnostics, or a constrained workflow, Crux Resolve can evaluate a custom firmware path.</p></article>
+<article class="card"><h3>Repeatable deployments</h3><p>For multiple units used with the same equipment, the goal can shift from manual setup to a known, repeatable configuration that reduces field setup and support burden.</p></article>
+<article class="card"><h3>Integration review</h3><p>Crux Resolve can review serial pinout, electrical requirements, host software, cabling, timing, and network expectations before recommending whether the current GB-01 hardware is a reasonable platform.</p></article>
+<article class="card"><h3>Future hardware requirements</h3><p>If a project requires signals the current GB-01 does not expose—such as RTS/CTS or a different physical interface—the requirement can be separated from firmware work and evaluated as a hardware-revision need.</p></article>
+</div>
+</div>
+</section>
+
+<section class="section-divider">
+<div class="container">
+<div class="section-label">// Current GB-01 hardware boundary</div>
+<h2>Know what firmware can—and cannot—change.</h2>
+<div class="grid grid-2">
+<div class="card">
+<h3>Firmware-controlled</h3>
+<ul class="spec-list">
+<li>Connection logic and session behavior.</li>
+<li>Supported serial configuration choices within the ESP32/UART capabilities.</li>
+<li>WiFi and TCP behavior implemented in firmware.</li>
+<li>Device identification, status, diagnostics, and application-specific defaults.</li>
+<li>Transparent transport behavior and reconnect handling.</li>
+</ul>
+</div>
+<div class="card">
+<h3>Hardware-controlled</h3>
+<ul class="spec-list">
+<li>Current production GB-01 is a standard 3-wire RS232 interface.</li>
+<li>DB9 pin 2 RX, pin 3 TX, pin 5 GND.</li>
+<li>RTS/CTS and other modem-control lines are not routed on current hardware.</li>
+<li>USB-C provides bridge power.</li>
+<li>Different electrical interfaces or additional physical signals can require a future board revision rather than firmware alone.</li>
+</ul>
+</div>
+</div>
+<div class="notice" style="margin-top:18px;"><strong>Scope is application-dependent:</strong> custom firmware or OEM work is evaluated case by case. This page describes areas Crux Resolve can evaluate; it is not a promise that every requested behavior can be implemented on the existing GB-01 hardware.</div>
+</div>
+</section>
+
+<section class="section-divider" id="oem-request">
+<div class="container">
+<div class="section-label">// Project inquiry</div>
+<h2>Describe the device and the deployment.</h2>
+<p class="section-intro">The most useful starting point is the equipment interface plus what you want the bridge to do differently from the standard GhostBridge configuration.</p>
+<div class="card" style="max-width:900px;margin:0 auto;">
+<form action="https://formspree.io/f/xqeveryb" aria-describedby="oem-form-status" data-async-form="" method="POST">
+<input name="subject" type="hidden" value="GhostBridge OEM / Custom Firmware Inquiry" />
+<div class="grid grid-2">
+<div><label for="oem-email">Email</label><input id="oem-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required /></div>
+<div><label for="oem-company">Company / organization</label><input id="oem-company" name="company" type="text" placeholder="Company name" /></div>
+<div><label for="oem-device">Device / equipment</label><input id="oem-device" name="device" type="text" placeholder="Manufacturer and model" required /></div>
+<div><label for="oem-quantity">Estimated quantity</label><input id="oem-quantity" name="estimated_quantity" type="text" placeholder="Prototype, 10, 100, etc." /></div>
+<div><label for="oem-interface">Serial interface</label><input id="oem-interface" name="serial_interface" type="text" placeholder="RS232 pinout and settings if known" /></div>
+<div><label for="oem-host">Host software / platform</label><input id="oem-host" name="host_platform" type="text" placeholder="Windows app, embedded client, mobile app, etc." /></div>
+</div>
+<div style="margin-top:18px;"><label for="oem-behavior">What needs to be customized?</label><textarea id="oem-behavior" name="requested_behavior" rows="6" placeholder="Describe the required WiFi, TCP, serial, reconnect, identification, configuration, or integration behavior." required></textarea></div>
+<div style="margin-top:18px;"><label for="oem-links">Manual / specification links</label><textarea id="oem-links" name="reference_links" rows="3" placeholder="Public links to device manuals, pinouts, protocol notes, or other relevant documentation."></textarea></div>
+<p class="muted" style="margin-top:14px;">Formspree processes this submission as described in the <a href="/privacy.html">Privacy Policy</a>. Do not submit passwords, proprietary source code, export-controlled technical data, or other sensitive credentials through this public form.</p>
+<button class="button button-primary" type="submit">Send project inquiry</button>
+</form>
+<p aria-live="polite" class="form-status" id="oem-form-status" role="status"></p>
+</div>
+</div>
+</section>
+
+<section class="section-divider">
+<div class="narrow center">
+<div class="section-label">// Standard product</div>
+<h2>Need the existing 3-wire RS232 bridge instead?</h2>
+<p class="section-intro">GhostBridge GB-01 is already available as an assembled local WiFi-to-RS232 TCP bridge for compatible standard 3-wire RS232 applications.</p>
+<div class="actions">
+<a class="button button-primary" href="/ghostbridge.html">Explore GhostBridge</a>
+<a class="button button-secondary" href="/rs232-wifi.html">RS232 over WiFi guide</a>
+</div>
+</div>
+</section>
+</main>

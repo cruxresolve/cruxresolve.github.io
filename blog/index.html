@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Technical Library — GhostTune and GhostBridge | Crux Resolve LLC"
-description: "Practical setup guides, compatibility information, troubleshooting help, and product-use articles for GhostTune, GhostBridge, MicroSquirt, and wireless ECU communication."
+title: "Technical Library — RS232 Connectivity, GhostBridge & GhostTune | Crux Resolve"
+description: "Practical guides for RS232 over WiFi, serial device servers, legacy serial equipment, GhostBridge connectivity, GhostTune ECU tuning, compatibility, and troubleshooting."
 canonical: https://cruxresolve.com/blog/
 current: blog
 ---
@@ -9,12 +9,17 @@ current: blog
   <section class="hero hero-compact">
     <div class="narrow">
       <div class="eyebrow">// Crux Resolve technical library</div>
-      <h1>Practical guides and product information.</h1>
-      <p class="lead" style="text-align:left; margin-left:0;">Setup guides, compatibility information, troubleshooting resources, and clear explanations for using GhostTune and GhostBridge with supported configurations.</p>
+      <h1>Practical guides for serial connectivity and mobile ECU tuning.</h1>
+      <p class="lead" style="text-align:left; margin-left:0;">Learn how RS232 over WiFi works, how to connect legacy serial equipment to modern devices, how GhostBridge fits into a local TCP-to-serial workflow, and how GhostTune works with supported ECU configurations.</p>
     </div>
   </section>
   <section class="section-divider">
-    <div class="narrow post-list"><a class="post-card" href="/blog/can-you-tune-a-car-from-your-phone.html"><div class="post-meta">September 6, 2026</div><h2>Can You Tune a Car From Your Phone? What Mobile ECU Tuning Can—and Can’t—Do</h2><p>A plain-language guide to real mobile ECU tuning: what a phone can control, what hardware is required, why compatibility matters, and when a laptop is still useful.</p><span class="badge badge-blue">Mobile tuning guide</span></a>
+    <div class="narrow post-list">
+<a class="post-card" href="/blog/connect-legacy-rs232-equipment-modern-computer.html"><div class="post-meta">September 8, 2026</div><h2>How to Connect Legacy RS232 Equipment to a Modern Computer</h2><p>Compare USB serial adapters, WiFi serial device servers, TCP connections, and virtual COM ports while checking the electrical interface, cabling, and software requirements first.</p><span class="badge badge-blue">Serial connectivity guide</span></a>
+<a class="post-card" href="/blog/tcp-to-rs232-serial-device-server.html"><div class="post-meta">September 8, 2026</div><h2>TCP to RS232 Explained: What a Serial Device Server Does</h2><p>How transparent TCP-to-RS232 transport works, why the bridge does not need to understand the application protocol, and what still has to match for a reliable connection.</p><span class="badge badge-blue">Serial device server guide</span></a>
+<a class="post-card" href="/blog/3-wire-rs232-tx-rx-ground.html"><div class="post-meta">September 8, 2026</div><h2>3-Wire RS232 Explained: TX, RX, and Ground</h2><p>What transmit, receive, and ground do, when a three-wire link is enough, and why equipment requiring RTS/CTS or other control lines needs more than basic serial transport.</p><span class="badge badge-blue">RS232 fundamentals</span></a>
+<a class="post-card" href="/blog/rs232-dte-dce-null-modem.html"><div class="post-meta">September 8, 2026</div><h2>RS232 DTE vs DCE and Null-Modem Cables Explained</h2><p>Why two valid RS232 devices can still need TX/RX crossover, when straight-through wiring works, and how to avoid guessing from DB9 connector gender.</p><span class="badge badge-blue">RS232 cabling guide</span></a>
+<a class="post-card" href="/blog/can-you-tune-a-car-from-your-phone.html"><div class="post-meta">September 6, 2026</div><h2>Can You Tune a Car From Your Phone? What Mobile ECU Tuning Can—and Can’t—Do</h2><p>A plain-language guide to real mobile ECU tuning: what a phone can control, what hardware is required, why compatibility matters, and when a laptop is still useful.</p><span class="badge badge-blue">Mobile tuning guide</span></a>
 <a class="post-card" href="/blog/ghosttune-microsquirt-compatibility-requirements.html"><div class="post-meta">August 31, 2026</div><h2>Can GhostTune Tune MicroSquirt? Current Compatibility and Requirements</h2><p>The current verified GhostTune setup for MicroSquirt, including MS2/Extra 3.4.4, iPhone and iPad, local WiFi communication, and GhostBridge GB-01.</p><span class="badge badge-blue">Compatibility guide</span></a>
 <a class="post-card" href="/blog/microsquirt-wifi-troubleshooting-no-ecu-data.html"><div class="post-meta">August 31, 2026</div><h2>MicroSquirt WiFi Troubleshooting: Connected to WiFi but No ECU Data</h2><p>A step-by-step troubleshooting guide for cases where an iPhone or iPad joins the wireless bridge but the tuning app shows no ECU data or the connection drops.</p><span class="badge badge-blue">Troubleshooting guide</span></a>
 <a class="post-card" href="/blog/microsquirt-wifi-vs-bluetooth-mobile-tuning.html"><div class="post-meta">August 31, 2026</div><h2>MicroSquirt WiFi vs Bluetooth: Which Is Better for Mobile Tuning?</h2><p>A practical comparison of WiFi and Bluetooth for MicroSquirt communication on iPhone or iPad, including compatibility, setup, internet access, and everyday use.</p><span class="badge badge-blue">Comparison guide</span></a>
@@ -22,7 +27,8 @@ current: blog
 <a class="post-card" href="/blog/how-to-tune-microsquirt-from-iphone.html"><div class="post-meta">Updated August 31, 2026</div><h2>How to Tune a MicroSquirt From an iPhone: A Practical Wireless Setup Guide</h2><p>How a supported MicroSquirt can be tuned from iPhone or iPad over local WiFi, including setup, live-data checks, backups, and ECU changes.</p><span class="badge badge-blue">Practical guide</span></a>
 <a class="post-card" href="/blog/how-ghosttune-handles-ecu-changes.html"><div class="post-meta">Updated August 31, 2026</div><h2>How GhostTune Handles ECU Changes</h2><p>How temporary changes, permanent burns, compatibility checks, and result verification work together during supported ECU changes.</p><span class="badge">GhostTune guide</span></a>
 <a class="post-card" href="/blog/what-ghosttune-verifies-during-live-ecu-testing.html"><div class="post-meta">Updated August 31, 2026</div><h2>What GhostTune Checks During Live ECU Use</h2><p>How GhostTune checks supported compatibility, live data, backups, ECU changes, and returned results during normal use.</p><span class="badge">GhostTune guide</span></a>
-<a class="post-card" href="/blog/ghostbridge-now-available.html"><div class="post-meta">Updated August 31, 2026</div><h2>GhostBridge Is Available Now</h2><p>Current GhostBridge GB-01 availability, verified use, included interfaces, and ordering information.</p><span class="badge">Product information</span></a>
-<a class="post-card" href="/blog/how-wireless-serial-bridging-works.html"><div class="post-meta">Updated August 31, 2026</div><h2>How Wireless Serial Bridging Works</h2><p>A plain-language explanation of local TCP-to-RS232 bridging, transparent byte relay, and practical compatibility limitations.</p><span class="badge">Technical guide</span></a></div>
+<a class="post-card" href="/blog/ghostbridge-now-available.html"><div class="post-meta">Updated August 31, 2026</div><h2>GhostBridge Is Available Now</h2><p>Current GhostBridge GB-01 availability, interface details, verified automotive use, and ordering information.</p><span class="badge">Product information</span></a>
+<a class="post-card" href="/blog/how-wireless-serial-bridging-works.html"><div class="post-meta">Updated August 31, 2026</div><h2>How Wireless Serial Bridging Works</h2><p>A plain-language explanation of local TCP-to-RS232 bridging, transparent byte relay, and practical compatibility limitations.</p><span class="badge">Technical guide</span></a>
+    </div>
   </section>
 </main>

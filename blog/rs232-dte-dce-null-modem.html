@@ -1,0 +1,54 @@
+---
+layout: default
+title: "RS232 DTE vs DCE and Null-Modem Cables Explained | Crux Resolve"
+description: "A practical guide to RS232 DTE and DCE orientation, why TX/RX crossover matters, and when a straight-through or null-modem cable is required."
+canonical: https://cruxresolve.com/blog/rs232-dte-dce-null-modem.html
+current: blog
+og_type: article
+og_image: https://cruxresolve.com/assets/gb01/gb01-db9-front.webp
+---
+<main id="main-content"><article class="article">
+<a href="/blog/">← Back to Technical Library</a>
+<div class="eyebrow" style="margin-top:28px;">// September 8, 2026 · Crux Resolve LLC</div>
+<h1>RS232 DTE vs DCE and null-modem cables explained</h1>
+<p class="lead" style="text-align:left; margin-left:0;">Two devices can both use valid RS232 and still fail to communicate if their transmit and receive signals are connected in the wrong orientation. DTE, DCE, and null-modem wiring explain why.</p>
+
+<h2>What DTE and DCE mean</h2>
+<p>Historically, RS232 distinguished between Data Terminal Equipment (DTE) and Data Communication Equipment (DCE). The two endpoint types were arranged so a normal straight-through cable connected the transmitter on one side to the receiver on the other.</p>
+<p>Modern equipment does not always follow the old categories neatly, but the practical question remains the same: which pin does each device transmit on, and which pin does it receive on?</p>
+
+<h2>Why a straight-through cable sometimes works</h2>
+<p>If the two endpoints are complementary, a straight-through cable can place each transmitter opposite the other device's receiver without changing the pin numbers inside the cable.</p>
+<p>That is why one RS232 device can work immediately with a normal cable while another apparently similar device needs an adapter.</p>
+
+<h2>What a null-modem cable does</h2>
+<p>A null-modem cable or adapter crosses the relevant signals so two similarly oriented endpoints can communicate directly. In a basic three-wire connection, the important change is that TX on one side reaches RX on the other and vice versa.</p>
+<div class="notice"><strong>Basic idea:</strong> Endpoint A TX → Endpoint B RX, Endpoint B TX → Endpoint A RX, and ground → ground.</div>
+<p>More elaborate null-modem cables may also cross or loop hardware handshaking lines. That matters only when the equipment actually uses those additional signals.</p>
+
+<h2>Why connector gender is not enough</h2>
+<p>People often try to infer DTE/DCE behavior from whether a DB9 connector is male or female. Connector gender can be a useful clue on some traditional equipment, but it is not a reliable compatibility rule for every modern product.</p>
+<p>The device manual or a documented pinout is a much stronger source than connector appearance.</p>
+
+<h2>How to troubleshoot an RS232 link that will not communicate</h2>
+<ol>
+<li>Confirm both devices really use RS232 electrical signaling.</li>
+<li>Find the TX, RX, and GND pins for both endpoints.</li>
+<li>Verify that each TX path reaches the opposite RX.</li>
+<li>Confirm the serial settings match.</li>
+<li>Determine whether the device requires hardware flow-control or modem-status lines.</li>
+<li>If the pin orientations are the same, test with the correct null-modem/crossover arrangement.</li>
+</ol>
+
+<h2>GhostBridge GB-01 orientation</h2>
+<p>The current <a href="/ghostbridge.html">GhostBridge GB-01</a> uses a DB9 male connector with pin 3 as TX out of GhostBridge, pin 2 as RX into GhostBridge, and pin 5 as ground.</p>
+<p>That means the other endpoint and cable have to be arranged so GhostBridge pin 3 ultimately reaches the other device's receive input and the other device's transmit output ultimately reaches GhostBridge pin 2.</p>
+<p>Some equipment will satisfy that with a straight-through cable; other equipment may require a null-modem adapter. The product cannot determine this from the DB9 connector alone.</p>
+
+<h2>What if the device uses RTS/CTS?</h2>
+<p>The current production GB-01 does not route RTS/CTS or other modem-control signals to the DB9 connector. A device that requires hardware handshaking is therefore outside the direct capabilities of the current three-wire hardware even if TX and RX are crossed correctly.</p>
+
+<p>For the rest of the interface checklist, read <a href="/blog/3-wire-rs232-tx-rx-ground.html">3-Wire RS232: TX, RX, and Ground</a> and the broader <a href="/rs232-wifi.html">RS232 over WiFi guide</a>.</p>
+<nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← Technical Library</a><a href="/ghostbridge.html#compatibility-request">Check a device →</a></nav>
+</article></main>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"RS232 DTE vs DCE and Null-Modem Cables Explained","description":"A practical guide to RS232 DTE and DCE orientation, why TX/RX crossover matters, and when a straight-through or null-modem cable is required.","datePublished":"2026-09-08","dateModified":"2026-09-08","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/rs232-dte-dce-null-modem.html","image":"https://cruxresolve.com/assets/gb01/gb01-db9-front.webp"}</script>
