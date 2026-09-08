@@ -1,0 +1,84 @@
+---
+layout: default
+title: "CNC RS232 Over WiFi: DNC and Program Transfer Considerations | Crux Resolve"
+description: "A practical guide to using RS232 over WiFi for compatible CNC and DNC program-transfer workflows, including serial settings, XON/XOFF vs RTS/CTS, cabling, and host-software requirements."
+canonical: https://cruxresolve.com/blog/cnc-rs232-over-wifi-dnc-transfer.html
+current: blog
+og_type: article
+og_image: https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp
+---
+<main id="main-content"><article class="article">
+{% include blog/serial-breadcrumbs.html %}
+<div class="eyebrow">// September 8, 2026 · Crux Resolve LLC</div>
+<h1>CNC RS232 over WiFi: DNC and program-transfer considerations</h1>
+<p class="lead" style="text-align:left; margin-left:0;">Many older CNC controls still exchange programs through RS232. A WiFi serial bridge can remove the long host-to-machine serial cable in some DNC and file-transfer workflows, but only when the machine, cabling, flow-control method, serial settings, and PC software are all compatible.</p>
+
+<div class="notice notice-danger"><strong>Do not buy by machine brand alone.</strong> Different controls—even within the same manufacturer—can use different connectors, pinouts, flow-control methods, and serial settings. Check the exact control documentation before connecting a bridge.</div>
+
+<h2>Why CNC equipment still uses RS232</h2>
+<p>Legacy and long-lived CNC controls often use serial communication for part-program transfer, setup, diagnostics, or DNC workflows. The machine may remain mechanically useful for decades even when the surrounding computers and networks change.</p>
+<p>That makes the communication layer a natural modernization target: keep the control, but replace an inconvenient physical cable path with a local network connection where the serial requirements allow it.</p>
+
+<h2>The basic WiFi DNC path</h2>
+<div class="notice"><strong>Typical path:</strong> DNC / transfer software ⇄ TCP or virtual COM ⇄ WiFi serial bridge ⇄ RS232 cable ⇄ CNC control.</div>
+<p>The bridge does not convert G-code or understand the CNC program format. It transports the same serial byte stream the control already expects.</p>
+<p>If the host software can open a TCP connection directly, it may talk to the bridge without a local COM port. Older DNC software that only opens COM ports may need a compatible TCP-to-virtual-COM utility.</p>
+
+<h2>Step 1: identify the exact CNC serial interface</h2>
+<p>Start with the machine or control manual. Record:</p>
+<ul>
+<li>whether the interface is explicitly RS232,</li>
+<li>connector type and gender,</li>
+<li>TX, RX, and signal-ground pins,</li>
+<li>baud rate, data bits, parity, and stop bits,</li>
+<li>software or hardware flow-control requirements,</li>
+<li>and any special DNC/drip-feed timing behavior.</li>
+</ul>
+<p>A DB9 or DB25 connector is not enough by itself. See <a href="/blog/db9-does-not-mean-rs232.html">DB9 Does Not Mean RS232</a> for the interface-identification process.</p>
+
+<h2>Step 2: distinguish software flow control from hardware flow control</h2>
+<p>This is especially important for CNC transfers.</p>
+<h3>XON/XOFF software flow control</h3>
+<p>XON/XOFF uses control characters inside the serial data stream to pause and resume transmission. Because those characters travel as bytes, a transparent serial bridge can carry them when the UART and application timing are otherwise compatible.</p>
+<h3>RTS/CTS hardware flow control</h3>
+<p>RTS and CTS use separate physical signal lines outside the TX/RX byte stream. A three-wire bridge cannot reproduce those signals if its hardware does not route them.</p>
+<div class="notice notice-danger"><strong>Current GhostBridge GB-01 limitation:</strong> GB-01 does not route RTS/CTS or other modem-control lines. A CNC workflow that requires hardware RTS/CTS is therefore not a direct fit for the current production hardware.</div>
+
+<h2>Step 3: verify cable orientation</h2>
+<p>The CNC control and bridge must be wired so each transmitter reaches the opposite receiver. Depending on DTE/DCE orientation, the connection may require a straight-through cable, a null-modem arrangement, or a DB25-to-DB9 adapter with the correct signal mapping.</p>
+<p>Do not infer the wiring only from connector gender. Use the documented pinout. See <a href="/blog/rs232-dte-dce-null-modem.html">RS232 DTE vs DCE and Null-Modem Cables Explained</a>.</p>
+
+<h2>Step 4: match the serial settings exactly</h2>
+<p>The bridge-side UART and CNC control must use the same communication parameters. A typical notation such as <code>9600 7E1</code> or <code>9600 8N1</code> describes baud rate, data bits, parity, and stop bits.</p>
+<p>CNC controls may use settings that differ from modern defaults, so do not assume 8N1. Read the actual machine configuration and match it deliberately.</p>
+
+<h2>Step 5: understand what the PC software expects</h2>
+<p>DNC and transfer programs vary. Some are designed around physical COM ports; others support network endpoints or external serial device servers.</p>
+<p>If your software only supports a COM port, test the complete virtual-COM path before depending on it for production transfers. The virtual-COM utility, operating system, WiFi link, bridge firmware, and CNC control all become part of the communication chain.</p>
+
+<h2>Program upload/download vs drip feeding</h2>
+<p>Sending or receiving a complete program is generally a simpler communication case than real-time drip feeding. Drip feeding can place tighter demands on flow control, buffering, timing, and reconnect behavior.</p>
+<p>A bridge that works for a short file transfer should not automatically be assumed to work for long unattended drip-feed operation. Test the exact workload you intend to use.</p>
+
+<h2>When WiFi is useful in a CNC workflow</h2>
+<ul>
+<li>The PC or operator does not need to remain physically tethered to the control.</li>
+<li>Running or maintaining a long serial cable through the shop is inconvenient.</li>
+<li>The machine control is still useful but lacks modern Ethernet or WiFi connectivity.</li>
+<li>The host workflow already supports TCP or a tested virtual-COM layer.</li>
+<li>The control uses compatible RS232 and does not require unsupported hardware handshaking.</li>
+</ul>
+
+<h2>When a hardened industrial device server is the better choice</h2>
+<p>A shop-floor installation may need features beyond a compact local bridge, including DIN-rail mounting, wide-temperature ratings, isolated serial ports, 12–48 V industrial power, managed WLAN modes, RS422/RS485, or full hardware handshaking.</p>
+<p>If those are requirements, choose hardware designed for that environment rather than treating a compact three-wire bridge as a universal industrial replacement.</p>
+
+<h2>Where GhostBridge GB-01 fits</h2>
+<p><a href="/ghostbridge.html" data-funnel="ghostbridge_product">GhostBridge GB-01</a> is a local WiFi-to-standard-3-wire-RS232 TCP bridge. Its current DB9 male interface uses pin 2 RX into GhostBridge, pin 3 TX out, and pin 5 signal ground.</p>
+<p>It can be a candidate for a CNC transfer workflow only when the exact control uses compatible true RS232, the required serial settings can be matched, the cable orientation is correct, and the workflow does not require RTS/CTS or other physical modem-control lines.</p>
+<p>If you know the control model but are unsure about those requirements, use the compatibility request rather than ordering by brand or connector shape.</p>
+
+{% include blog/serial-conversion-cta.html %}
+<nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← Technical Library</a><a href="/ghostbridge.html#compatibility-request" data-funnel="compatibility_request">Check a CNC control →</a></nav>
+</article></main>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"CNC RS232 Over WiFi: DNC and Program Transfer Considerations","description":"A practical guide to using RS232 over WiFi for compatible CNC and DNC program-transfer workflows, including serial settings, XON/XOFF vs RTS/CTS, cabling, and host-software requirements.","datePublished":"2026-09-08","dateModified":"2026-09-08","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/cnc-rs232-over-wifi-dnc-transfer.html","image":"https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp"}</script>
