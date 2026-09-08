@@ -40,7 +40,7 @@ og_image: https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp
 <p>That extra software layer has its own compatibility requirements, so it should be tested with the actual application rather than assumed to work universally.</p>
 
 <h2>Where GhostBridge fits</h2>
-<p><a href="/ghostbridge.html">GhostBridge GB-01</a> is a compact local WiFi-to-standard-3-wire-RS232 bridge. Its current production DB9 interface uses pin 2 for RX, pin 3 for TX, and pin 5 for ground. The current hardware does not route RTS/CTS or other modem-control signals.</p>
+<p><a href="/ghostbridge.html" data-funnel="ghostbridge_product">GhostBridge GB-01</a> is a compact local WiFi-to-standard-3-wire-RS232 bridge. Its current production DB9 interface uses pin 2 for RX, pin 3 for TX, and pin 5 for ground. The current hardware does not route RTS/CTS or other modem-control signals.</p>
 <p>The bridge was originally validated with GhostTune and a published MicroSquirt / MS2/Extra 3.4.4 workflow, but the hardware transport itself is not ECU-specific. Other compatible RS232 applications can be evaluated against the same interface requirements.</p>
 
 <h2>Before choosing a serial device server</h2>
@@ -52,7 +52,8 @@ og_image: https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp
 <li>Check whether the host software can use TCP directly or needs a virtual COM layer.</li>
 </ul>
 
-<p>For a broader overview, see <a href="/rs232-wifi.html">RS232 over WiFi</a>. If you have a specific device and want Crux Resolve to review its interface before ordering, use the <a href="/ghostbridge.html#compatibility-request">GhostBridge compatibility request</a>.</p>
-<nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← Technical Library</a><a href="/ghostbridge.html">View GhostBridge →</a></nav>
+<p>For a broader overview, see <a href="/rs232-wifi.html" data-funnel="rs232_guide">RS232 over WiFi</a>.</p>
+{% include blog/serial-conversion-cta.html %}
+<nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← Technical Library</a><a href="/ghostbridge.html" data-funnel="ghostbridge_product">View GhostBridge →</a></nav>
 </article></main>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"TCP to RS232 Explained: What a Serial Device Server Does","description":"A practical explanation of TCP-to-RS232 serial device servers, transparent byte transport, local WiFi bridging, and compatibility requirements for legacy serial equipment.","datePublished":"2026-09-08","dateModified":"2026-09-08","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/tcp-to-rs232-serial-device-server.html","image":"https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp"}</script>
