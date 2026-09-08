@@ -1,0 +1,18 @@
+<nav aria-label="Breadcrumb" class="muted" style="margin:0 0 22px; font-size:.9rem;">
+  <a href="/">Home</a> <span aria-hidden="true">›</span>
+  <a href="/blog/">Technical Library</a> <span aria-hidden="true">›</span>
+  <a href="/rs232-wifi.html" data-funnel="rs232_guide">Serial Connectivity</a> <span aria-hidden="true">›</span>
+  <span aria-current="page">{{ page.title | split: ' | ' | first }}</span>
+</nav>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://cruxresolve.com/"},
+    {"@type":"ListItem","position":2,"name":"Technical Library","item":"https://cruxresolve.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"Serial Connectivity","item":"https://cruxresolve.com/rs232-wifi.html"},
+    {"@type":"ListItem","position":4,"name":{{ page.title | split: ' | ' | first | jsonify }},"item":{{ page.canonical | jsonify }}}
+  ]
+}
+</script>
