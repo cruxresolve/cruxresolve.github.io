@@ -37,7 +37,7 @@ extra_css: /assets/css/home-crux.css
         <h1 id="crux-home-title">Connect legacy hardware to modern devices.</h1>
         <p class="lead">Crux Resolve builds local wireless serial connectivity hardware and specialized mobile software for automotive, embedded, industrial, and legacy systems. GhostBridge puts standard 3-wire RS232 on WiFi; GhostTune brings supported ECU tuning to iPhone and iPad.</p>
         <div class="actions">
-          <a class="button button-primary" href="/ghostbridge.html">Explore GhostBridge</a>
+          <a class="button button-primary" href="/ghostbridge.html" data-funnel="ghostbridge_product">Explore GhostBridge</a>
           <a class="button button-secondary" href="/ghosttune-app.html">Explore GhostTune</a>
         </div>
       </div>
@@ -59,7 +59,7 @@ extra_css: /assets/css/home-crux.css
       </div>
 
       <div class="crux-product-grid">
-        <a class="crux-product-card" href="/ghostbridge.html">
+        <a class="crux-product-card" href="/ghostbridge.html" data-funnel="ghostbridge_product">
           <div class="crux-product-media">
             <img src="/assets/gb01/gb01-db9-angle.webp" alt="GhostBridge GB-01 production WiFi-to-RS232 serial bridge" width="2084" height="1639" loading="lazy" />
           </div>
@@ -91,12 +91,14 @@ extra_css: /assets/css/home-crux.css
           <span>See how GhostBridge connects compatible serial equipment over a direct local WiFi link.</span>
         </div>
         <div class="actions">
-          <a class="button button-primary" href="/rs232-wifi.html">RS232 over WiFi guide</a>
+          <a class="button button-primary" href="/rs232-wifi.html" data-funnel="rs232_guide">RS232 over WiFi guide</a>
           <a class="button button-secondary" href="/go/ghostbridge-checkout.html" target="_blank" rel="noopener noreferrer">Buy GhostBridge · $89</a>
         </div>
       </div>
     </div>
   </section>
+
+  {% include home/serial-funnel.html %}
 
   <section class="crux-pillars" aria-labelledby="approach-title">
     <div class="container">
@@ -135,7 +137,7 @@ extra_css: /assets/css/home-crux.css
       </div>
 
       <div class="crux-guide-grid">
-        <a class="crux-guide-card" href="/rs232-wifi.html">
+        <a class="crux-guide-card" href="/rs232-wifi.html" data-funnel="rs232_guide">
           <div class="post-meta">Serial connectivity guide</div>
           <h3>Connect RS232 Equipment Over WiFi</h3>
           <p>How a local WiFi-to-RS232 bridge connects legacy serial hardware to modern computers, phones, tablets, and embedded clients.</p>
