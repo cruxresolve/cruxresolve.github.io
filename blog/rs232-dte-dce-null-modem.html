@@ -41,14 +41,15 @@ og_image: https://cruxresolve.com/assets/gb01/gb01-db9-front.webp
 </ol>
 
 <h2>GhostBridge GB-01 orientation</h2>
-<p>The current <a href="/ghostbridge.html">GhostBridge GB-01</a> uses a DB9 male connector with pin 3 as TX out of GhostBridge, pin 2 as RX into GhostBridge, and pin 5 as ground.</p>
+<p>The current <a href="/ghostbridge.html" data-funnel="ghostbridge_product">GhostBridge GB-01</a> uses a DB9 male connector with pin 3 as TX out of GhostBridge, pin 2 as RX into GhostBridge, and pin 5 as ground.</p>
 <p>That means the other endpoint and cable have to be arranged so GhostBridge pin 3 ultimately reaches the other device's receive input and the other device's transmit output ultimately reaches GhostBridge pin 2.</p>
 <p>Some equipment will satisfy that with a straight-through cable; other equipment may require a null-modem adapter. The product cannot determine this from the DB9 connector alone.</p>
 
 <h2>What if the device uses RTS/CTS?</h2>
 <p>The current production GB-01 does not route RTS/CTS or other modem-control signals to the DB9 connector. A device that requires hardware handshaking is therefore outside the direct capabilities of the current three-wire hardware even if TX and RX are crossed correctly.</p>
 
-<p>For the rest of the interface checklist, read <a href="/blog/3-wire-rs232-tx-rx-ground.html">3-Wire RS232: TX, RX, and Ground</a> and the broader <a href="/rs232-wifi.html">RS232 over WiFi guide</a>.</p>
-<nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← Technical Library</a><a href="/ghostbridge.html#compatibility-request">Check a device →</a></nav>
+<p>For the rest of the interface checklist, read <a href="/blog/3-wire-rs232-tx-rx-ground.html">3-Wire RS232: TX, RX, and Ground</a> and the broader <a href="/rs232-wifi.html" data-funnel="rs232_guide">RS232 over WiFi guide</a>.</p>
+{% include blog/serial-conversion-cta.html %}
+<nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← Technical Library</a><a href="/ghostbridge.html#compatibility-request" data-funnel="compatibility_request">Check a device →</a></nav>
 </article></main>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"RS232 DTE vs DCE and Null-Modem Cables Explained","description":"A practical guide to RS232 DTE and DCE orientation, why TX/RX crossover matters, and when a straight-through or null-modem cable is required.","datePublished":"2026-09-08","dateModified":"2026-09-08","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/rs232-dte-dce-null-modem.html","image":"https://cruxresolve.com/assets/gb01/gb01-db9-front.webp"}</script>
