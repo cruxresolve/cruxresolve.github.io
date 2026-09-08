@@ -1,0 +1,66 @@
+---
+layout: default
+title: "3-Wire RS232 Explained: TX, RX, and Ground | Crux Resolve"
+description: "Learn how basic 3-wire RS232 communication works using transmit, receive, and ground, when it is enough, and when hardware flow-control lines are required."
+canonical: https://cruxresolve.com/blog/3-wire-rs232-tx-rx-ground.html
+current: blog
+og_type: article
+og_image: https://cruxresolve.com/assets/gb01/gb01-db9-front.webp
+---
+<main id="main-content"><article class="article">
+<a href="/blog/">← Back to Technical Library</a>
+<div class="eyebrow" style="margin-top:28px;">// September 8, 2026 · Crux Resolve LLC</div>
+<h1>3-wire RS232 explained: TX, RX, and ground</h1>
+<p class="lead" style="text-align:left; margin-left:0;">Many RS232 devices communicate with only three electrical connections: transmit, receive, and ground. That simple arrangement is often called 3-wire RS232.</p>
+
+<h2>The three signals</h2>
+<ul>
+<li><strong>TX:</strong> data transmitted out of one device.</li>
+<li><strong>RX:</strong> data received by that device.</li>
+<li><strong>GND:</strong> the signal reference shared by the two endpoints.</li>
+</ul>
+<p>For communication to work, the transmitter on one side must ultimately reach the receiver on the other side, and both sides need the correct signal reference.</p>
+
+<h2>Why TX and RX can be confusing</h2>
+<p>Pin labels are normally written from the perspective of the device being documented. A pin marked TX is the pin that device transmits on. A pin marked RX is the pin that device receives on.</p>
+<p>This is why two pieces of equipment may need a crossover or null-modem arrangement: one endpoint's transmit signal must arrive at the other endpoint's receive input.</p>
+
+<h2>What 3-wire RS232 leaves out</h2>
+<p>The classic DB9 RS232 connector can carry more than just TX, RX, and ground. Other pins may be used for signals such as RTS, CTS, DTR, DSR, DCD, or RI.</p>
+<p>Those extra lines can provide hardware flow control, modem status, connection-state information, or application-specific behavior. If the equipment requires one of them, a three-wire bridge cannot reproduce that behavior just by changing software.</p>
+
+<h2>When 3-wire RS232 is enough</h2>
+<p>A three-wire connection is a strong fit when the application handles data flow entirely through the serial byte stream and does not rely on external modem-control lines.</p>
+<p>Common examples include devices that use ordinary request/response commands, periodic data output, or software-level acknowledgements. The important point is not the industry or device type; it is the actual serial-interface requirements.</p>
+
+<h2>Serial settings still have to match</h2>
+<p>Three correct wires are only part of the connection. Both endpoints also need compatible communication settings, including:</p>
+<ul>
+<li>baud rate,</li>
+<li>data bits,</li>
+<li>parity,</li>
+<li>stop bits,</li>
+<li>and any timing or packetization assumptions made by the application.</li>
+</ul>
+<p>A familiar shorthand such as <code>9600 8N1</code> means 9600 baud, 8 data bits, no parity, and 1 stop bit.</p>
+
+<h2>DB9 does not automatically mean standard 3-wire RS232</h2>
+<p>A DB9 connector is only a physical connector. Equipment manufacturers have used DB9 connectors for RS232, RS485, CAN, TTL-level serial, proprietary signals, and custom pinouts.</p>
+<div class="notice notice-danger"><strong>Check the manual first:</strong> do not connect equipment based only on the connector shape. Confirm the electrical interface and pinout in the device documentation.</div>
+
+<h2>GhostBridge GB-01 as a 3-wire RS232 bridge</h2>
+<p>The current production <a href="/ghostbridge.html">GhostBridge GB-01</a> uses a DB9 male connector with:</p>
+<ul>
+<li><strong>Pin 2:</strong> RX into GhostBridge.</li>
+<li><strong>Pin 3:</strong> TX out of GhostBridge.</li>
+<li><strong>Pin 5:</strong> signal ground.</li>
+</ul>
+<p>RTS/CTS and the other modem-control signals are not routed on the current GB-01 hardware. That makes it appropriate to describe the product specifically as a standard 3-wire RS232 bridge rather than a universal full-handshake DB9 device server.</p>
+
+<h2>How to evaluate your device</h2>
+<p>Before connecting a wireless serial bridge, find the device manual and answer four questions: Is it true RS232? Which pins are TX, RX, and ground? What serial settings are required? Does the device require any additional control lines?</p>
+<p>If those answers point to ordinary three-wire communication, the device is a much stronger candidate for a bridge such as GhostBridge.</p>
+<p>See the <a href="/rs232-wifi.html">RS232 over WiFi guide</a> for the complete network-side picture, or send the device details through the <a href="/ghostbridge.html#compatibility-request">compatibility request form</a>.</p>
+<nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← Technical Library</a><a href="/ghostbridge.html#specifications">GB-01 specifications →</a></nav>
+</article></main>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"3-Wire RS232 Explained: TX, RX, and Ground","description":"Learn how basic 3-wire RS232 communication works using transmit, receive, and ground, when it is enough, and when hardware flow-control lines are required.","datePublished":"2026-09-08","dateModified":"2026-09-08","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/3-wire-rs232-tx-rx-ground.html","image":"https://cruxresolve.com/assets/gb01/gb01-db9-front.webp"}</script>
