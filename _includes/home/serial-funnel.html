@@ -1,0 +1,46 @@
+<style>
+.crux-path-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media(max-width:860px){.crux-path-grid{grid-template-columns:1fr}}
+</style>
+<section class="crux-guides" aria-labelledby="serial-paths-title">
+  <div class="container">
+    <div class="crux-guides-head">
+      <div>
+        <div class="section-label">// Start with your problem</div>
+        <h2 id="serial-paths-title">What are you trying to connect?</h2>
+        <p>You do not need to know whether you need a “serial device server” before you arrive. Start with the equipment or software problem and follow the path that fits.</p>
+      </div>
+      <a class="button button-secondary" href="/rs232-wifi.html" data-funnel="rs232_guide">RS232 over WiFi overview</a>
+    </div>
+
+    <div class="crux-path-grid">
+      <a class="crux-guide-card" href="/ghostbridge.html" data-funnel="ghostbridge_product">
+        <div class="post-meta">Standard product</div>
+        <h3>I need to make a 3-wire RS232 device wireless</h3>
+        <p>See the current GhostBridge GB-01 interface, local TCP connection, price, limitations, and ordering details.</p>
+        <span class="crux-guide-link">Explore GhostBridge →</span>
+      </a>
+
+      <a class="crux-guide-card" href="/ghostbridge.html#compatibility-request" data-funnel="compatibility_request">
+        <div class="post-meta">Compatibility review</div>
+        <h3>I have a device, but I am not sure the interface matches</h3>
+        <p>Send the manufacturer, model, serial settings, pinout, and host software you know before deciding whether to order.</p>
+        <span class="crux-guide-link">Check my device →</span>
+      </a>
+
+      <a class="crux-guide-card" href="/blog/connect-legacy-rs232-equipment-modern-computer.html" data-funnel="legacy_com_guide">
+        <div class="post-meta">Legacy software</div>
+        <h3>My old software still expects a COM port</h3>
+        <p>Learn how TCP-to-serial bridging and virtual COM-port software can fit between modern computers and older RS232 equipment.</p>
+        <span class="crux-guide-link">Read the legacy connection guide →</span>
+      </a>
+
+      <a class="crux-guide-card" href="/oem-serial-solutions.html" data-funnel="oem_serial_solutions">
+        <div class="post-meta">OEM / custom firmware</div>
+        <h3>I need repeat deployments or application-specific behavior</h3>
+        <p>Start with the hardware interface and project requirements when you need custom firmware, repeatable defaults, or product integration.</p>
+        <span class="crux-guide-link">Discuss an OEM application →</span>
+      </a>
+    </div>
+  </div>
+</section>
