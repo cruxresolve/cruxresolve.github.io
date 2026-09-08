@@ -1,40 +1,96 @@
 <section id="features">
 <div class="container">
 <div class="section-label">// What it does</div>
-<h2>A transparent local bridge.</h2>
-<p class="section-intro">GhostBridge relays bytes between a local TCP connection and its RS232 interface without interpreting the application protocol. GhostTune with the published MicroSquirt configuration is the verified production use; other RS232 applications may also be compatible when their electrical, cabling, serial, and client-software requirements match the bridge.</p>
+<h2>A transparent local RS232 bridge.</h2>
+<p class="section-intro">GhostBridge moves serial bytes between standard 3-wire RS232 and a local TCP connection. It does not need to understand the device's application protocol, which makes the same hardware useful across compatible automotive, embedded, industrial, test, and legacy serial applications.</p>
 <div class="grid grid-2">
-<article class="card"><h3><span aria-hidden="true">🔌 </span>Assembled hardware</h3><p>The bridge arrives assembled with a DB9 RS232 interface and USB-C power input. Join its WiFi network and connect through the published local TCP endpoint.</p></article>
-<article class="card"><h3><span aria-hidden="true">📡 </span>Its own WiFi network</h3><p>No router or internet connection is required. A phone, tablet, computer, or other compatible TCP client can connect directly to the bridge’s local access point.</p></article>
-<article class="card"><h3><span aria-hidden="true">✅ </span>Optimized for GhostTune</h3><p>GhostBridge is designed and verified around GhostTune’s MicroSquirt workflow, providing a known hardware path for the supported ECU configuration.</p></article>
-<article class="card"><h3><span aria-hidden="true">↔️ </span>Not software-locked</h3><p>The byte-relay design is not restricted to GhostTune. Other RS232 and TCP applications may work when the complete serial and electrical setup is compatible; they are not represented as verified unless Crux Resolve explicitly lists them.</p></article>
-<article class="card"><h3><span aria-hidden="true">🔐 </span>Local communication</h3><p>Serial traffic stays on the direct local connection. GhostBridge does not provide a cloud relay or remote logging service.</p></article>
-<article class="card"><h3><span aria-hidden="true">🧰 </span>Built for practical use</h3><p>The assembled enclosure protects the board and connectors while keeping the DB9 serial interface and USB-C power connection easy to access.</p></article>
+<article class="card"><h3><span aria-hidden="true">↔️ </span>Standard 3-wire RS232</h3><p>GB-01 uses a DB9 male connector with pin 2 RX, pin 3 TX, and pin 5 ground. The current hardware is intended for devices that communicate over TX, RX, and GND without required modem-control lines.</p></article>
+<article class="card"><h3><span aria-hidden="true">📡 </span>Its own WiFi network</h3><p>No router or internet connection is required. A phone, tablet, computer, or other compatible TCP client can connect directly to the bridge's local access point.</p></article>
+<article class="card"><h3><span aria-hidden="true">🔁 </span>Transparent TCP transport</h3><p>GhostBridge relays bytes in both directions between RS232 and TCP instead of interpreting ECU commands, instrument messages, or another application protocol.</p></article>
+<article class="card"><h3><span aria-hidden="true">🔐 </span>No cloud dependency</h3><p>Serial traffic stays on the direct local connection. GhostBridge does not require a cloud relay, account, subscription, or internet service to move data.</p></article>
+<article class="card"><h3><span aria-hidden="true">🧰 </span>Assembled hardware</h3><p>The bridge arrives assembled in an enclosure with accessible DB9 RS232 and USB-C power connections for practical bench, garage, and field use.</p></article>
+<article class="card"><h3><span aria-hidden="true">✅ </span>Verified automotive use</h3><p>GhostTune with the published MicroSquirt / MS2/Extra 3.4.4 configuration is one verified production application of the broader serial-bridge hardware.</p></article>
 </div>
+
+<div class="section-label" style="margin-top:42px;">// Connection path</div>
+<h2>One local link from serial hardware to a modern client.</h2>
+<div class="stats" aria-label="GhostBridge connection path">
+<div class="stat"><strong>RS232 device</strong><span>Compatible TX / RX / GND equipment</span></div>
+<div class="stat"><strong>GhostBridge</strong><span>DB9 RS232 ↔ WiFi TCP</span></div>
+<div class="stat"><strong>Local WiFi</strong><span>Direct access point connection</span></div>
+<div class="stat"><strong>Client</strong><span>PC · phone · tablet · embedded app</span></div>
+</div>
+
+<div class="section-label" style="margin-top:42px;">// Where it can fit</div>
+<h2>Built around the interface, not one application.</h2>
+<p class="section-intro">A compatible device does not need to be an ECU. The important questions are whether it uses true RS232, the required signals are available on GB-01, its serial settings can be matched, and the host software can communicate through TCP or a suitable TCP-to-COM layer.</p>
+<div class="grid grid-2">
+<article class="card"><h3>Industrial &amp; automation</h3><p>Controllers, meters, programming/configuration ports, and other equipment using compatible standard 3-wire RS232 interfaces.</p></article>
+<article class="card"><h3>Test &amp; measurement</h3><p>Benchtop instruments, data loggers, laboratory equipment, and measurement devices that communicate over compatible RS232.</p></article>
+<article class="card"><h3>Embedded &amp; custom hardware</h3><p>Controllers, development systems, and purpose-built products that expose a compatible RS232 serial interface.</p></article>
+<article class="card"><h3>Automotive &amp; diagnostics</h3><p>ECUs, diagnostic hardware, and vehicle controllers that use a compatible 3-wire RS232 connection. GhostTune is the currently verified Crux Resolve automotive application.</p></article>
+<article class="card"><h3>Legacy equipment</h3><p>Older hardware that still works well but expects a physical serial connection to a computer or controller.</p></article>
+<article class="card"><h3>Custom / OEM applications</h3><p>Contact Crux Resolve when a deployment needs application-specific defaults, firmware behavior, integration guidance, or a compatibility review.</p></article>
+</div>
+
 <figure class="card" style="max-width:720px;margin:28px auto 0;">
 <img src="/assets/gb01/gb01-db9-front.webp" alt="GhostBridge GB-01 production bridge front view showing the DB9 RS232 connector" loading="lazy" width="1538" height="1376" style="width:100%;height:auto;border-radius:10px;" />
-<figcaption class="muted" style="margin-top:10px;">GhostBridge GB-01 assembled enclosure and DB9 RS232 interface.</figcaption>
+<figcaption class="muted" style="margin-top:10px;">GhostBridge GB-01 assembled enclosure and DB9 standard 3-wire RS232 interface.</figcaption>
 </figure>
 </div>
 </section>
+
+<section class="section-divider" id="specifications">
+<div class="container">
+<div class="section-label">// Technical specifications</div>
+<h2>Know the interface before you connect it.</h2>
+<div class="grid grid-2">
+<div class="card">
+<h3>Serial side</h3>
+<ul class="spec-list">
+<li><strong>Electrical interface:</strong> RS232 through a MAX3232 transceiver.</li>
+<li><strong>Connector:</strong> DB9 male.</li>
+<li><strong>Pin 2:</strong> RXD into GhostBridge.</li>
+<li><strong>Pin 3:</strong> TXD out of GhostBridge.</li>
+<li><strong>Pin 5:</strong> signal ground.</li>
+<li><strong>Current hardware flow control:</strong> none. RTS/CTS, DTR/DSR, DCD, RI, and other modem-control lines are not connected.</li>
+</ul>
+</div>
+<div class="card">
+<h3>Network &amp; power side</h3>
+<ul class="spec-list">
+<li><strong>WiFi mode:</strong> local access point.</li>
+<li><strong>Default address:</strong> <code>192.168.4.1</code>.</li>
+<li><strong>Default TCP port:</strong> <code>35000</code>.</li>
+<li><strong>Transport behavior:</strong> transparent bidirectional serial byte relay over TCP.</li>
+<li><strong>Internet / cloud:</strong> not required.</li>
+<li><strong>Power:</strong> USB-C input.</li>
+</ul>
+</div>
+</div>
+<div class="notice" style="margin-top:18px;"><strong>Serial settings still matter:</strong> baud rate, data bits, parity, stop bits, cabling, timing expectations, and host-software behavior must match the connected device. Firmware capabilities determine which serial configurations are available on a given GhostBridge release.</div>
+</div>
+</section>
+
 <section class="section-divider" id="setup">
 <div class="container">
-<div class="section-label">// GhostTune setup</div>
-<h2>Three steps.</h2>
+<div class="section-label">// Basic connection</div>
+<h2>Three pieces make the link.</h2>
 <div class="steps">
-<article class="step"><div><h3>Connect and power</h3><p class="muted">Connect the DB9 interface to the supported ECU serial connection and power GhostBridge through USB-C.</p></div></article>
-<article class="step"><div><h3>Join the bridge network</h3><p class="muted">In the iPhone or iPad WiFi settings, select the network named <code>GhostBridge-XXXXX</code>. The password is <code>1234</code> followed by the last four characters of that WiFi name. Example: <code>GhostBridge-ABCDE</code> uses password <code>1234BCDE</code>. Each GhostBridge uses device-specific credentials so nearby units do not share the same password.</p></div></article>
-<article class="step"><div><h3>Open GhostTune</h3><p class="muted">GhostTune connects to <code>192.168.4.1</code> on TCP port <code>35000</code> and confirms the supported ECU configuration.</p></div></article>
+<article class="step"><div><h3>Connect RS232 and power</h3><p class="muted">Connect a compatible standard 3-wire RS232 device to the DB9 interface and power GhostBridge through USB-C. Depending on the DTE/DCE arrangement, your installation may require a straight-through or null-modem/crossover cable.</p></div></article>
+<article class="step"><div><h3>Join the bridge network</h3><p class="muted">Select the network named <code>GhostBridge-XXXXX</code>. The password is <code>1234</code> followed by the last four characters of that WiFi name. Example: <code>GhostBridge-ABCDE</code> uses password <code>1234BCDE</code>.</p></div></article>
+<article class="step"><div><h3>Connect the client</h3><p class="muted">Use compatible software to open a TCP connection to <code>192.168.4.1:35000</code>. Legacy desktop applications that require a COM port may need a suitable TCP-to-virtual-COM solution.</p></div></article>
 </div>
+
 <div class="card" style="margin-top:28px;">
-<div class="section-label">// Need the tuning software?</div>
-<h3>Pair GhostBridge with GhostTune.</h3>
-<p>For the published verified MicroSquirt workflow, GhostTune provides the iPhone and iPad interface for live ECU data, VE/ignition/AFR table editing, diagnostics, backups, and guarded ECU changes over the local GhostBridge connection.</p>
+<div class="section-label">// Verified automotive application</div>
+<h3>Using GhostBridge with GhostTune?</h3>
+<p>For the published verified MicroSquirt / MS2/Extra 3.4.4 workflow, GhostTune provides the iPhone and iPad interface for live ECU data, VE/ignition/AFR table editing, diagnostics, backups, and guarded ECU changes over the local GhostBridge connection.</p>
 <div class="actions">
 <a class="button button-primary" href="/go/ghosttune.html" target="_blank" rel="noopener noreferrer">Get GhostTune on the App Store</a>
 <a class="button button-secondary" href="/ghosttune-app.html">Learn about GhostTune</a>
 </div>
 </div>
-<div class="notice" style="margin-top:18px;"><strong>Using other serial software?</strong> The host application must be able to communicate through the bridge’s local TCP endpoint, and the connected hardware, cabling, electrical interface, and serial configuration must be compatible. Crux Resolve only represents configurations as verified when they are explicitly listed.</div>
+<div class="notice" style="margin-top:18px;"><strong>Using other serial equipment?</strong> Start with the <a href="/rs232-wifi.html">RS232 over WiFi guide</a> and the compatibility checklist below. If you want Crux Resolve to review an unlisted device before you order, contact <a href="mailto:support@cruxresolve.com">support@cruxresolve.com</a> with the manufacturer, model, serial pinout, settings, and host software if known.</div>
 </div>
 </section>

@@ -1,0 +1,163 @@
+---
+layout: default
+title: "RS232 Over WiFi | Wireless Serial Bridge & Device Server | Crux Resolve"
+description: "Learn how to connect compatible RS232 equipment over WiFi using a local TCP serial bridge. GhostBridge GB-01 supports standard 3-wire RS232 without cloud or internet access."
+canonical: https://cruxresolve.com/rs232-wifi.html
+current: serial
+og_image: https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp
+---
+<main id="main-content">
+<section class="hero">
+<div class="container hero-content">
+<div class="eyebrow">// RS232 over WiFi · local TCP serial connectivity</div>
+<h1><span class="accent">Connect RS232 equipment over WiFi.</span><br/>Keep legacy hardware useful.</h1>
+<p class="lead">A WiFi-to-RS232 bridge lets compatible serial equipment communicate with modern computers, phones, tablets, and embedded applications without replacing the equipment or depending on a cloud service. GhostBridge GB-01 provides a direct local TCP-to-standard-3-wire-RS232 connection.</p>
+<div class="actions">
+<a class="button button-primary" href="/ghostbridge.html">See GhostBridge GB-01</a>
+<a class="button button-secondary" href="#compatibility">Check compatibility</a>
+</div>
+</div>
+</section>
+
+<section class="section-divider">
+<div class="container">
+<div class="section-label">// The connection</div>
+<h2>RS232 on one side. TCP over WiFi on the other.</h2>
+<p class="section-intro">The bridge does not need to understand the application protocol. It transports serial bytes between the connected RS232 device and a TCP client on the local WiFi network.</p>
+<div class="stats" aria-label="RS232 over WiFi connection path">
+<div class="stat"><strong>RS232 device</strong><span>TX · RX · GND</span></div>
+<div class="stat"><strong>Serial bridge</strong><span>RS232 ↔ TCP</span></div>
+<div class="stat"><strong>Local WiFi</strong><span>No internet required</span></div>
+<div class="stat"><strong>Client software</strong><span>Computer · phone · tablet · embedded</span></div>
+</div>
+</div>
+</section>
+
+<section id="how-it-works">
+<div class="container">
+<div class="section-label">// How it works</div>
+<h2>Transparent serial transport.</h2>
+<div class="grid grid-2">
+<article class="card"><h3>1. Serial data enters the bridge</h3><p>A compatible device sends ordinary asynchronous RS232 data through TX, RX, and ground. The bridge's RS232 transceiver converts those signals to logic-level UART data for the controller.</p></article>
+<article class="card"><h3>2. The data becomes a TCP stream</h3><p>The bridge forwards those bytes through a local TCP connection instead of interpreting what the bytes mean. Binary and text-based application protocols can both be transported.</p></article>
+<article class="card"><h3>3. A modern client receives it</h3><p>A TCP-capable application can connect directly. Older Windows software that insists on a COM port may use a suitable TCP-to-virtual-COM layer.</p></article>
+<article class="card"><h3>4. Replies travel back the same way</h3><p>Bytes sent by the host application travel through WiFi and TCP, through the bridge, and back out the RS232 transmitter to the attached equipment.</p></article>
+</div>
+</div>
+</section>
+
+<section class="section-divider">
+<div class="container">
+<div class="section-label">// Common use categories</div>
+<h2>The market is much broader than automotive.</h2>
+<p class="section-intro">Compatibility depends on the actual electrical and serial interface, not the industry the device came from. A compatible RS232 port can appear on equipment in many fields.</p>
+<div class="grid grid-2">
+<article class="card"><h3>Industrial &amp; automation</h3><p>Controllers, meters, setup/configuration ports, and factory equipment that use standard 3-wire RS232 communication.</p></article>
+<article class="card"><h3>Test &amp; measurement</h3><p>Benchtop instruments, laboratory devices, data loggers, and measurement equipment with compatible RS232 interfaces.</p></article>
+<article class="card"><h3>Embedded systems</h3><p>Custom controllers, development systems, and installed devices that still expose RS232 for configuration or data exchange.</p></article>
+<article class="card"><h3>Legacy equipment</h3><p>Older hardware that remains useful but expects a physical serial connection to software running on a modern host.</p></article>
+<article class="card"><h3>Automotive &amp; diagnostics</h3><p>ECUs, diagnostic devices, and controllers with compatible RS232 ports. GhostTune with MicroSquirt / MS2/Extra 3.4.4 is the currently published verified Crux Resolve automotive configuration.</p></article>
+<article class="card"><h3>OEM &amp; custom deployments</h3><p>Products and installations that need a compact local serial-to-WiFi path, application-specific defaults, or firmware behavior tailored to a deployment.</p></article>
+</div>
+</div>
+</section>
+
+<section class="section-divider" id="compatibility">
+<div class="container">
+<div class="section-label">// Compatibility</div>
+<h2>Check the interface, not just the connector.</h2>
+<div class="grid grid-2">
+<div class="card">
+<h3>A strong GB-01 candidate</h3>
+<ul class="spec-list">
+<li>Uses true RS232 electrical signaling.</li>
+<li>Communicates with TX, RX, and GND.</li>
+<li>Does not require RTS/CTS or other hardware modem-control lines.</li>
+<li>Uses serial settings supported by the installed GhostBridge firmware.</li>
+<li>Can use a TCP client or a suitable TCP-to-virtual-COM solution.</li>
+<li>Has a compatible DTE/DCE pinout or can use the appropriate cable/adapter.</li>
+</ul>
+</div>
+<div class="card">
+<h3>Current GhostBridge GB-01 interface</h3>
+<ul class="spec-list">
+<li>DB9 male connector.</li>
+<li>Pin 2: RX into GhostBridge.</li>
+<li>Pin 3: TX out of GhostBridge.</li>
+<li>Pin 5: signal ground.</li>
+<li>Current GB-01 hardware does not provide RTS/CTS, DTR/DSR, DCD, or RI.</li>
+<li>USB-C provides bridge power.</li>
+</ul>
+</div>
+</div>
+<div class="notice notice-danger" style="margin-top:18px;"><strong>DB9 does not automatically mean RS232.</strong> Some equipment uses a DB9 connector for TTL serial, RS485, CAN, proprietary signaling, or a nonstandard pinout. Confirm the device documentation before connecting it.</div>
+<div class="actions" style="margin-top:22px;">
+<a class="button button-primary" href="mailto:support@cruxresolve.com?subject=GhostBridge%20Compatibility%20Check">Ask Crux Resolve about my device</a>
+<a class="button button-secondary" href="/ghostbridge.html#specifications">View GB-01 specifications</a>
+</div>
+</div>
+</section>
+
+<section class="section-divider">
+<div class="container">
+<div class="section-label">// Why local WiFi</div>
+<h2>No router. No cloud. No subscription.</h2>
+<div class="grid grid-2">
+<article class="card"><h3>Direct local access</h3><p>GhostBridge creates its own WiFi access point, so the host can connect directly even where there is no existing network infrastructure.</p></article>
+<article class="card"><h3>Legacy hardware stays in service</h3><p>Instead of redesigning or replacing a functioning serial device, a bridge can move the connection layer to WiFi while leaving the original equipment and application protocol intact.</p></article>
+<article class="card"><h3>Protocol-independent transport</h3><p>The bridge moves bytes rather than trying to understand the higher-level message format. Compatibility still depends on serial settings, pinout, timing, and host software.</p></article>
+<article class="card"><h3>Modern client choices</h3><p>TCP-capable software can connect directly from a computer, phone, tablet, or embedded client. Legacy COM-port applications may be usable through a suitable virtual-COM layer.</p></article>
+</div>
+</div>
+</section>
+
+<section class="section-divider" id="faq">
+<div class="container">
+<div class="section-label">// RS232 over WiFi FAQ</div>
+<h2>Common questions.</h2>
+<div class="grid grid-2">
+<article class="card"><h3>Is RS232 over WiFi still real RS232?</h3><p>The equipment side remains electrically RS232. The bridge converts between the serial interface and a network transport so the host no longer needs to be physically tethered to the serial port.</p></article>
+<article class="card"><h3>Does the bridge need to know my device protocol?</h3><p>Not for transparent transport. The bridge moves the byte stream. The host application and attached device remain responsible for understanding the application protocol.</p></article>
+<article class="card"><h3>Can binary data be transported?</h3><p>Yes. A transparent TCP-to-serial bridge can transport arbitrary byte values; it is not limited to readable text commands.</p></article>
+<article class="card"><h3>Can existing serial software still be used?</h3><p>Software with native TCP support can connect directly. Software that only opens a local COM port may require a compatible TCP-to-virtual-COM utility.</p></article>
+<article class="card"><h3>When is a null-modem adapter needed?</h3><p>It depends on the DTE/DCE arrangement and pinout of the connected equipment. Two similarly oriented endpoints often require TX/RX crossover.</p></article>
+<article class="card"><h3>Does GhostBridge support hardware flow control?</h3><p>The current GB-01 production hardware is a 3-wire interface and does not route RTS/CTS or other modem-control signals to the DB9 connector.</p></article>
+</div>
+</div>
+</section>
+
+<section class="section-divider">
+<div class="narrow center">
+<div class="section-label">// GhostBridge GB-01</div>
+<h2>A compact local WiFi-to-RS232 bridge.</h2>
+<p class="section-intro">GhostBridge is available now for compatible standard 3-wire RS232 applications. If your device is not already listed as verified, Crux Resolve can review its interface requirements before you order.</p>
+<div class="actions">
+<a class="button button-primary" href="/ghostbridge.html">Explore GhostBridge</a>
+<a class="button button-secondary" href="/go/ghostbridge-checkout.html" target="_blank" rel="noopener noreferrer">Buy GhostBridge · $89</a>
+</div>
+</div>
+</section>
+</main>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cruxresolve.com/rs232-wifi.html",
+      "name": "RS232 Over WiFi | Wireless Serial Bridge & Device Server | Crux Resolve",
+      "description": "Learn how compatible RS232 equipment can connect over WiFi using a local TCP serial bridge, including compatibility requirements for GhostBridge GB-01.",
+      "publisher": {"@id": "https://cruxresolve.com/#organization"}
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "Does a WiFi serial bridge need to understand the device protocol?", "acceptedAnswer": {"@type": "Answer", "text": "Not when it operates as a transparent transport. It can relay the serial byte stream while the host application and attached device continue to understand the application protocol."}},
+        {"@type": "Question", "name": "Can binary RS232 data be transported over WiFi?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Transparent TCP-to-serial transport can carry arbitrary byte values and is not limited to text-based commands."}},
+        {"@type": "Question", "name": "Does GhostBridge GB-01 support RTS/CTS hardware flow control?", "acceptedAnswer": {"@type": "Answer", "text": "No. The current GB-01 production hardware provides a 3-wire RS232 interface using RX, TX, and ground; RTS/CTS and other modem-control signals are not routed to the DB9 connector."}}
+      ]
+    }
+  ]
+}
+</script>

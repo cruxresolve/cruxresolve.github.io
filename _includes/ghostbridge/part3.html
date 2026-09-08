@@ -1,53 +1,65 @@
 <section class="section-divider" id="before-ordering">
 <div class="container">
-<div class="section-label">// Before you order</div>
-<h2>Confirm the complete setup.</h2>
+<div class="section-label">// Compatibility checklist</div>
+<h2>Will GhostBridge work with my device?</h2>
 <div class="grid grid-2">
 <div class="card">
-<h3>Verified GhostTune configuration</h3>
+<h3>A strong candidate uses</h3>
 <ul class="spec-list">
-<li>Verified use: GhostTune with MicroSquirt hardware running MS2/Extra 3.4.4.</li>
-<li>Interfaces: DB9 RS232 and USB-C power.</li>
-<li>Local network endpoint: <code>192.168.4.1:35000</code>.</li>
-<li>The product is one assembled GhostBridge unit. Confirm the USB-C power source and DB9 cabling required by your installation.</li>
+<li>True RS232 electrical signaling rather than TTL serial, RS485, CAN, or another interface.</li>
+<li>Three-wire communication using TX, RX, and GND.</li>
+<li>A compatible DTE/DCE pinout or cabling arrangement.</li>
+<li>Serial settings that the installed GhostBridge firmware can match.</li>
+<li>Host software that can communicate through TCP or through a compatible TCP-to-virtual-COM layer.</li>
+<li>No required RTS/CTS, DTR/DSR, DCD, RI, or other modem-control signals.</li>
 </ul>
 </div>
 <div class="card">
-<h3>Other RS232 applications</h3>
+<h3>Current GB-01 boundaries</h3>
 <ul class="spec-list">
-<li>GhostBridge is a transparent local TCP-to-RS232 byte relay and is not software-locked to GhostTune.</li>
-<li>Other RS232 hardware and software may be compatible when the complete electrical, cabling, serial, and TCP-client requirements match.</li>
-<li>A DB9 connector alone does not establish compatibility. Pinout, signaling, serial configuration, timing expectations, and software behavior can differ between devices.</li>
-<li>Only configurations explicitly listed by Crux Resolve should be treated as verified.</li>
-<li>For an unlisted use case, review the published interface details and contact <a href="mailto:support@cruxresolve.com">support@cruxresolve.com</a> if you need a compatibility check before ordering.</li>
+<li>DB9 male: pin 2 RX, pin 3 TX, pin 5 GND.</li>
+<li>Current hardware does not route RTS/CTS or other modem-control lines.</li>
+<li>A DB9 connector alone does not prove the device uses compatible RS232 signaling.</li>
+<li>Some DTE-to-DTE or DCE-to-DCE combinations require a null-modem/crossover cable.</li>
+<li>Unusual timing, BREAK behavior, nonstandard UART modes, or application-specific control-line behavior may require additional validation.</li>
+<li>Contact <a href="mailto:support@cruxresolve.com">support@cruxresolve.com</a> with the device model and manual if you want a compatibility review before ordering.</li>
 </ul>
 </div>
 </div>
-<div class="notice notice-danger" style="margin-top:18px;"><strong>Compatibility matters:</strong> review the supported configuration and <a href="/terms-of-sale.html">Terms of Sale</a> before purchasing. A connector that physically fits does not by itself establish electrical or protocol compatibility.</div>
-<div class="notice" style="margin-top:18px;"><strong>Independent product:</strong> Third-party hardware and firmware names identify compatible or verified configurations only. GhostBridge is not affiliated with, endorsed by, or sponsored by the owners of those products or projects.</div>
+<div class="notice notice-danger" style="margin-top:18px;"><strong>Do not connect by connector shape alone:</strong> confirm the device documentation identifies a compatible RS232 interface and pinout before connecting GhostBridge.</div>
+<div class="notice" style="margin-top:18px;"><strong>Verified automotive use:</strong> GhostTune with MicroSquirt hardware running MS2/Extra 3.4.4 remains the currently published verified ECU configuration. That verified application does not limit the GB-01 hardware to ECU use.</div>
+<div class="actions" style="margin-top:22px;">
+<a class="button button-primary" href="mailto:support@cruxresolve.com?subject=GhostBridge%20Compatibility%20Check">Ask about my device</a>
+<a class="button button-secondary" href="/rs232-wifi.html">Read the RS232 WiFi guide</a>
+</div>
 </div>
 </section>
+
 <section class="section-divider" id="faq">
 <div class="container">
 <div class="section-label">// GhostBridge FAQ</div>
 <h2>Common serial-bridge questions.</h2>
 <div class="grid grid-2">
-<article class="card"><h3>Can GhostBridge be used without GhostTune?</h3><p>Yes. GhostBridge itself relays bytes between its local TCP connection and RS232 interface and is not software-locked to GhostTune. Non-GhostTune configurations are not represented as verified unless Crux Resolve explicitly lists them.</p></article>
-<article class="card"><h3>Is GhostBridge a general RS232-to-WiFi adapter?</h3><p>GhostBridge is a local TCP-to-RS232 WiFi bridge designed first around the GhostTune workflow. It can serve other compatible serial applications, but every RS232 or DB9 device should not be assumed compatible without checking the complete interface and software requirements.</p></article>
-<article class="card"><h3>How do I connect to the GhostBridge WiFi network?</h3><p>Select the network named <code>GhostBridge-XXXXX</code> in your phone, tablet, or computer WiFi settings. The password is <code>1234</code> followed by the last four characters of that WiFi name. For example, <code>GhostBridge-ABCDE</code> uses password <code>1234BCDE</code>. The device-specific password helps prevent nearby GhostBridge units from sharing the same credentials.</p></article>
+<article class="card"><h3>Can GhostBridge be used without GhostTune?</h3><p>Yes. GhostBridge is a transparent local TCP-to-RS232 bridge and is not software-locked to GhostTune. A non-GhostTune device still has to meet the GB-01 electrical, signal, serial, cabling, and host-software requirements.</p></article>
+<article class="card"><h3>What RS232 signals does GB-01 provide?</h3><p>The current GB-01 provides standard 3-wire RS232: DB9 pin 2 RX, pin 3 TX, and pin 5 ground. RTS/CTS, DTR/DSR, DCD, RI, and other modem-control lines are not connected.</p></article>
 <article class="card"><h3>Does GhostBridge require internet access or a router?</h3><p>No. GhostBridge creates its own local WiFi access point. A compatible TCP client connects directly to the bridge at <code>192.168.4.1:35000</code>.</p></article>
-<article class="card"><h3>What is verified today?</h3><p>The published verified configuration is GhostTune with MicroSquirt hardware running MS2/Extra 3.4.4. Only explicitly listed configurations should be treated as verified.</p></article>
+<article class="card"><h3>Can it carry binary serial data?</h3><p>Yes. GhostBridge relays serial bytes transparently in both directions. It does not need to understand the device's application protocol in order to transport the data.</p></article>
+<article class="card"><h3>Will every DB9 device work?</h3><p>No. DB9 is only a connector. The connected device must use compatible RS232 signaling, pinout, serial settings, timing behavior, and host software.</p></article>
+<article class="card"><h3>Does GB-01 support RTS/CTS?</h3><p>No. The current production GB-01 does not route the MAX3232's unused second channel to the DB9 connector, so hardware RTS/CTS flow control is not available.</p></article>
+<article class="card"><h3>Do I need a null-modem cable?</h3><p>It depends on the other device's DTE/DCE arrangement. Some equipment connects straight-through; other combinations require TX/RX crossover through a null-modem cable or adapter.</p></article>
+<article class="card"><h3>What is verified today?</h3><p>The currently published verified automotive configuration is GhostTune with MicroSquirt hardware running MS2/Extra 3.4.4. Other devices can be evaluated against the same published GB-01 interface requirements.</p></article>
 </div>
 </div>
 </section>
+
 <section class="section-divider" id="order">
 <div class="narrow center">
 <div class="section-label">// Order</div>
 <h2>GhostBridge is available now.</h2>
-<p class="section-intro">Secure checkout is provided by Stripe. Payment-card information is handled by Stripe rather than stored by Crux Resolve LLC.</p>
+<p class="section-intro">Need it for non-automotive serial equipment? Review the compatibility checklist above or send Crux Resolve the device model before ordering.</p>
 <div class="actions">
 <a class="button button-primary" href="/go/ghostbridge-checkout.html" rel="noopener noreferrer" target="_blank">Buy now · $89</a>
-<a class="button button-secondary" href="/terms-of-sale.html">Read Terms of Sale</a>
+<a class="button button-secondary" href="mailto:support@cruxresolve.com?subject=GhostBridge%20Compatibility%20Check">Check my device</a>
 </div>
 <p class="section-intro" style="margin-top:12px; margin-bottom:0; font-size:.95rem;">$89 product price + $8 USPS Ground Advantage shipping. Tax calculated at checkout.</p>
 <div class="card" style="margin-top:28px; text-align:left;">
@@ -63,5 +75,6 @@
 </form>
 <p aria-live="polite" class="form-status" id="bridge-form-status" role="status"></p>
 </div>
+<p class="section-intro" style="margin-top:24px;"><a href="/terms-of-sale.html">Read the Terms of Sale</a> before purchasing.</p>
 </div>
 </section>
