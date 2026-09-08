@@ -1,0 +1,58 @@
+---
+layout: default
+title: "TCP to RS232 Explained: What a Serial Device Server Does | Crux Resolve"
+description: "A practical explanation of TCP-to-RS232 serial device servers, transparent byte transport, local WiFi bridging, and compatibility requirements for legacy serial equipment."
+canonical: https://cruxresolve.com/blog/tcp-to-rs232-serial-device-server.html
+current: blog
+og_type: article
+og_image: https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp
+---
+<main id="main-content"><article class="article">
+<a href="/blog/">← Back to Technical Library</a>
+<div class="eyebrow" style="margin-top:28px;">// September 8, 2026 · Crux Resolve LLC</div>
+<h1>TCP to RS232 explained: what a serial device server does</h1>
+<p class="lead" style="text-align:left; margin-left:0;">A TCP-to-RS232 serial device server gives an RS232 device a network path without requiring the serial equipment itself to understand Ethernet, WiFi, TCP, or the internet.</p>
+
+<h2>The basic connection</h2>
+<p>Traditional RS232 equipment expects a serial connection between two endpoints. A serial device server sits in the middle and moves that serial data across a network transport.</p>
+<div class="notice"><strong>Typical path:</strong> Host software ⇄ TCP ⇄ serial device server ⇄ RS232 ⇄ equipment.</div>
+<p>The host side can be a computer, mobile application, embedded client, or another system able to open the required network connection. The equipment side continues using its existing RS232 interface.</p>
+
+<h2>What “transparent” means</h2>
+<p>A transparent bridge does not have to understand the application-level commands inside the serial data. It receives bytes from one side and forwards them to the other side.</p>
+<p>That matters because RS232 is used by many unrelated types of equipment. A laboratory instrument, industrial controller, ECU, data logger, or legacy device may all use different command formats while sharing the same underlying serial transport.</p>
+<p>Transparent transport does not make every device automatically compatible. The bridge still has to match the electrical interface, pinout, serial settings, timing expectations, and host-software requirements.</p>
+
+<h2>TCP server versus TCP client</h2>
+<p>Network serial products may operate in different connection modes. In a common TCP-server arrangement, the serial bridge listens at a known IP address and port while the host application initiates the connection. Other products can be configured to initiate an outbound TCP connection as a client.</p>
+<p>GhostBridge GB-01 currently provides a local WiFi access point and a TCP endpoint at <code>192.168.4.1:35000</code>. A compatible host connects to that local endpoint.</p>
+
+<h2>Why use TCP instead of a physical COM cable?</h2>
+<ul>
+<li>The host no longer has to be physically tethered to the serial device.</li>
+<li>A phone, tablet, or embedded client can participate when compatible software exists.</li>
+<li>Legacy equipment can remain in service even when modern computers no longer include native serial ports.</li>
+<li>A local WiFi bridge can operate without a building network, router, cloud service, or internet connection.</li>
+</ul>
+
+<h2>What about old software that only opens COM ports?</h2>
+<p>Some legacy desktop applications do not know how to open a TCP socket directly. In those cases, a TCP-to-virtual-COM utility may present a local COM-port interface to the application while forwarding the traffic through the network connection.</p>
+<p>That extra software layer has its own compatibility requirements, so it should be tested with the actual application rather than assumed to work universally.</p>
+
+<h2>Where GhostBridge fits</h2>
+<p><a href="/ghostbridge.html">GhostBridge GB-01</a> is a compact local WiFi-to-standard-3-wire-RS232 bridge. Its current production DB9 interface uses pin 2 for RX, pin 3 for TX, and pin 5 for ground. The current hardware does not route RTS/CTS or other modem-control signals.</p>
+<p>The bridge was originally validated with GhostTune and a published MicroSquirt / MS2/Extra 3.4.4 workflow, but the hardware transport itself is not ECU-specific. Other compatible RS232 applications can be evaluated against the same interface requirements.</p>
+
+<h2>Before choosing a serial device server</h2>
+<ul>
+<li>Confirm the equipment really uses RS232 rather than TTL serial, RS485, CAN, or another interface.</li>
+<li>Identify the pinout and DTE/DCE arrangement.</li>
+<li>Record baud rate, data bits, parity, and stop bits.</li>
+<li>Determine whether RTS/CTS or other control lines are required.</li>
+<li>Check whether the host software can use TCP directly or needs a virtual COM layer.</li>
+</ul>
+
+<p>For a broader overview, see <a href="/rs232-wifi.html">RS232 over WiFi</a>. If you have a specific device and want Crux Resolve to review its interface before ordering, use the <a href="/ghostbridge.html#compatibility-request">GhostBridge compatibility request</a>.</p>
+<nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← Technical Library</a><a href="/ghostbridge.html">View GhostBridge →</a></nav>
+</article></main>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"TCP to RS232 Explained: What a Serial Device Server Does","description":"A practical explanation of TCP-to-RS232 serial device servers, transparent byte transport, local WiFi bridging, and compatibility requirements for legacy serial equipment.","datePublished":"2026-09-08","dateModified":"2026-09-08","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/tcp-to-rs232-serial-device-server.html","image":"https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp"}</script>
