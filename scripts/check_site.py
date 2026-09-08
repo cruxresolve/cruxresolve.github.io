@@ -8,12 +8,16 @@ import sys
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
+SITE_ORIGIN = "https://cruxresolve.com/"
 REQUIRED_PUBLIC_FILES = {
     "index.html",
     "ghosttune-app.html",
     "ghostbridge.html",
+    "rs232-wifi.html",
+    "oem-serial-solutions.html",
     "ghosttune.html",
     "support.html",
     "privacy.html",
@@ -21,6 +25,11 @@ REQUIRED_PUBLIC_FILES = {
     "404.html",
     "robots.txt",
     "sitemap.xml",
+    "llms.txt",
+}
+# Public, indexable resources that intentionally do not use Jekyll front matter.
+SITEMAP_EXTRA_URLS = {
+    "https://cruxresolve.com/licenses",
 }
 INCLUDE_RE = re.compile(r"{%\s*include\s+([^\s%]+)\s*%}")
 VARIABLE_RE = re.compile(r"{{\s*([^}]+?)\s*}}")
@@ -123,6 +132,15 @@ def public_html_files() -> list[Path]:
     return sorted(pages)
 
 
+def public_url_for_source(path: Path) -> str:
+    relative = path.relative_to(ROOT).as_posix()
+    if relative == "index.html":
+        return SITE_ORIGIN
+    if relative.endswith("/index.html"):
+        return SITE_ORIGIN + relative[: -len("index.html")]
+    return SITE_ORIGIN + relative
+
+
 def public_target(href: str, source: Path) -> tuple[Path | None, str]:
     parsed = urlsplit(href)
     if parsed.scheme or parsed.netloc or href.startswith(("mailto:", "tel:")):
@@ -143,13 +161,49 @@ def public_target(href: str, source: Path) -> tuple[Path | None, str]:
     return target.resolve(), fragment
 
 
+def load_sitemap_urls() -> tuple[list[str], set[str]]:
+    tree = ET.parse(ROOT / "sitemap.xml")
+    root = tree.getroot()
+    ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    urls = [
+        loc.text.strip()
+        for loc in root.findall("sm:url/sm:loc", ns)
+        if loc.text and loc.text.strip()
+    ]
+    return urls, set(urls)
+
+
 def main() -> int:
     failures: list[str] = []
     for required in sorted(REQUIRED_PUBLIC_FILES):
         if not (ROOT / required).is_file():
             failures.append(f"missing required public file: {required}")
 
+    try:
+        sitemap_urls, sitemap_set = load_sitemap_urls()
+    except (ET.ParseError, OSError) as error:
+        failures.append(f"sitemap.xml: unable to parse sitemap: {error}")
+        sitemap_urls, sitemap_set = [], set()
+
+    if len(sitemap_urls) != len(sitemap_set):
+        duplicates = sorted({url for url in sitemap_urls if sitemap_urls.count(url) > 1})
+        failures.append(f"sitemap.xml: duplicate URLs: {', '.join(duplicates)}")
+    for url in sitemap_urls:
+        if not url.startswith(SITE_ORIGIN):
+            failures.append(f"sitemap.xml: off-site URL: {url}")
+        parsed = urlsplit(url)
+        if parsed.query or parsed.fragment:
+            failures.append(f"sitemap.xml: URL must not contain query or fragment: {url}")
+
+    robots_text = (ROOT / "robots.txt").read_text(encoding="utf-8") if (ROOT / "robots.txt").is_file() else ""
+    if "User-agent: *" not in robots_text or "Allow: /" not in robots_text:
+        failures.append("robots.txt: site-wide crawling must remain allowed")
+    if "Sitemap: https://cruxresolve.com/sitemap.xml" not in robots_text:
+        failures.append("robots.txt: canonical sitemap declaration missing")
+
     rendered: dict[Path, tuple[dict[str, str], str, DocumentParser]] = {}
+    indexable_canonicals: dict[str, Path] = {}
+
     for path in public_html_files():
         try:
             front_matter, html = render_page(path)
@@ -158,7 +212,8 @@ def main() -> int:
             continue
         parser = DocumentParser()
         parser.feed(html)
-        rendered[path.resolve()] = (front_matter, html, parser)
+        resolved = path.resolve()
+        rendered[resolved] = (front_matter, html, parser)
 
         relative = path.relative_to(ROOT)
         if parser.main_count != 1:
@@ -173,10 +228,55 @@ def main() -> int:
         missing_controls = sorted(set(parser.controls) - set(parser.ids))
         if missing_controls:
             failures.append(f"{relative}: aria-controls targets missing: {', '.join(missing_controls)}")
-        if not front_matter.get("canonical"):
-            failures.append(f"{relative}: canonical URL missing from front matter")
 
-    for source, (_, _, parser) in rendered.items():
+        canonical = front_matter.get("canonical", "")
+        if not canonical:
+            failures.append(f"{relative}: canonical URL missing from front matter")
+            continue
+        if not canonical.startswith(SITE_ORIGIN):
+            failures.append(f"{relative}: canonical must use {SITE_ORIGIN}: {canonical}")
+
+        source_url = public_url_for_source(path)
+        robots = front_matter.get("robots", "index, follow").lower()
+        indexable = "noindex" not in robots
+
+        if indexable:
+            if canonical != source_url:
+                failures.append(
+                    f"{relative}: indexable page canonical must match its public URL: {canonical} != {source_url}"
+                )
+            if canonical in indexable_canonicals:
+                other = indexable_canonicals[canonical].relative_to(ROOT)
+                failures.append(f"{relative}: duplicate indexable canonical also used by {other}: {canonical}")
+            else:
+                indexable_canonicals[canonical] = path
+            if canonical not in sitemap_set:
+                failures.append(f"{relative}: indexable canonical missing from sitemap: {canonical}")
+        elif source_url in sitemap_set:
+            failures.append(f"{relative}: noindex page must not appear in sitemap: {source_url}")
+
+        redirect_to = front_matter.get("redirect_to")
+        if redirect_to:
+            if indexable:
+                failures.append(f"{relative}: redirect page must be noindex")
+            target, _ = public_target(redirect_to, path)
+            if target is None or not target.exists():
+                failures.append(f"{relative}: redirect target missing: {redirect_to}")
+
+    unknown_sitemap = sorted(sitemap_set - set(indexable_canonicals) - SITEMAP_EXTRA_URLS)
+    if unknown_sitemap:
+        failures.append(
+            "sitemap.xml: URLs are not backed by an indexable canonical page or approved static resource: "
+            + ", ".join(unknown_sitemap)
+        )
+
+    missing_sitemap_extras = sorted(SITEMAP_EXTRA_URLS - sitemap_set)
+    if missing_sitemap_extras:
+        failures.append(
+            "sitemap.xml: required static indexable resources missing: " + ", ".join(missing_sitemap_extras)
+        )
+
+    for source, (front_matter, _, parser) in rendered.items():
         for href in parser.links:
             target, fragment = public_target(href, source)
             if target is None:
@@ -196,6 +296,16 @@ def main() -> int:
                         f"{source.relative_to(ROOT)}: missing fragment #{fragment} in {target.relative_to(ROOT)}"
                     )
 
+        redirect_to = front_matter.get("redirect_to")
+        if redirect_to:
+            target, _ = public_target(redirect_to, source)
+            if target in rendered:
+                target_canonical = rendered[target][0].get("canonical", "")
+                if front_matter.get("canonical") != target_canonical:
+                    failures.append(
+                        f"{source.relative_to(ROOT)}: redirect canonical must match target canonical: {target_canonical}"
+                    )
+
     privacy, _ = read_front_matter(ROOT / "privacy.html")
     if privacy.get("canonical") != "https://cruxresolve.com/privacy.html":
         failures.append("privacy.html: App Store canonical URL must remain unchanged")
@@ -206,7 +316,10 @@ def main() -> int:
             print(f"- {failure}")
         return 1
 
-    print(f"Site validation passed for {len(rendered)} rendered HTML pages.")
+    print(
+        f"Site validation passed for {len(rendered)} rendered HTML pages and "
+        f"{len(sitemap_set)} sitemap URLs."
+    )
     return 0
 
 
