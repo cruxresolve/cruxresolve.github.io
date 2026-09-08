@@ -1,0 +1,73 @@
+---
+layout: default
+title: "How to Connect Legacy RS232 Equipment to a Modern Computer | Crux Resolve"
+description: "A practical guide to connecting legacy RS232 equipment to modern computers using USB serial adapters, TCP serial device servers, WiFi bridges, and virtual COM ports."
+canonical: https://cruxresolve.com/blog/connect-legacy-rs232-equipment-modern-computer.html
+current: blog
+og_type: article
+og_image: https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp
+---
+<main id="main-content"><article class="article">
+<a href="/blog/">← Back to Technical Library</a>
+<div class="eyebrow" style="margin-top:28px;">// September 8, 2026 · Crux Resolve LLC</div>
+<h1>How to connect legacy RS232 equipment to a modern computer</h1>
+<p class="lead" style="text-align:left; margin-left:0;">A machine, instrument, controller, or other serial device can remain useful long after modern computers stop including built-in COM ports. The right adapter depends on the electrical interface, cabling, software, and whether you want a wired or wireless connection.</p>
+
+<h2>Why old RS232 equipment is still useful</h2>
+<p>RS232 was built into generations of industrial equipment, laboratory instruments, controllers, diagnostic tools, data loggers, embedded systems, and other hardware. Many of those devices continue to perform their original job perfectly even though the computers around them have changed.</p>
+<p>The goal is often not to replace the equipment. It is simply to give the existing serial port a connection path that a modern host can use.</p>
+
+<h2>Three common ways to bridge the gap</h2>
+<h3>1. USB-to-RS232 adapter</h3>
+<p>A USB serial adapter is often the simplest choice when the computer can stay physically tethered to the equipment. The operating system typically presents the adapter as a COM or serial port to compatible software.</p>
+<p>This approach is inexpensive and straightforward, but it keeps the host tied to the device by a cable.</p>
+
+<h3>2. Network or WiFi serial device server</h3>
+<p>A serial device server moves the RS232 byte stream over a network connection. The host may connect through TCP directly, or legacy software may use a virtual-COM layer that forwards a local COM port through TCP.</p>
+<p>A WiFi bridge is useful when running a physical serial cable to the host is inconvenient, or when a phone, tablet, laptop, or embedded client needs local wireless access.</p>
+
+<h3>3. Replace or redesign the equipment</h3>
+<p>Sometimes replacement is appropriate, especially when the original hardware has other reliability or support problems. But replacing a functioning machine only because its communication port is old can be far more expensive than adapting the connection layer.</p>
+
+<h2>Step 1: verify the electrical interface</h2>
+<p>Do not assume a DB9 connector is RS232. Manufacturers have used DB9 connectors for RS232, RS485, CAN, TTL serial, proprietary interfaces, and custom wiring.</p>
+<div class="notice notice-danger"><strong>Check the device manual first:</strong> confirm that the port is true RS232 and identify its pinout before connecting an adapter or bridge.</div>
+
+<h2>Step 2: identify TX, RX, ground, and any control lines</h2>
+<p>Many devices use only transmit, receive, and ground. Others require RTS/CTS hardware flow control, DTR/DSR, modem-status lines, or application-specific signal behavior.</p>
+<p>If the device is three-wire, read <a href="/blog/3-wire-rs232-tx-rx-ground.html">3-Wire RS232 Explained: TX, RX, and Ground</a>. If transmit and receive orientation is unclear, see <a href="/blog/rs232-dte-dce-null-modem.html">RS232 DTE vs DCE and Null-Modem Cables</a>.</p>
+
+<h2>Step 3: record the serial settings</h2>
+<p>The host and device must agree on communication parameters. Common settings include baud rate, data bits, parity, and stop bits. A notation such as <code>9600 8N1</code> means 9600 baud, 8 data bits, no parity, and 1 stop bit.</p>
+<p>Some equipment also has timing requirements, BREAK signaling, or unusual UART behavior that should be confirmed before assuming a transparent bridge will be sufficient.</p>
+
+<h2>Step 4: find out what the software expects</h2>
+<p>Modern software may support TCP directly. Older Windows applications often expect a numbered COM port and have no concept of a network socket.</p>
+<p>If the application supports TCP, it can usually connect to the serial device server's IP address and port directly. If it only supports a local COM port, a compatible TCP-to-virtual-COM utility may be needed.</p>
+<p>That software layer is separate from the RS232 bridge itself and should be tested with the actual application.</p>
+
+<h2>Step 5: choose straight-through or null-modem wiring</h2>
+<p>The two endpoints must be wired so the transmitter on each side reaches the receiver on the other. Depending on the DTE/DCE orientation, a straight-through cable may work or a null-modem/crossover cable may be required.</p>
+<p>Connector gender alone is not a reliable substitute for a documented pinout.</p>
+
+<h2>Where GhostBridge GB-01 fits</h2>
+<p><a href="/ghostbridge.html">GhostBridge GB-01</a> is a compact local WiFi-to-RS232 TCP bridge intended for compatible standard 3-wire RS232 equipment. The current production interface uses:</p>
+<ul>
+<li>DB9 pin 2: RX into GhostBridge,</li>
+<li>DB9 pin 3: TX out of GhostBridge,</li>
+<li>DB9 pin 5: signal ground.</li>
+</ul>
+<p>GhostBridge creates its own local WiFi access point. A compatible TCP client connects at <code>192.168.4.1:35000</code>. The working serial link does not require a router, internet connection, cloud account, or subscription.</p>
+<p>The current GB-01 does not route RTS/CTS or other modem-control lines, so equipment that requires hardware handshaking is outside the direct capabilities of the present production hardware.</p>
+
+<h2>When WiFi is better than USB serial</h2>
+<p>USB serial is often the better choice when low cost and a short physical cable are all that is needed. WiFi serial becomes more attractive when the host needs mobility, the equipment is difficult to reach, a phone or tablet is part of the workflow, or the deployment benefits from eliminating the host-to-device serial cable.</p>
+<p>The important point is to choose the connection method around the real workflow rather than treating one transport as universally better.</p>
+
+<h2>Test before depending on it</h2>
+<p>After the electrical interface, cable, serial settings, and host software are confirmed, test the complete system under the timing and traffic conditions it will actually see. A simple command/response test is useful, but a production workflow may expose reconnect or timing behavior that a brief bench test does not.</p>
+
+<p>For a deeper explanation of the network side, see <a href="/blog/tcp-to-rs232-serial-device-server.html">TCP to RS232 Explained</a> or the overview at <a href="/rs232-wifi.html">RS232 over WiFi</a>. If you want Crux Resolve to review a specific device, use the <a href="/ghostbridge.html#compatibility-request">GhostBridge compatibility request</a>.</p>
+<nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← Technical Library</a><a href="/ghostbridge.html">View GhostBridge →</a></nav>
+</article></main>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"How to Connect Legacy RS232 Equipment to a Modern Computer","description":"A practical guide to connecting legacy RS232 equipment to modern computers using USB serial adapters, TCP serial device servers, WiFi bridges, and virtual COM ports.","datePublished":"2026-09-08","dateModified":"2026-09-08","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/connect-legacy-rs232-equipment-modern-computer.html","image":"https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp"}</script>
