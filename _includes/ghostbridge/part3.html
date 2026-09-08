@@ -22,15 +22,15 @@
 <li>A DB9 connector alone does not prove the device uses compatible RS232 signaling.</li>
 <li>Some DTE-to-DTE or DCE-to-DCE combinations require a null-modem/crossover cable.</li>
 <li>Unusual timing, BREAK behavior, nonstandard UART modes, or application-specific control-line behavior may require additional validation.</li>
-<li>For repeat deployments or application-specific firmware behavior, see <a href="/oem-serial-solutions.html">Custom &amp; OEM Serial Solutions</a>.</li>
+<li>For repeat deployments or application-specific firmware behavior, see <a href="/oem-serial-solutions.html" data-funnel="oem_serial_solutions">Custom &amp; OEM Serial Solutions</a>.</li>
 </ul>
 </div>
 </div>
 <div class="notice notice-danger" style="margin-top:18px;"><strong>Do not connect by connector shape alone:</strong> confirm the device documentation identifies a compatible RS232 interface and pinout before connecting GhostBridge.</div>
 <div class="notice" style="margin-top:18px;"><strong>Verified automotive use:</strong> GhostTune with MicroSquirt hardware running MS2/Extra 3.4.4 remains the currently published verified ECU configuration. That verified application does not limit the GB-01 hardware to ECU use.</div>
 <div class="actions" style="margin-top:22px;">
-<a class="button button-primary" href="#compatibility-request">Check my device</a>
-<a class="button button-secondary" href="/rs232-wifi.html">Read the RS232 WiFi guide</a>
+<a class="button button-primary" href="#compatibility-request" data-funnel="compatibility_request">Check my device</a>
+<a class="button button-secondary" href="/rs232-wifi.html" data-funnel="rs232_guide">Read the RS232 WiFi guide</a>
 </div>
 </div>
 </section>
@@ -42,6 +42,7 @@
 <p class="section-intro">If your equipment is not already listed as verified, send the details you know. Crux Resolve can review the interface requirements and point out obvious compatibility issues before you order.</p>
 <div class="card" style="max-width:900px;margin:0 auto;">
 <form action="https://formspree.io/f/xqeveryb" aria-describedby="compatibility-form-status" data-async-form="" method="POST">
+<input name="form_name" type="hidden" value="GhostBridge Compatibility Request"/>
 <input name="subject" type="hidden" value="GhostBridge Compatibility Request"/>
 <input name="product" type="hidden" value="GhostBridge GB-01"/>
 <div class="grid grid-2">
@@ -87,7 +88,7 @@
 <p class="section-intro">Need it for non-automotive serial equipment? Review the compatibility checklist above or send Crux Resolve the device model before ordering.</p>
 <div class="actions">
 <a class="button button-primary" href="/go/ghostbridge-checkout.html" rel="noopener noreferrer" target="_blank">Buy now · $89</a>
-<a class="button button-secondary" href="#compatibility-request">Check my device</a>
+<a class="button button-secondary" href="#compatibility-request" data-funnel="compatibility_request">Check my device</a>
 </div>
 <p class="section-intro" style="margin-top:12px; margin-bottom:0; font-size:.95rem;">$89 product price + $8 USPS Ground Advantage shipping. Tax calculated at checkout.</p>
 <div class="card" style="margin-top:28px; text-align:left;">
@@ -96,6 +97,7 @@
 <form action="https://formspree.io/f/xqeveryb" aria-describedby="bridge-form-status" data-async-form="" method="POST">
 <div class="form-row">
 <input aria-label="Email address for GhostBridge stock updates" autocomplete="email" name="email" placeholder="your@email.com" required="" type="email"/>
+<input name="form_name" type="hidden" value="GhostBridge Stock Updates"/>
 <input name="subject" type="hidden" value="GhostBridge Stock Updates"/>
 <input name="product" type="hidden" value="GhostBridge GB-01"/>
 <button class="button button-primary" type="submit">Notify me</button>
