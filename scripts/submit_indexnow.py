@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
-"""Submit only changed public Crux Resolve URLs to IndexNow.
+"""Submit changed public Crux Resolve URLs to IndexNow.
 
-The script is intended for the post-deployment GitHub Actions validation job.
-It derives affected public URLs from the Git diff, then sends one batch to the
-IndexNow global endpoint. It intentionally avoids re-submitting the entire
-sitemap for every deployment.
+The script runs after deployment. It derives affected public URLs from the Git
+diff, follows Jekyll include dependencies to the indexable pages that actually
+use them, and sends one batch to the IndexNow global endpoint.
+
+Direct edits to legacy/noindex HTML pages may still be submitted so search
+engines can discover a redirect, noindex directive, or deletion. Shared include
+changes, however, fan out only to canonical URLs that are present in the
+sitemap. This prevents a normal product/include edit from repeatedly announcing
+retired or intentionally noindex pages.
 """
 
 from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import sys
 import urllib.error
@@ -19,6 +25,7 @@ from pathlib import Path
 from urllib.parse import urljoin
 import xml.etree.ElementTree as ET
 
+ROOT = Path(__file__).resolve().parents[1]
 SITE_ORIGIN = "https://cruxresolve.com/"
 SITE_HOST = "cruxresolve.com"
 DEFAULT_ENDPOINT = "https://api.indexnow.org/indexnow"
@@ -62,41 +69,76 @@ def changed_paths(base_sha: str, head_sha: str) -> list[tuple[str, str]]:
 
 
 def direct_public_url(path: str) -> str | None:
+    """Return the browser-facing URL for a directly changed public HTML file."""
     if path == "index.html":
         return SITE_ORIGIN
-    if path == "404.html":
+    if path in {"404.html"} or path.startswith(("_", ".", "go/")):
         return None
-    if path.endswith(".html") and not path.startswith(("_", ".")):
-        return urljoin(SITE_ORIGIN, path)
-    if path == "llms.txt":
+    if path == "licenses/index.html":
+        return urljoin(SITE_ORIGIN, "licenses")
+    if path.endswith("/index.html"):
+        return urljoin(SITE_ORIGIN, path[: -len("index.html")])
+    if path.endswith(".html"):
         return urljoin(SITE_ORIGIN, path)
     return None
+
+
+def pages_using_include(include_path: str, sitemap_urls: set[str]) -> set[str]:
+    """Resolve a changed include to all indexable public pages that depend on it."""
+    affected: set[str] = set()
+    pending = [include_path]
+    seen: set[str] = set()
+
+    html_files = [
+        path
+        for path in ROOT.rglob("*.html")
+        if ".git" not in path.parts and "_site" not in path.parts
+    ]
+
+    while pending:
+        include_name = pending.pop()
+        if include_name in seen:
+            continue
+        seen.add(include_name)
+        pattern = re.compile(r"{%\s*include\s+" + re.escape(include_name) + r"\s*%}")
+
+        for candidate in html_files:
+            try:
+                text = candidate.read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                continue
+            if not pattern.search(text):
+                continue
+
+            relative = candidate.relative_to(ROOT).as_posix()
+            if relative.startswith("_includes/"):
+                pending.append(relative[len("_includes/") :])
+                continue
+
+            public_url = direct_public_url(relative)
+            if public_url and public_url in sitemap_urls:
+                affected.add(public_url)
+
+    return affected
 
 
 def affected_urls(changes: list[tuple[str, str]], sitemap_urls: set[str]) -> list[str]:
     urls: set[str] = set()
 
-    for status, path in changes:
+    for _status, path in changes:
         direct = direct_public_url(path)
         if direct:
+            # Direct changes are intentionally allowed even when a page is not in
+            # the sitemap. This lets IndexNow discover a new noindex directive,
+            # redirect, or deletion on a legacy URL such as /start.html.
             urls.add(direct)
             continue
 
-        if path.startswith("_includes/ghosttune/"):
-            urls.update(
-                {
-                    urljoin(SITE_ORIGIN, "ghosttune-app.html"),
-                    urljoin(SITE_ORIGIN, "start.html"),
-                }
-            )
-        elif path.startswith("_includes/ghostbridge/"):
-            urls.add(urljoin(SITE_ORIGIN, "ghostbridge.html"))
-        elif path.startswith("_includes/privacy/"):
-            urls.add(urljoin(SITE_ORIGIN, "privacy.html"))
-        elif path.startswith("_includes/terms/"):
-            urls.add(urljoin(SITE_ORIGIN, "terms-of-sale.html"))
+        if path.startswith("_includes/"):
+            include_name = path[len("_includes/") :]
+            urls.update(pages_using_include(include_name, sitemap_urls))
         elif path.startswith("_layouts/"):
-            # A shared layout change modifies every canonical page.
+            # A shared layout change modifies every canonical, indexable page.
             urls.update(sitemap_urls)
 
     return sorted(urls)
