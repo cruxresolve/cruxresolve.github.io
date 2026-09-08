@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ page.title | escape }}</title>
+  <meta name="description" content="{{ page.description | escape }}" />
+  <meta name="robots" content="{{ page.robots | default: 'noindex, follow' }}" />
+  <link rel="canonical" href="{{ page.canonical }}" />
+  <meta http-equiv="refresh" content="0; url={{ page.redirect_to }}" />
+</head>
+<body>
+  <main id="main-content">
+    <h1>{{ page.heading | default: 'This page has moved.' }}</h1>
+    {{ content }}
+    <p><a href="{{ page.redirect_to }}">Continue to the current page</a>.</p>
+  </main>
+</body>
+</html>
