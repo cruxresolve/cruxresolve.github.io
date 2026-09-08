@@ -132,6 +132,16 @@
     });
   });
 
+  document.querySelectorAll("a[data-funnel]").forEach((link) => {
+    link.addEventListener("click", () => {
+      track("funnel_click", {
+        funnel_target: slugify(link.dataset.funnel),
+        destination: link.getAttribute("href") || "",
+        ...clickContext(link)
+      });
+    });
+  });
+
   document.querySelectorAll('a[href*="apps.apple.com"][href*="id6778061607"], a[href="/go/ghosttune.html"]').forEach((link) => {
     link.addEventListener("click", () => {
       track("ghosttune_app_store_click", {
@@ -195,6 +205,16 @@
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       const formData = new FormData(form);
+
+      CAMPAIGN_FIELDS.forEach((field) => {
+        if (campaign[field] && !formData.has(field)) {
+          formData.append(field, campaign[field]);
+        }
+      });
+      if (!formData.has("source_page")) {
+        formData.append("source_page", window.location.pathname);
+      }
+
       const formName =
         formData.get("form_name") ||
         formData.get("product") ||
@@ -219,7 +239,9 @@
 
         track("generate_lead", {
           lead_type: slugify(formName),
-          ...(interest ? { interest_type: slugify(interest) } : {})
+          source_page: window.location.pathname,
+          ...(interest ? { interest_type: slugify(interest) } : {}),
+          ...campaign
         });
 
         form.reset();
