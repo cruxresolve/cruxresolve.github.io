@@ -1,0 +1,90 @@
+---
+layout: default
+title: "DB9 Does Not Mean RS232: How to Identify a Serial Interface | Crux Resolve"
+description: "A practical guide to identifying whether a DB9 connector really carries RS232, including pinout, voltage, protocol, DTE/DCE, and control-line checks before connecting equipment."
+canonical: https://cruxresolve.com/blog/db9-does-not-mean-rs232.html
+current: blog
+og_type: article
+og_image: https://cruxresolve.com/assets/gb01/gb01-db9-front.webp
+---
+<main id="main-content"><article class="article">
+<a href="/blog/">← Back to Technical Library</a>
+<div class="eyebrow" style="margin-top:28px;">// September 8, 2026 · Crux Resolve LLC</div>
+<h1>DB9 does not mean RS232: how to identify a serial interface</h1>
+<p class="lead" style="text-align:left; margin-left:0;">A 9-pin D-sub connector is only a connector. Equipment manufacturers have used the same shape for RS232, RS485, CAN, TTL-level serial, video, proprietary signals, power, and custom wiring. Confirm the electrical interface before connecting a serial adapter or bridge.</p>
+
+<div class="notice notice-danger"><strong>Do not connect by connector shape alone.</strong> A wrong assumption about a DB9 port can produce a non-working link and, in some cases, expose equipment to signal levels or wiring it was not designed to accept.</div>
+
+<h2>Why DB9 and RS232 are often confused</h2>
+<p>PC serial ports made the 9-pin D-sub connector strongly associated with RS232. A common PC-style RS232 pinout uses pin 2 for receive data, pin 3 for transmit data, and pin 5 for signal ground, with other pins available for modem-control signals.</p>
+<p>That convention is common, but the connector itself does not enforce it. The same physical shell can be wired for something completely different.</p>
+
+<h2>Step 1: find the device documentation</h2>
+<p>The strongest starting point is the equipment manual, service documentation, connector table, or manufacturer specification. Look for explicit wording such as:</p>
+<ul>
+<li>RS232 or EIA/TIA-232,</li>
+<li>RS485 or RS422,</li>
+<li>TTL UART or logic-level serial,</li>
+<li>CAN, CAN-H, or CAN-L,</li>
+<li>TXD, RXD, and GND pin assignments,</li>
+<li>baud rate, parity, data bits, and stop bits,</li>
+<li>RTS/CTS or other hardware-control requirements.</li>
+</ul>
+<p>If the documentation only says “serial” without identifying the electrical standard, do not assume RS232 yet.</p>
+
+<h2>Step 2: separate connector, electrical layer, and protocol</h2>
+<p>Three different ideas are often mixed together:</p>
+<ul>
+<li><strong>Connector:</strong> the physical DB9 shell and pins.</li>
+<li><strong>Electrical interface:</strong> RS232, RS485, TTL UART, CAN, or another signaling method.</li>
+<li><strong>Application protocol:</strong> the actual commands or binary messages exchanged by the equipment.</li>
+</ul>
+<p>A WiFi-to-RS232 bridge can move serial bytes only when the equipment side is electrically compatible with RS232. It does not convert CAN or RS485 into RS232 simply because the connector looks familiar.</p>
+
+<h2>Step 3: check the documented pinout</h2>
+<p>For a conventional PC-style 9-pin RS232 DTE interface, pin 2 is commonly RXD, pin 3 TXD, and pin 5 signal ground. Additional pins may carry DTR, DSR, RTS, CTS, DCD, or RI.</p>
+<p>But manufacturers can and do use nonstandard assignments. A DB9 carrying power on a pin that another device expects to be a signal line is a clear example of why documentation matters.</p>
+<p>For the TX/RX orientation problem, see <a href="/blog/rs232-dte-dce-null-modem.html">RS232 DTE vs DCE and Null-Modem Cables Explained</a>.</p>
+
+<h2>Step 4: check the voltage standard if documentation is incomplete</h2>
+<p>When documentation is unavailable, electrical measurements can help distinguish interface families, but this should be done carefully and with an understanding of the equipment.</p>
+<p>Traditional RS232 uses positive and negative voltage levels relative to ground, unlike TTL UART interfaces that typically remain between ground and a positive logic supply. RS485 uses a differential pair rather than a single TX and RX referenced in the same way as basic RS232.</p>
+<div class="notice"><strong>Important:</strong> voltage measurements alone do not tell you the application protocol or guarantee that every pin is safe to probe. Documentation is still preferable whenever available.</div>
+
+<h2>Step 5: determine whether three-wire RS232 is enough</h2>
+<p>Many devices communicate using only TX, RX, and ground. Others depend on hardware flow control or modem-status lines.</p>
+<p>If the equipment requires RTS/CTS, DTR/DSR, DCD, RI, BREAK behavior, or application-specific control-line states, a basic three-wire bridge may not be sufficient even when the port is definitely RS232.</p>
+<p>Read <a href="/blog/3-wire-rs232-tx-rx-ground.html">3-Wire RS232 Explained: TX, RX, and Ground</a> for the difference between a basic data link and a full-handshake serial connection.</p>
+
+<h2>Common DB9 possibilities</h2>
+<h3>True RS232</h3>
+<p>This is the familiar serial-port case. You still need the actual pinout, serial settings, and DTE/DCE orientation.</p>
+<h3>RS485 or RS422</h3>
+<p>These use differential signaling and need the appropriate physical-layer transceiver. A normal RS232 bridge is not an electrical substitute.</p>
+<h3>TTL or logic-level UART</h3>
+<p>The byte format may resemble ordinary asynchronous serial communication, but the voltage levels are different from RS232. Directly connecting incompatible electrical levels is not appropriate.</p>
+<h3>CAN or proprietary interfaces</h3>
+<p>A DB9 can carry CAN or a manufacturer-specific interface. The connector shape provides no protocol conversion.</p>
+<h3>Mixed signal and power</h3>
+<p>Some equipment uses otherwise familiar connector pins for power, enable signals, or custom control functions. That is another reason to verify the complete pin table first.</p>
+
+<h2>A practical pre-connection checklist</h2>
+<ol>
+<li>Find the manufacturer and exact model.</li>
+<li>Locate the connector/pinout table in the manual.</li>
+<li>Confirm the electrical interface explicitly says RS232.</li>
+<li>Identify TX, RX, and signal ground.</li>
+<li>Identify any required RTS/CTS or other control lines.</li>
+<li>Record baud rate, data bits, parity, and stop bits.</li>
+<li>Determine the DTE/DCE orientation or required cable crossover.</li>
+<li>Confirm the host software can communicate through the transport you plan to use.</li>
+</ol>
+
+<h2>Where GhostBridge GB-01 fits</h2>
+<p><a href="/ghostbridge.html" data-funnel="ghostbridge_product">GhostBridge GB-01</a> is specifically a standard 3-wire RS232 bridge. Its current DB9 male interface uses pin 2 as RX into GhostBridge, pin 3 as TX out of GhostBridge, and pin 5 as signal ground.</p>
+<p>The current hardware does not route RTS/CTS or the other DB9 modem-control lines. If your device documentation shows ordinary three-wire RS232 and compatible serial requirements, it is a much stronger candidate. If the manual shows RS485, CAN, TTL UART, or required hardware handshaking, the current GB-01 should not be treated as a direct electrical fit.</p>
+
+{% include blog/serial-conversion-cta.html %}
+<nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← Technical Library</a><a href="/ghostbridge.html#compatibility-request" data-funnel="compatibility_request">Check a device →</a></nav>
+</article></main>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"DB9 Does Not Mean RS232: How to Identify a Serial Interface","description":"A practical guide to identifying whether a DB9 connector really carries RS232, including pinout, voltage, protocol, DTE/DCE, and control-line checks before connecting equipment.","datePublished":"2026-09-08","dateModified":"2026-09-08","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/db9-does-not-mean-rs232.html","image":"https://cruxresolve.com/assets/gb01/gb01-db9-front.webp"}</script>

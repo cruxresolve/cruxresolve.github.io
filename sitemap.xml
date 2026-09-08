@@ -61,6 +61,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cruxresolve.com/blog/wifi-rs232-vs-usb-serial-adapter.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cruxresolve.com/blog/db9-does-not-mean-rs232.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cruxresolve.com/blog/connect-legacy-rs232-equipment-modern-computer.html</loc>
     <lastmod>2026-09-08</lastmod>
     <changefreq>monthly</changefreq>

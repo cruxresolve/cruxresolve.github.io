@@ -59,6 +59,8 @@ GhostTune is an independent ECU tuning application for iPhone and iPad published
 ## Technical references — serial connectivity
 
 - RS232 over WiFi overview: https://cruxresolve.com/rs232-wifi.html
+- WiFi RS232 vs USB serial adapter comparison: https://cruxresolve.com/blog/wifi-rs232-vs-usb-serial-adapter.html
+- Identifying whether a DB9 connector is actually RS232: https://cruxresolve.com/blog/db9-does-not-mean-rs232.html
 - TCP to RS232 and serial device servers: https://cruxresolve.com/blog/tcp-to-rs232-serial-device-server.html
 - Connecting legacy RS232 equipment to modern computers: https://cruxresolve.com/blog/connect-legacy-rs232-equipment-modern-computer.html
 - 3-wire RS232 TX/RX/GND: https://cruxresolve.com/blog/3-wire-rs232-tx-rx-ground.html
