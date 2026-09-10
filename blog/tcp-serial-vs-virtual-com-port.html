@@ -1,0 +1,70 @@
+---
+layout: default
+title: "TCP Serial vs Virtual COM Port: Which Does Your Legacy Software Need? | Crux Resolve"
+description: "Learn when legacy serial software can connect directly to a TCP serial device server and when a virtual COM-port layer may be needed."
+canonical: https://cruxresolve.com/blog/tcp-serial-vs-virtual-com-port.html
+current: blog
+og_type: article
+og_image: https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp
+---
+<main id="main-content"><article class="article">
+{% include blog/serial-breadcrumbs.html %}
+<div class="eyebrow">// September 10, 2026 · Crux Resolve LLC</div>
+<h1>TCP serial vs virtual COM port: which does your legacy software need?</h1>
+<p class="lead" style="text-align:left; margin-left:0;">A WiFi serial device server can expose RS232 equipment through TCP, but the host software still determines whether you can connect directly or need a virtual COM-port layer in between.</p>
+
+<h2>The short answer</h2>
+<div class="grid grid-2">
+<article class="card"><h3>Use direct TCP when</h3><p>Your application can open a network socket and lets you enter an IP address and TCP port for the serial device server.</p></article>
+<article class="card"><h3>Consider virtual COM when</h3><p>Your application only lists local serial ports such as COM1, COM3, or COM7 and has no option for a TCP address or network endpoint.</p></article>
+</div>
+
+<h2>What direct TCP looks like</h2>
+<p>With direct TCP, the host application connects straight to the serial device server over the network. There is no emulated COM port between the application and the bridge.</p>
+<div class="notice"><strong>Direct path:</strong> Application ⇄ TCP/IP ⇄ serial device server ⇄ RS232 ⇄ equipment.</div>
+<p>This is usually the cleanest arrangement when the software already understands network serial connections because there is one less compatibility layer to configure.</p>
+
+<h2>What a virtual COM port does</h2>
+<p>A virtual COM-port utility presents a software-created serial port to an older application. Traffic written to that COM port is forwarded through TCP to the serial device server.</p>
+<div class="notice"><strong>Virtual-COM path:</strong> Legacy application ⇄ virtual COM port ⇄ TCP/IP ⇄ serial device server ⇄ RS232 ⇄ equipment.</div>
+<p>From the legacy application's perspective, it is still opening a normal COM port. The virtual-COM software handles the network side behind the scenes.</p>
+
+<h2>How to tell what your software expects</h2>
+<ul>
+<li>If the connection screen asks for an IP address, hostname, or TCP port, the software likely supports direct network communication.</li>
+<li>If the connection screen only offers COM ports and serial settings, it likely expects a local serial interface.</li>
+<li>If the software documentation mentions socket, TCP client, terminal server, device server, or network serial, direct TCP support may already exist.</li>
+<li>If the documentation assumes a physical serial cable and never mentions networking, a virtual COM layer may be the more realistic path.</li>
+</ul>
+
+<h2>Serial settings still matter either way</h2>
+<p>Changing the host transport does not eliminate the underlying serial requirements. The bridge still has to use the baud rate, data bits, parity, stop bits, and flow-control behavior required by the equipment.</p>
+<p>The equipment-side electrical interface and pinout also remain important. A TCP connection cannot compensate for connecting RS232 hardware to an incompatible TTL, RS485, CAN, or proprietary interface.</p>
+
+<h2>Virtual COM is not automatically universal</h2>
+<p>Virtual COM software can be useful, but it introduces another layer that has to match the operating system, application behavior, and device-server connection method.</p>
+<p>Older applications may depend on timing, BREAK behavior, modem-control signals, exclusive port access, or other serial-port details. Those requirements should be tested with the actual software instead of assuming that every application will behave identically through a virtual port.</p>
+
+<h2>What about RTS/CTS and modem-control lines?</h2>
+<p>If the equipment or software requires RTS/CTS, DTR/DSR, DCD, RI, or similar hardware signals, the serial device server has to provide those signals on the physical interface and the network/virtual-COM path has to handle them appropriately.</p>
+<p>The current GhostBridge GB-01 production hardware is a three-wire RS232 device using RX, TX, and ground. It does not route RTS/CTS or the other modem-control lines to the DB9 connector.</p>
+
+<h2>Where GhostBridge fits</h2>
+<p><a href="/wifi-serial-device-server.html" data-funnel="serial_device_server">GhostBridge GB-01</a> creates a local WiFi access point and exposes a TCP endpoint at <code>192.168.4.1:35000</code>. TCP-capable host software can connect directly to that endpoint.</p>
+<p>If your existing desktop application only supports COM ports, you may need a compatible third-party TCP-to-virtual-COM utility. Crux Resolve does not treat the presence of a COM-port utility as proof that a specific legacy application will work; the real application and equipment requirements still need to be checked.</p>
+
+<h2>A simple decision path</h2>
+<ol>
+<li>Open the software's connection or communications settings.</li>
+<li>Look for an IP address or TCP-port option.</li>
+<li>If TCP is supported, compare the application's connection method with the device server.</li>
+<li>If only COM ports are supported, investigate a compatible virtual-COM utility for the operating system.</li>
+<li>Confirm the physical RS232 interface, pinout, serial settings, and control-line requirements before connecting hardware.</li>
+<li>Test with the actual software and device before treating the setup as production-ready.</li>
+</ol>
+
+<p>For a broader hardware overview, see <a href="/wifi-serial-device-server.html" data-funnel="serial_device_server">WiFi serial device server for RS232</a>. If you are starting with older equipment rather than the software, see <a href="/blog/can-you-make-old-rs232-device-wireless.html">Can you make an old RS232 device wireless?</a></p>
+{% include blog/serial-conversion-cta.html %}
+<nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← Technical Library</a><a href="/ghostbridge.html#compatibility-request" data-funnel="compatibility_request">Check my device →</a></nav>
+</article></main>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"TCP Serial vs Virtual COM Port: Which Does Your Legacy Software Need?","description":"Learn when legacy serial software can connect directly to a TCP serial device server and when a virtual COM-port layer may be needed.","datePublished":"2026-09-10","dateModified":"2026-09-10","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/tcp-serial-vs-virtual-com-port.html","image":"https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp"}</script>
