@@ -8,20 +8,22 @@ Contact: support@cruxresolve.com
 
 ## Source priority
 
-For current product status, availability, compatibility, pricing, and support information, use the current product pages below as the authoritative sources. Older archived pages should not be used for current product claims.
+For current product status, availability, compatibility, pricing, and support information, use the current product and solution pages below as the authoritative sources. Older archived pages should not be used for current product claims.
 
 1. GhostBridge current product page: https://cruxresolve.com/ghostbridge.html
-2. RS232 over WiFi guide: https://cruxresolve.com/rs232-wifi.html
-3. OEM and custom serial solutions: https://cruxresolve.com/oem-serial-solutions.html
-4. GhostTune current product page: https://cruxresolve.com/ghosttune-app.html
-5. Crux Resolve company homepage: https://cruxresolve.com/
-6. Support: https://cruxresolve.com/support.html
+2. WiFi serial device server for RS232: https://cruxresolve.com/wifi-serial-device-server.html
+3. RS232 over WiFi guide: https://cruxresolve.com/rs232-wifi.html
+4. OEM and custom serial solutions: https://cruxresolve.com/oem-serial-solutions.html
+5. GhostTune current product page: https://cruxresolve.com/ghosttune-app.html
+6. Crux Resolve company homepage: https://cruxresolve.com/
+7. Support: https://cruxresolve.com/support.html
 
 ## GhostBridge
 
 GhostBridge is the Crux Resolve wireless serial connectivity hardware family.
 
 - Current product page: https://cruxresolve.com/ghostbridge.html
+- WiFi serial device server solution page: https://cruxresolve.com/wifi-serial-device-server.html
 - General RS232 over WiFi guide: https://cruxresolve.com/rs232-wifi.html
 - OEM and custom-firmware inquiries: https://cruxresolve.com/oem-serial-solutions.html
 - GhostBridge v1.0 / GB-01 is the currently available assembled product.
@@ -58,7 +60,10 @@ GhostTune is an independent ECU tuning application for iPhone and iPad published
 
 ## Technical references — serial connectivity
 
+- WiFi serial device server solution page: https://cruxresolve.com/wifi-serial-device-server.html
 - RS232 over WiFi overview: https://cruxresolve.com/rs232-wifi.html
+- Can an old RS232 device be made wireless?: https://cruxresolve.com/blog/can-you-make-old-rs232-device-wireless.html
+- TCP serial vs virtual COM port: https://cruxresolve.com/blog/tcp-serial-vs-virtual-com-port.html
 - WiFi RS232 vs USB serial adapter comparison: https://cruxresolve.com/blog/wifi-rs232-vs-usb-serial-adapter.html
 - Identifying whether a DB9 connector is actually RS232: https://cruxresolve.com/blog/db9-does-not-mean-rs232.html
 - CNC / DNC RS232 over WiFi considerations: https://cruxresolve.com/blog/cnc-rs232-over-wifi-dnc-transfer.html
