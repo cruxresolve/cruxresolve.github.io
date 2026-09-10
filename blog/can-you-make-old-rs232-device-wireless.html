@@ -1,0 +1,65 @@
+---
+layout: default
+title: "Can You Make an Old RS232 Device Wireless? | Crux Resolve"
+description: "Yes, many legacy RS232 devices can be made wireless with a serial-to-WiFi bridge, but electrical interface, pinout, flow control, serial settings, and software compatibility still matter."
+canonical: https://cruxresolve.com/blog/can-you-make-old-rs232-device-wireless.html
+current: blog
+og_type: article
+og_image: https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp
+---
+<main id="main-content"><article class="article">
+{% include blog/serial-breadcrumbs.html %}
+<div class="eyebrow">// September 10, 2026 · Crux Resolve LLC</div>
+<h1>Can you make an old RS232 device wireless?</h1>
+<p class="lead" style="text-align:left; margin-left:0;">Often, yes. If the equipment uses a compatible RS232 interface, a serial-to-WiFi bridge can move the connection between the device and modern host software without changing the device's application protocol.</p>
+
+<h2>What actually becomes wireless?</h2>
+<p>The RS232 equipment itself does not suddenly become a WiFi device. Instead, a serial bridge connects to the equipment's RS232 port and carries the serial byte stream over a local network connection.</p>
+<div class="notice"><strong>Typical path:</strong> Host software ⇄ WiFi/TCP ⇄ serial bridge ⇄ RS232 ⇄ legacy equipment.</div>
+<p>The equipment continues using the same serial commands and responses it used before. The bridge changes the transport path between the serial port and the host.</p>
+
+<h2>Start by confirming it really is RS232</h2>
+<p>A DB9 connector is not proof of RS232. The same connector shape can be used for RS485, TTL serial, CAN, proprietary wiring, or nonstandard pinouts.</p>
+<p>Before connecting anything, confirm the equipment documentation identifies the electrical interface and pinout. If the documentation is unclear, see <a href="/blog/db9-does-not-mean-rs232.html">DB9 does not mean RS232</a>.</p>
+
+<h2>Check whether three wires are enough</h2>
+<p>Many simple serial links use only transmit, receive, and signal ground. Other devices depend on RTS/CTS, DTR/DSR, DCD, RI, or other modem-control signals.</p>
+<p>A bridge designed only for three-wire serial cannot replace those additional signals. That is one of the most important checks to make before buying hardware.</p>
+
+<h2>Record the serial settings</h2>
+<p>The two serial endpoints have to agree on the basic UART settings. Record the baud rate, data bits, parity, and stop bits from the device manual or existing software configuration.</p>
+<p>Examples include settings such as <code>9600 8N1</code>, but the correct values are whatever the equipment actually requires.</p>
+
+<h2>Check the TX/RX wiring and DTE/DCE arrangement</h2>
+<p>Two legitimate RS232 devices can still fail to communicate if transmit and receive are not crossed correctly. Some connections use straight-through wiring; others need a null-modem or crossover arrangement.</p>
+<p>Do not choose a cable based only on connector gender. See <a href="/blog/rs232-dte-dce-null-modem.html">RS232 DTE vs DCE and null-modem cables</a> for the cabling side of the problem.</p>
+
+<h2>Then check the host software</h2>
+<p>Modern software may be able to connect directly to a TCP address and port. Older desktop software may only know how to open a local COM port.</p>
+<p>If the application only supports COM ports, a compatible TCP-to-virtual-COM utility may be able to present the network connection as a local serial port. That extra software layer should be tested with the actual application rather than assumed to work universally.</p>
+<p>For the decision between those two paths, read <a href="/blog/tcp-serial-vs-virtual-com-port.html">TCP serial vs virtual COM port</a>.</p>
+
+<h2>What kinds of equipment can be candidates?</h2>
+<p>Compatible RS232 interfaces can appear on industrial controllers, meters, test instruments, data loggers, laboratory equipment, embedded controllers, automotive devices, CNC-related equipment, and older service or configuration tools.</p>
+<p>Those categories are examples, not compatibility guarantees. The actual interface and software requirements matter more than the industry.</p>
+
+<h2>Where GhostBridge GB-01 fits</h2>
+<p><a href="/wifi-serial-device-server.html" data-funnel="serial_device_server">GhostBridge GB-01</a> is a compact local WiFi-to-standard-3-wire-RS232 TCP bridge. The current production DB9 interface uses pin 2 for RX, pin 3 for TX, and pin 5 for ground. It does not route RTS/CTS or other modem-control lines.</p>
+<p>GhostBridge creates its own local WiFi access point and exposes a TCP endpoint at <code>192.168.4.1:35000</code>. A compatible host application connects to that endpoint directly, or through a suitable virtual-COM layer when needed.</p>
+
+<h2>A practical pre-order checklist</h2>
+<ul>
+<li>Confirm true RS232 electrical signaling.</li>
+<li>Confirm the connector pinout.</li>
+<li>Determine whether the link is TX/RX/GND only.</li>
+<li>Record baud rate, data bits, parity, and stop bits.</li>
+<li>Determine whether straight-through or crossover wiring is required.</li>
+<li>Check whether the host software supports TCP or needs a virtual COM layer.</li>
+<li>Identify any unusual timing, BREAK, or control-line requirements.</li>
+</ul>
+
+<p>If you have a specific device, use the <a href="/ghostbridge.html#compatibility-request" data-funnel="compatibility_request">GhostBridge compatibility request</a> and send the manufacturer, model, interface information, serial settings, and host software you know.</p>
+{% include blog/serial-conversion-cta.html %}
+<nav class="article-nav" aria-label="Article navigation"><a href="/blog/">← Technical Library</a><a href="/wifi-serial-device-server.html" data-funnel="serial_device_server">WiFi serial device server →</a></nav>
+</article></main>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Can You Make an Old RS232 Device Wireless?","description":"Many legacy RS232 devices can be made wireless with a serial-to-WiFi bridge when the electrical interface, pinout, serial settings, flow control, cabling, and host software are compatible.","datePublished":"2026-09-10","dateModified":"2026-09-10","author":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC"},"publisher":{"@type":"Organization","@id":"https://cruxresolve.com/#organization","name":"Crux Resolve LLC","logo":{"@type":"ImageObject","url":"https://cruxresolve.com/assets/crux-site-icon.png"}},"mainEntityOfPage":"https://cruxresolve.com/blog/can-you-make-old-rs232-device-wireless.html","image":"https://cruxresolve.com/assets/gb01/gb01-db9-angle.webp"}</script>
