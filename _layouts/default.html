@@ -40,10 +40,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/site.css" />
   <link rel="stylesheet" href="/assets/css/crux-header.css" />
+  <link rel="stylesheet" href="/assets/css/conversion-funnel.css" />
   {% if page.extra_css %}<link rel="stylesheet" href="{{ page.extra_css }}" />{% endif %}
   <link rel="stylesheet" href="/assets/css/analytics-consent.css" />
 </head>
-<body>
+<body class="{% if page.current == 'ghostbridge' or page.current == 'ghosttune' %}has-mobile-purchase-bar{% endif %}">
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <nav class="site-nav" aria-label="Primary navigation">
     <div class="nav-inner">
@@ -55,9 +56,9 @@
         <li><a href="/ghostbridge.html"{% if page.current == 'ghostbridge' %} aria-current="page"{% endif %}>GhostBridge</a></li>
         <li><a href="/rs232-wifi.html"{% if page.current == 'serial' %} aria-current="page"{% endif %}>RS232 WiFi</a></li>
         <li><a href="/ghosttune-app.html"{% if page.current == 'ghosttune' %} aria-current="page"{% endif %}>GhostTune</a></li>
+        <li><a href="/oem-serial-solutions.html"{% if page.current == 'oem' %} aria-current="page"{% endif %}>OEM / Custom</a></li>
         <li><a href="/blog/"{% if page.current == 'blog' %} aria-current="page"{% endif %}>Blog</a></li>
         <li><a href="/support.html"{% if page.current == 'support' %} aria-current="page"{% endif %}>Support</a></li>
-        <li><a href="/ghosttune.html"{% if page.current == 'media' %} aria-current="page"{% endif %}>Media</a></li>
       </ul>
       <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-navigation" data-menu-button>
         <span></span><span></span><span></span>
@@ -67,13 +68,25 @@
       <a href="/ghostbridge.html"{% if page.current == 'ghostbridge' %} aria-current="page"{% endif %}>GhostBridge</a>
       <a href="/rs232-wifi.html"{% if page.current == 'serial' %} aria-current="page"{% endif %}>RS232 WiFi</a>
       <a href="/ghosttune-app.html"{% if page.current == 'ghosttune' %} aria-current="page"{% endif %}>GhostTune</a>
+      <a href="/oem-serial-solutions.html"{% if page.current == 'oem' %} aria-current="page"{% endif %}>OEM / Custom</a>
       <a href="/blog/"{% if page.current == 'blog' %} aria-current="page"{% endif %}>Blog</a>
       <a href="/support.html"{% if page.current == 'support' %} aria-current="page"{% endif %}>Support</a>
-      <a href="/ghosttune.html"{% if page.current == 'media' %} aria-current="page"{% endif %}>Media</a>
     </div>
   </nav>
 
   {{ content }}
+
+  {% if page.current == 'ghostbridge' %}
+  <aside class="mobile-purchase-bar" aria-label="GhostBridge purchase shortcut">
+    <span><strong>GhostBridge GB-01</strong><small>$89 + $8 U.S. shipping</small></span>
+    <a class="button button-primary" href="/go/gb-sticky.html" target="_blank" rel="noopener noreferrer" data-funnel="ghostbridge_sticky_buy">Buy</a>
+  </aside>
+  {% elsif page.current == 'ghosttune' %}
+  <aside class="mobile-purchase-bar" aria-label="GhostTune App Store shortcut">
+    <span><strong>GhostTune</strong><small>Available on the App Store</small></span>
+    <a class="button button-primary" href="/go/gt-sticky.html" target="_blank" rel="noopener noreferrer" data-funnel="ghosttune_sticky_appstore">Get App</a>
+  </aside>
+  {% endif %}
 
   <footer class="site-footer">
     <div class="footer-inner">
