@@ -67,6 +67,13 @@ CHECKS = {
         "Need the WiFi bridge? See GhostBridge",
         "/go/ghosttune.html",
     ),
+    "https://cruxresolve.com/start.html": (
+        "Redirecting to GhostTune | Crux Resolve",
+        'rel="canonical" href="https://cruxresolve.com/ghosttune-app.html"',
+        'content="0; url=/ghosttune-app.html"',
+        'new URL("/ghosttune-app.html", window.location.origin).href',
+        "This retired URL now points to the current GhostTune product page.",
+    ),
     "https://cruxresolve.com/ghostbridge.html": (
         "GhostBridge GB-01",
         "Put RS232 on WiFi.",
@@ -265,6 +272,13 @@ FORBIDDEN = {
         "Effective June 28, 2026",
         "Effective August 8, 2026",
         "requires users to be at least 18 years old",
+    ),
+    "https://cruxresolve.com/start.html": (
+        "Live-ECU testing is underway.",
+        "Live-ECU testing in progress",
+        "Join release updates",
+        "Be there at launch",
+        "Additional ECU platforms are under development",
     ),
     "https://cruxresolve.com/ghosttune-app.html": (
         "Live-ECU testing is underway.",
