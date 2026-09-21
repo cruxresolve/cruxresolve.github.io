@@ -7,13 +7,19 @@
   <meta name="description" content="{{ page.description | escape }}" />
   <meta name="robots" content="{{ page.robots | default: 'noindex, follow' }}" />
   <link rel="canonical" href="{{ page.canonical }}" />
+  <script>
+    (function () {
+      var target = new URL("{{ page.redirect_to }}", window.location.origin).href;
+      if (window.location.href !== target) window.location.replace(target);
+    })();
+  </script>
   <meta http-equiv="refresh" content="0; url={{ page.redirect_to }}" />
 </head>
 <body>
   <main id="main-content">
     <h1>{{ page.heading | default: 'This page has moved.' }}</h1>
     {{ content }}
-    <p><a href="{{ page.redirect_to }}">Continue to the current page</a>.</p>
+    <p><a href="{{ page.redirect_to }}" rel="canonical">Continue to the current page</a>.</p>
   </main>
 </body>
 </html>
