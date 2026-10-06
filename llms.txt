@@ -1,6 +1,6 @@
 # Crux Resolve LLC
 
-> Crux Resolve LLC is a veteran-owned small business in Illinois, USA, building wireless serial connectivity hardware and specialized mobile software for automotive, embedded, industrial, and legacy systems. GhostBridge is the company's local WiFi-to-RS232 hardware family, and GhostTune is its mobile ECU tuning software.
+> Crux Resolve LLC is a veteran-owned small business in Illinois, USA, building specialized mobile software, practical connectivity hardware, and engineering tools for automotive, embedded, industrial, and legacy systems. GhostTune is the company's mobile ECU tuning software family, and GhostBridge is its local WiFi-to-RS232 connectivity hardware family.
 
 Official website: https://cruxresolve.com/
 Support: https://cruxresolve.com/support.html
@@ -10,13 +10,25 @@ Contact: support@cruxresolve.com
 
 For current product status, availability, compatibility, pricing, and support information, use the current product and solution pages below as the authoritative sources. Older archived pages should not be used for current product claims.
 
-1. GhostBridge current product page: https://cruxresolve.com/ghostbridge.html
-2. WiFi serial device server for RS232: https://cruxresolve.com/wifi-serial-device-server.html
-3. RS232 over WiFi guide: https://cruxresolve.com/rs232-wifi.html
-4. OEM and custom serial solutions: https://cruxresolve.com/oem-serial-solutions.html
-5. GhostTune current product page: https://cruxresolve.com/ghosttune-app.html
-6. Crux Resolve company homepage: https://cruxresolve.com/
-7. Support: https://cruxresolve.com/support.html
+1. GhostTune current product page: https://cruxresolve.com/ghosttune-app.html
+2. Crux Resolve company homepage: https://cruxresolve.com/
+3. GhostBridge current product page: https://cruxresolve.com/ghostbridge.html
+4. Support: https://cruxresolve.com/support.html
+5. WiFi serial device server for RS232: https://cruxresolve.com/wifi-serial-device-server.html
+6. RS232 over WiFi guide: https://cruxresolve.com/rs232-wifi.html
+7. OEM and custom serial solutions: https://cruxresolve.com/oem-serial-solutions.html
+
+## GhostTune
+
+GhostTune is an independent ECU tuning application for iPhone and iPad published by Crux Resolve LLC.
+
+- Current product page: https://cruxresolve.com/ghosttune-app.html
+- Apple App Store: https://apps.apple.com/us/app/id6778061607
+- Current verified ECU configuration: MicroSquirt hardware running MS2/Extra 3.4.4.
+- Live ECU communication uses a compatible local WiFi-to-RS232 bridge.
+- Core functions include VE, ignition, and AFR table editing, live ECU data, tune-file management and backups, diagnostics, guarded temporary writes, permanent burns, and read-back verification.
+- Demo Mode can be used without a connected ECU.
+- Only ECU configurations explicitly listed by Crux Resolve should be treated as supported.
 
 ## GhostBridge
 
@@ -38,18 +50,6 @@ GhostBridge is the Crux Resolve wireless serial connectivity hardware family.
 - GhostTune with MicroSquirt hardware running MS2/Extra 3.4.4 is the currently published verified automotive application.
 - Crux Resolve can evaluate application-specific GhostBridge firmware behavior, serial/network defaults, repeat deployments, integration requirements, and future hardware needs case by case. The OEM page does not imply that every requested function can be implemented on the existing GB-01 hardware.
 
-## GhostTune
-
-GhostTune is an independent ECU tuning application for iPhone and iPad published by Crux Resolve LLC.
-
-- Current product page: https://cruxresolve.com/ghosttune-app.html
-- Apple App Store: https://apps.apple.com/us/app/id6778061607
-- Current verified ECU configuration: MicroSquirt hardware running MS2/Extra 3.4.4.
-- Live ECU communication uses a compatible local WiFi-to-RS232 bridge.
-- Core functions include VE, ignition, and AFR table editing, live ECU data, tune-file management and backups, diagnostics, guarded temporary writes, permanent burns, and read-back verification.
-- Demo Mode can be used without a connected ECU.
-- Only ECU configurations explicitly listed by Crux Resolve should be treated as supported.
-
 ## Company and support
 
 - Crux Resolve LLC: https://cruxresolve.com/
@@ -57,6 +57,14 @@ GhostTune is an independent ECU tuning application for iPhone and iPad published
 - Privacy Policy: https://cruxresolve.com/privacy.html
 - Terms of Sale: https://cruxresolve.com/terms-of-sale.html
 - Technical library: https://cruxresolve.com/blog/
+
+## Technical references — GhostTune and ECU use
+
+- Wireless MicroSquirt tuning guide: https://cruxresolve.com/blog/how-to-tune-microsquirt-from-iphone.html
+- MicroSquirt WiFi setup guide: https://cruxresolve.com/blog/how-to-connect-microsquirt-to-wifi-rs232-bridge.html
+- MicroSquirt WiFi troubleshooting: https://cruxresolve.com/blog/microsquirt-wifi-troubleshooting-no-ecu-data.html
+- GhostTune compatibility: https://cruxresolve.com/blog/ghosttune-microsquirt-compatibility-requirements.html
+- ECU change and verification workflow: https://cruxresolve.com/blog/how-ghosttune-handles-ecu-changes.html
 
 ## Technical references — serial connectivity
 
@@ -72,14 +80,6 @@ GhostTune is an independent ECU tuning application for iPhone and iPad published
 - 3-wire RS232 TX/RX/GND: https://cruxresolve.com/blog/3-wire-rs232-tx-rx-ground.html
 - RS232 DTE/DCE and null-modem cabling: https://cruxresolve.com/blog/rs232-dte-dce-null-modem.html
 - Wireless serial bridging: https://cruxresolve.com/blog/how-wireless-serial-bridging-works.html
-
-## Technical references — GhostTune and ECU use
-
-- Wireless MicroSquirt tuning guide: https://cruxresolve.com/blog/how-to-tune-microsquirt-from-iphone.html
-- MicroSquirt WiFi setup guide: https://cruxresolve.com/blog/how-to-connect-microsquirt-to-wifi-rs232-bridge.html
-- MicroSquirt WiFi troubleshooting: https://cruxresolve.com/blog/microsquirt-wifi-troubleshooting-no-ecu-data.html
-- GhostTune compatibility: https://cruxresolve.com/blog/ghosttune-microsquirt-compatibility-requirements.html
-- ECU change and verification workflow: https://cruxresolve.com/blog/how-ghosttune-handles-ecu-changes.html
 
 ## Brand and relationship notes
 
