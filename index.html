@@ -6,11 +6,6 @@ canonical: https://cruxresolve.com/
 extra_css: /assets/css/home-crux.css
 ---
 <style>
-.crux-direct-actions{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:24px;padding:22px 24px;border:1px solid rgba(215,25,32,.26);border-radius:14px;background:rgba(255,255,255,.035)}
-.crux-direct-actions>div:first-child{display:grid;gap:4px}
-.crux-direct-actions strong{color:#fff;font-family:Orbitron,ui-monospace,monospace;font-size:.96rem}
-.crux-direct-actions span{color:var(--crux-muted);font-size:.9rem}
-.crux-direct-actions .actions{margin:0;flex:0 0 auto}
 .crux-guides{position:relative;padding:82px 0 88px;color:var(--crux-white);background:radial-gradient(circle at 15% 20%,rgba(215,25,32,.1),transparent 24rem),linear-gradient(180deg,#0d1116,#090c10)}
 .crux-guides::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.2;background-image:linear-gradient(30deg,rgba(215,25,32,.1) 12%,transparent 12.5%,transparent 87%,rgba(215,25,32,.1) 87.5%,rgba(215,25,32,.1)),linear-gradient(150deg,rgba(215,25,32,.1) 12%,transparent 12.5%,transparent 87%,rgba(215,25,32,.1) 87.5%,rgba(215,25,32,.1));background-size:92px 160px;mask-image:linear-gradient(90deg,#000 0,transparent 70%)}
 .crux-guides .container{position:relative;z-index:1}
@@ -25,8 +20,8 @@ extra_css: /assets/css/home-crux.css
 .crux-guide-card h3{margin:0 0 12px;color:#fff;font-family:Orbitron,ui-monospace,monospace;font-size:1.03rem;line-height:1.35}
 .crux-guide-card p{margin:0 0 20px;color:#b2bac3;line-height:1.65}
 .crux-guide-link{margin-top:auto;color:#ff9498;font-weight:800}
-@media(max-width:860px){.crux-direct-actions,.crux-guides-head{align-items:flex-start;flex-direction:column}.crux-direct-actions .actions{width:100%}.crux-guide-grid{grid-template-columns:1fr}}
-@media(max-width:720px){.crux-direct-actions .actions,.crux-guides-head .button{width:100%}.crux-direct-actions .button,.crux-guides-head .button{flex:1 1 100%;text-align:center}.crux-guides{padding:68px 0 72px}}
+@media(max-width:860px){.crux-guides-head{align-items:flex-start;flex-direction:column}.crux-guide-grid{grid-template-columns:1fr}}
+@media(max-width:720px){.crux-guides-head .button{width:100%;flex:1 1 100%;text-align:center}.crux-guides{padding:68px 0 72px}}
 @media(prefers-reduced-motion:reduce){.crux-guide-card{transition:none}}
 </style>
 <main id="main-content" class="crux-home">
@@ -171,7 +166,9 @@ extra_css: /assets/css/home-crux.css
     </div>
   </section>
 
-  {% include home/serial-funnel.html %}\n\n  <section class="crux-about" aria-labelledby="about-title">
+  {% include home/serial-funnel.html %}
+
+  <section class="crux-about" aria-labelledby="about-title">
     <div class="container crux-about-grid">
       <div class="crux-about-card">
         <div class="section-label">// About Crux Resolve</div>
