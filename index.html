@@ -1,16 +1,11 @@
 ---
 layout: default
-title: "Crux Resolve | Wireless RS232 Connectivity & ECU Software"
-description: "Crux Resolve builds wireless RS232 connectivity hardware and specialized mobile software for automotive, embedded, industrial, and legacy systems."
+title: "Crux Resolve | GhostTune ECU Software & Connectivity Hardware"
+description: "Crux Resolve builds GhostTune mobile ECU tuning software, practical connectivity hardware, and engineering tools for automotive, embedded, industrial, and legacy systems."
 canonical: https://cruxresolve.com/
 extra_css: /assets/css/home-crux.css
 ---
 <style>
-.crux-direct-actions{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:24px;padding:22px 24px;border:1px solid rgba(215,25,32,.26);border-radius:14px;background:rgba(255,255,255,.035)}
-.crux-direct-actions>div:first-child{display:grid;gap:4px}
-.crux-direct-actions strong{color:#fff;font-family:Orbitron,ui-monospace,monospace;font-size:.96rem}
-.crux-direct-actions span{color:var(--crux-muted);font-size:.9rem}
-.crux-direct-actions .actions{margin:0;flex:0 0 auto}
 .crux-guides{position:relative;padding:82px 0 88px;color:var(--crux-white);background:radial-gradient(circle at 15% 20%,rgba(215,25,32,.1),transparent 24rem),linear-gradient(180deg,#0d1116,#090c10)}
 .crux-guides::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.2;background-image:linear-gradient(30deg,rgba(215,25,32,.1) 12%,transparent 12.5%,transparent 87%,rgba(215,25,32,.1) 87.5%,rgba(215,25,32,.1)),linear-gradient(150deg,rgba(215,25,32,.1) 12%,transparent 12.5%,transparent 87%,rgba(215,25,32,.1) 87.5%,rgba(215,25,32,.1));background-size:92px 160px;mask-image:linear-gradient(90deg,#000 0,transparent 70%)}
 .crux-guides .container{position:relative;z-index:1}
@@ -25,8 +20,8 @@ extra_css: /assets/css/home-crux.css
 .crux-guide-card h3{margin:0 0 12px;color:#fff;font-family:Orbitron,ui-monospace,monospace;font-size:1.03rem;line-height:1.35}
 .crux-guide-card p{margin:0 0 20px;color:#b2bac3;line-height:1.65}
 .crux-guide-link{margin-top:auto;color:#ff9498;font-weight:800}
-@media(max-width:860px){.crux-direct-actions,.crux-guides-head{align-items:flex-start;flex-direction:column}.crux-direct-actions .actions{width:100%}.crux-guide-grid{grid-template-columns:1fr}}
-@media(max-width:720px){.crux-direct-actions .actions,.crux-guides-head .button{width:100%}.crux-direct-actions .button,.crux-guides-head .button{flex:1 1 100%;text-align:center}.crux-guides{padding:68px 0 72px}}
+@media(max-width:860px){.crux-guides-head{align-items:flex-start;flex-direction:column}.crux-guide-grid{grid-template-columns:1fr}}
+@media(max-width:720px){.crux-guides-head .button{width:100%;flex:1 1 100%;text-align:center}.crux-guides{padding:68px 0 72px}}
 @media(prefers-reduced-motion:reduce){.crux-guide-card{transition:none}}
 </style>
 <main id="main-content" class="crux-home">
@@ -34,24 +29,61 @@ extra_css: /assets/css/home-crux.css
     <div class="crux-hero-inner">
       <div class="crux-hero-copy">
         <div class="eyebrow">Veteran-Owned Small Business · Illinois, USA</div>
-        <h1 id="crux-home-title">Connect legacy hardware to modern devices.</h1>
-        <p class="lead">Crux Resolve builds local wireless serial connectivity hardware and specialized mobile software for automotive, embedded, industrial, and legacy systems. GhostBridge puts standard 3-wire RS232 on WiFi; GhostTune brings supported ECU tuning to iPhone and iPad.</p>
+        <h1 id="crux-home-title">Modern tools for machines that weren’t built for modern devices.</h1>
+        <p class="lead">Crux Resolve builds specialized software and practical connectivity hardware for automotive, embedded, industrial, and legacy systems. GhostTune brings supported ECU tuning, live data, diagnostics, and tune management to iPhone and iPad. GhostBridge provides a simple local WiFi path for compatible 3-wire RS232 equipment when wireless serial transport is the job.</p>
         <div class="actions">
-          <a class="button button-primary" href="/go/gb-home.html" target="_blank" rel="noopener noreferrer" data-funnel="ghostbridge_home_buy">Buy GhostBridge · $89</a>
-          <a class="button button-secondary" href="/go/gt-home.html" target="_blank" rel="noopener noreferrer" data-funnel="ghosttune_home_appstore">Get GhostTune · App Store</a>
+          <a class="button button-primary" href="/go/gt-home.html" target="_blank" rel="noopener noreferrer" data-funnel="ghosttune_home_appstore">Get GhostTune · App Store</a>
+          <a class="button button-secondary" href="/go/gb-home.html" target="_blank" rel="noopener noreferrer" data-funnel="ghostbridge_home_buy">Buy GhostBridge · $89</a>
         </div>
         <div class="conversion-learn-links" aria-label="Product information links">
-          <a href="/ghostbridge.html">Learn about GhostBridge</a>
-          <span aria-hidden="true">·</span>
           <a href="/ghosttune-app.html">Explore GhostTune</a>
+          <span aria-hidden="true">·</span>
+          <a href="/ghostbridge.html">Learn about GhostBridge</a>
         </div>
       </div>
 
       <aside class="crux-hero-aside" aria-label="Crux Resolve engineering focus">
-        <div class="aside-label">// Built around the connection</div>
-        <strong>Connectivity hardware. Specialized software. Direct support.</strong>
-        <p>From a compact local 3-wire RS232 WiFi bridge to an iPhone ECU-tuning workflow, Crux Resolve builds practical tools that connect existing hardware without forcing cloud services or unnecessary complexity into the job.</p>
+        <div class="aside-label">// Software + hardware for real workflows</div>
+        <strong>Mobile tuning. Practical connectivity. Direct support.</strong>
+        <p>GhostTune is the differentiated software platform for supported ECU workflows. GhostBridge is straightforward transport hardware for compatible RS232 equipment. Both are built around clear compatibility boundaries, local control, and direct support.</p>
       </aside>
+    </div>
+  </section>
+
+  <section class="crux-products" aria-labelledby="products-title">
+    <div class="container">
+      <div class="crux-section-head">
+        <div class="section-label">// Products</div>
+        <h2 id="products-title">Two products. Different jobs.</h2>
+        <p>GhostTune is the mobile ECU-tuning software. GhostBridge is a local WiFi-to-RS232 transport device. Choose the product that solves the actual problem in front of you.</p>
+      </div>
+
+      <div class="crux-product-grid">
+        <a class="crux-product-card crux-product-card--ghosttune" href="/ghosttune-app.html">
+          <div class="crux-product-media">
+            <img src="/assets/ghosttune-app-icon.png" alt="GhostTune app icon" width="512" height="512" loading="lazy" />
+          </div>
+          <div>
+            <div class="card-label">// Mobile ECU tuning software</div>
+            <h3>GhostTune</h3>
+            <p>Tune, monitor, and diagnose supported aftermarket ECUs from iPhone and iPad with table editing, live data, tune management, diagnostics, and guarded ECU writes.</p>
+            <span class="badge">Available now on the App Store</span>
+          </div>
+        </a>
+
+        <a class="crux-product-card crux-product-card--ghostbridge" href="/ghostbridge.html" data-funnel="ghostbridge_product">
+          <div class="crux-product-media">
+            <img src="/assets/gb01/gb01-db9-angle.webp" alt="GhostBridge GB-01 production WiFi-to-RS232 serial bridge" width="2084" height="1639" loading="lazy" />
+          </div>
+          <div>
+            <div class="card-label">// Local serial connectivity</div>
+            <h3>GhostBridge v1.0 (GB-01)</h3>
+            <p>A compact transparent TCP-to-RS232 bridge for compatible standard 3-wire serial equipment. It moves serial traffic over a direct local WiFi link without a router, cloud service, or internet connection.</p>
+            <span class="badge badge-blue">Available now · $89</span>
+            <p class="muted" style="margin-top:8px; margin-bottom:0;">+$8 U.S. shipping</p>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -60,9 +92,9 @@ extra_css: /assets/css/home-crux.css
       <div class="conversion-pair-card">
         <div>
           <div class="section-label">// Verified GhostTune setup</div>
-          <h2 id="verified-setup-title">Want the published hardware + app combination?</h2>
-          <p>GhostBridge provides the local WiFi-to-RS232 link; GhostTune provides the iPhone and iPad tuning interface for the currently verified MicroSquirt hardware running MS2/Extra 3.4.4.</p>
-          <p class="conversion-path">iPhone / iPad → local WiFi → GhostBridge GB-01 → MicroSquirt · MS2/Extra 3.4.4</p>
+          <h2 id="verified-setup-title">Need the published wireless setup for GhostTune?</h2>
+          <p>GhostTune is the tuning application. For the currently published MicroSquirt workflow, it connects through a compatible local WiFi-to-RS232 bridge. GhostBridge GB-01 is the Crux Resolve bridge designed and verified for that job; another bridge still has to meet the complete communication requirements.</p>
+          <p class="conversion-path">iPhone / iPad → compatible local WiFi-to-RS232 bridge → MicroSquirt · MS2/Extra 3.4.4</p>
         </div>
         <div class="actions">
           <a class="button button-primary" href="/go/gt-home.html" target="_blank" rel="noopener noreferrer" data-funnel="ghosttune_home_pair">Get GhostTune</a>
@@ -72,62 +104,13 @@ extra_css: /assets/css/home-crux.css
     </div>
   </section>
 
-  <section class="crux-products" aria-labelledby="products-title">
-    <div class="container">
-      <div class="crux-section-head">
-        <div class="section-label">// Products</div>
-        <h2 id="products-title">Two products. Two clear jobs.</h2>
-        <p>GhostBridge provides local wireless RS232 connectivity for compatible 3-wire serial equipment. GhostTune provides mobile ECU tuning for explicitly supported engine-management systems.</p>
-      </div>
-
-      <div class="crux-product-grid">
-        <a class="crux-product-card" href="/ghostbridge.html" data-funnel="ghostbridge_product">
-          <div class="crux-product-media">
-            <img src="/assets/gb01/gb01-db9-angle.webp" alt="GhostBridge GB-01 production WiFi-to-RS232 serial bridge" width="2084" height="1639" loading="lazy" />
-          </div>
-          <div>
-            <div class="card-label">// Wireless serial connectivity</div>
-            <h3>GhostBridge v1.0 (GB-01)</h3>
-            <p>A compact assembled local WiFi-to-RS232 TCP bridge for compatible standard 3-wire serial equipment. No router, cloud service, or internet connection required.</p>
-            <span class="badge badge-blue">Available now · $89</span>
-            <p class="muted" style="margin-top:8px; margin-bottom:0;">+$8 U.S. shipping</p>
-          </div>
-        </a>
-
-        <a class="crux-product-card" href="/ghosttune-app.html">
-          <div class="crux-product-media">
-            <img src="/assets/ghosttune-app-icon.png" alt="GhostTune app icon" width="512" height="512" loading="lazy" />
-          </div>
-          <div>
-            <div class="card-label">// Mobile ECU tuning software</div>
-            <h3>GhostTune</h3>
-            <p>ECU tuning for iPhone and iPad with table editing, live data, tune management, diagnostics, and guarded ECU writes. Verified on MS2/Extra 3.4.4.</p>
-            <span class="badge">Available now on the App Store</span>
-          </div>
-        </a>
-      </div>
-
-      <div class="crux-direct-actions" aria-label="Direct product actions">
-        <div>
-          <strong>Looking for wireless RS232?</strong>
-          <span>See how GhostBridge connects compatible serial equipment over a direct local WiFi link.</span>
-        </div>
-        <div class="actions">
-          <a class="button button-primary" href="/wifi-serial-device-server.html" data-funnel="serial_device_server">WiFi serial device server</a>
-          <a class="button button-secondary" href="/rs232-wifi.html" data-funnel="rs232_guide">RS232 over WiFi guide</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {% include home/serial-funnel.html %}
 
   <section class="crux-pillars" aria-labelledby="approach-title">
     <div class="container">
       <div class="narrow center">
         <div class="section-label">// Our approach</div>
         <h2 id="approach-title">Purpose-built tools. Clear boundaries. Practical support.</h2>
-        <p class="section-intro">Crux Resolve is the parent engineering brand. GhostBridge serves serial connectivity, while GhostTune serves supported ECU tuning workflows.</p>
+        <p class="section-intro">Crux Resolve is the parent engineering brand. GhostTune serves supported ECU tuning workflows; GhostBridge serves local serial transport when compatible RS232 hardware needs a wireless link.</p>
       </div>
 
       <div class="crux-pillar-grid">
@@ -137,11 +120,11 @@ extra_css: /assets/css/home-crux.css
         </article>
         <article class="crux-pillar">
           <h3>Local control</h3>
-          <p>GhostBridge creates a direct local WiFi connection for serial traffic with no cloud relay, while GhostTune is designed around explicit ECU write safeguards.</p>
+          <p>GhostTune is designed around explicit ECU write safeguards and local ECU communication, while GhostBridge provides a direct local WiFi path for compatible serial traffic with no cloud relay.</p>
         </article>
         <article class="crux-pillar">
           <h3>Direct support</h3>
-          <p>Questions about serial compatibility, ordering, setup, privacy, and product support are handled directly through Crux Resolve.</p>
+          <p>Questions about GhostTune, GhostBridge, compatibility, ordering, setup, privacy, and product support are handled directly through Crux Resolve.</p>
         </article>
       </div>
     </div>
@@ -152,44 +135,46 @@ extra_css: /assets/css/home-crux.css
       <div class="crux-guides-head">
         <div>
           <div class="section-label">// From the technical library</div>
-          <h2 id="guides-title">Start with the connection problem.</h2>
-          <p>Practical guides cover RS232 over WiFi, transparent TCP-to-serial bridging, mobile ECU tuning, and connection troubleshooting.</p>
+          <h2 id="guides-title">Learn the software, compatibility, and connection details.</h2>
+          <p>Start with mobile tuning and ECU compatibility, then use the serial-connectivity library when the physical communication path is the part you need to solve.</p>
         </div>
         <a class="button button-secondary" href="/blog/">View all guides</a>
       </div>
 
       <div class="crux-guide-grid">
+        <a class="crux-guide-card" href="/blog/how-to-tune-microsquirt-from-iphone.html">
+          <div class="post-meta">Mobile tuning guide</div>
+          <h3>How to Tune a MicroSquirt From an iPhone</h3>
+          <p>A practical look at the supported mobile tuning workflow, what the app handles, what the connection requires, and how to verify the setup before making changes.</p>
+          <span class="crux-guide-link">Read the mobile tuning guide →</span>
+        </a>
+
+        <a class="crux-guide-card" href="/blog/how-ghosttune-handles-ecu-changes.html">
+          <div class="post-meta">GhostTune workflow</div>
+          <h3>How GhostTune Handles ECU Changes</h3>
+          <p>See how temporary writes, permanent burns, compatibility checks, and returned-result verification are separated in the supported tuning workflow.</p>
+          <span class="crux-guide-link">See the guarded workflow →</span>
+        </a>
+
         <a class="crux-guide-card" href="/rs232-wifi.html" data-funnel="rs232_guide">
           <div class="post-meta">Serial connectivity guide</div>
           <h3>Connect RS232 Equipment Over WiFi</h3>
-          <p>How a local WiFi-to-RS232 bridge connects legacy serial hardware to modern computers, phones, tablets, and embedded clients.</p>
+          <p>When serial transport is the actual problem, this guide explains local WiFi-to-RS232 bridging, compatibility limits, and the role of a transparent serial device server.</p>
           <span class="crux-guide-link">Explore RS232 over WiFi →</span>
-        </a>
-
-        <a class="crux-guide-card" href="/blog/how-wireless-serial-bridging-works.html">
-          <div class="post-meta">Technical guide</div>
-          <h3>How Wireless Serial Bridging Works</h3>
-          <p>A plain-language explanation of local TCP-to-RS232 bridging, transparent byte relay, and why the bridge is only one part of compatibility.</p>
-          <span class="crux-guide-link">See how the connection works →</span>
-        </a>
-
-        <a class="crux-guide-card" href="/blog/can-you-tune-a-car-from-your-phone.html">
-          <div class="post-meta">September 6, 2026 · Mobile tuning guide</div>
-          <h3>Can You Tune a Car From Your Phone?</h3>
-          <p>What real mobile ECU tuning can do, what hardware it requires, why compatibility matters, and where a laptop still makes sense.</p>
-          <span class="crux-guide-link">Read the guide →</span>
         </a>
       </div>
     </div>
   </section>
 
+  {% include home/serial-funnel.html %}
+
   <section class="crux-about" aria-labelledby="about-title">
     <div class="container crux-about-grid">
       <div class="crux-about-card">
         <div class="section-label">// About Crux Resolve</div>
-        <h2 id="about-title">A veteran-owned small business building connected tools.</h2>
-        <p>Crux Resolve LLC is an Illinois veteran-owned small business building wireless serial connectivity hardware and specialized mobile software for automotive, embedded, industrial, and legacy systems.</p>
-        <p>Crux Resolve is the parent brand; GhostBridge and GhostTune are separate product families beneath it.</p>
+        <h2 id="about-title">A veteran-owned small business building practical software and hardware.</h2>
+        <p>Crux Resolve LLC is an Illinois veteran-owned small business building specialized mobile software, practical connectivity hardware, and engineering tools for automotive, embedded, industrial, and legacy systems.</p>
+        <p>Crux Resolve is the parent brand. GhostTune is the mobile ECU-tuning product family; GhostBridge is the local serial-connectivity hardware family.</p>
         <div class="actions">
           <a class="button button-primary" href="/support.html">Visit Support</a>
         </div>
@@ -198,7 +183,7 @@ extra_css: /assets/css/home-crux.css
       <div class="crux-social-card">
         <div class="section-label">// Follow Crux Resolve</div>
         <h2>See demos, releases, and product updates.</h2>
-        <p>Follow the official Crux Resolve accounts for GhostBridge connectivity updates, GhostTune demonstrations, customer-use tips, and product announcements.</p>
+        <p>Follow the official Crux Resolve accounts for GhostTune demonstrations, GarageBuilt EFI technical content, GhostBridge connectivity updates, and product announcements.</p>
         <div class="actions">
           <a class="button button-primary" href="https://www.tiktok.com/@crux.resolve" target="_blank" rel="me noopener noreferrer">Follow on TikTok</a>
           <a class="button button-secondary" href="https://www.facebook.com/profile.php?id=61591232648867" target="_blank" rel="me noopener noreferrer">Follow on Facebook</a>
@@ -222,7 +207,7 @@ extra_css: /assets/css/home-crux.css
   },
   "image": "https://cruxresolve.com/assets/crux-site-icon.png",
   "email": "support@cruxresolve.com",
-  "description": "Crux Resolve LLC builds wireless RS232 connectivity hardware and specialized mobile software for automotive, embedded, industrial, and legacy systems.",
+  "description": "Crux Resolve LLC builds GhostTune mobile ECU tuning software, practical connectivity hardware, and engineering tools for automotive, embedded, industrial, and legacy systems.",
   "sameAs": [
     "https://www.facebook.com/profile.php?id=61591232648867",
     "https://www.tiktok.com/@crux.resolve"

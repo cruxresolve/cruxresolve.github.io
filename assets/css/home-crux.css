@@ -398,7 +398,7 @@ body::before {
   object-fit: cover;
 }
 
-.crux-product-card:first-child .crux-product-media img {
+.crux-product-card--ghostbridge .crux-product-media img {
   width: 86%;
   height: 86%;
   object-fit: contain;
@@ -656,7 +656,7 @@ body::before {
     aspect-ratio: 16 / 8.5;
   }
 
-  .crux-product-card:first-child .crux-product-media img {
+  .crux-product-card--ghostbridge .crux-product-media img {
     width: 34%;
     height: auto;
   }
