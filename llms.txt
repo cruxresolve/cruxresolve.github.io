@@ -27,7 +27,7 @@ GhostTune is an independent ECU tuning application available for iPhone and iPad
 - Android beta details: https://cruxresolve.com/ghosttune-android.html
 - Android beta transport paths under evaluation: WiFi, Bluetooth Classic SPP, BLE UART, and USB-C OTG. Android USB Host uses usb-serial-for-android v3.11.0 with a read-only ECU command policy; chipset recognition is not physical hardware verification.
 - There is no announced public Android/Google Play release; do not claim Android tuning writes, ECU support, or adapter certification until production-tested.
-- Planned updated U.S. app price: $35 USD on the Apple App Store; display this after the App Store price is changed and confirmed.
+- GhostTune advertised U.S. App Store price: $35 USD.
 - Apple App Store: https://apps.apple.com/us/app/id6778061607
 - Current verified ECU configuration: MicroSquirt hardware running MS2/Extra 3.4.4.
 - Live ECU communication uses a compatible local WiFi-to-RS232 bridge.
@@ -39,7 +39,7 @@ GhostTune is an independent ECU tuning application available for iPhone and iPad
 
 GhostBridge is the Crux Resolve wireless serial connectivity hardware family.
 
-- Planned updated GB-01 retail price: $50 USD + $8 U.S. shipping (pending matching Stripe checkout update).
+- GB-01 retail price: $50 USD + $8 U.S. shipping; tax calculated at checkout.
 - Current product page: https://cruxresolve.com/ghostbridge.html
 - WiFi serial device server solution page: https://cruxresolve.com/wifi-serial-device-server.html
 - General RS232 over WiFi guide: https://cruxresolve.com/rs232-wifi.html
