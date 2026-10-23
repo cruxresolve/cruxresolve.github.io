@@ -1,0 +1,158 @@
+---
+layout: default
+title: "GhostTune Android ECU App Beta | MicroSquirt, Bluetooth & USB OTG"
+description: "Looking for an Android MicroSquirt ECU app? GhostTune Android beta is testing WiFi, Bluetooth SPP, BLE UART and USB-C OTG serial connectivity. See status, compatibility and updates."
+canonical: https://cruxresolve.com/ghosttune-android.html
+---
+<style>
+.android-beta-lead{max-width:820px}
+.android-beta-lead .lead{margin-left:0;text-align:left}
+.android-beta-status{padding:20px 22px;margin:26px 0;border:1px solid rgba(107,220,255,.28);border-radius:14px;background:rgba(107,220,255,.05)}
+.android-beta-status strong{color:#e9faff}
+.android-beta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.android-beta-grid .card{height:100%;margin:0}
+.android-beta-grid h3{margin-top:0}
+.android-beta-grid p:last-child{margin-bottom:0}
+.android-beta-steps{margin:20px 0;padding-left:25px}
+.android-beta-steps li{padding:6px 0}
+.android-beta-table{overflow-x:auto}
+.android-beta-table table{width:100%;min-width:560px}
+.android-beta-table th,.android-beta-table td{text-align:left;vertical-align:top}
+.android-beta-faq h3{margin-top:30px;margin-bottom:9px}
+.android-beta-faq p{margin-top:0}
+@media(max-width:700px){.android-beta-grid{grid-template-columns:1fr}}
+</style>
+<main id="main-content">
+  <section class="hero hero-compact">
+    <div class="narrow android-beta-lead">
+      <div class="eyebrow">// GhostTune for Android · Development update · October 23, 2026</div>
+      <h1>GhostTune for Android: <span class="accent">MicroSquirt ECU connectivity in beta testing.</span></h1>
+      <p class="lead">Searching for an Android ECU tuning app for MicroSquirt or MS2/Extra? GhostTune is being ported to Android, with WiFi, Bluetooth Classic SPP, Bluetooth Low Energy (BLE UART), and USB-C OTG serial connection paths under beta evaluation.</p>
+      <div class="android-beta-status"><strong>Current status: Android beta testing, not a public Android release.</strong> Connection methods and adapter families below describe development support, not a promise that every phone, adapter, ECU, or write operation has passed hardware testing.</div>
+      <div class="actions">
+        <a class="button button-primary" href="#android-updates">Get Android beta updates</a>
+        <a class="button button-secondary" href="#android-connections">See Android connection methods</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-divider" id="android-connections">
+    <div class="container">
+      <div class="section-label">// Android connection options</div>
+      <h2>More ways to reach a serial-connected ECU.</h2>
+      <p class="section-intro">An Android phone can use different physical and wireless paths depending on its hardware, the adapter protocol, and what the beta implementation has verified. An Android Bluetooth ECU connection is not the same thing as a generic OBD-II Bluetooth scanner.</p>
+      <div class="android-beta-grid">
+        <article class="card"><h3>WiFi ECU connection</h3><p>The established GhostTune transport uses a compatible local WiFi-to-RS232 bridge. The verified public tuning setup is on iPhone/iPad; Android use is still part of beta validation.</p></article>
+        <article class="card"><h3>Bluetooth Classic (SPP)</h3><p>The Android port includes a Bluetooth Serial Port Profile connection path for serial Bluetooth devices. Physical adapter compatibility and live ECU behavior are being tested.</p></article>
+        <article class="card"><h3>Bluetooth Low Energy (BLE UART)</h3><p>Android BLE UART support is under development for compatible BLE serial peripherals. BLE support does not mean every BLE or OBD-II accessory will work.</p></article>
+        <article class="card"><h3>USB-C OTG / USB serial</h3><p>The Android USB Host implementation uses the open-source usb-serial-for-android v3.11.0 library. The current USB serial pilot explicitly limits ECU commands to read-only operations while validation continues.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-divider" id="android-usb-otg">
+    <div class="container">
+      <div class="section-label">// Android USB OTG compatibility</div>
+      <h2>USB-C to serial for Android: driver families being evaluated.</h2>
+      <p>For USB OTG, GhostTune uses Android's USB Host framework with an application-level serial driver library—not a special kernel driver or root-only setup. The library recognizes several common USB-to-serial chipsets, including the families below. <strong>Library recognition is not the same as verified GhostTune-to-ECU compatibility.</strong></p>
+      <div class="android-beta-table">
+        <table>
+          <thead><tr><th scope="col">USB serial adapter family</th><th scope="col">Android library support</th><th scope="col">GhostTune beta status</th></tr></thead>
+          <tbody>
+            <tr><td>FTDI FT232 series</td><td>Supported by library</td><td>Hardware validation pending</td></tr>
+            <tr><td>Silicon Labs CP210x</td><td>Supported by library</td><td>Hardware validation pending</td></tr>
+            <tr><td>WCH CH340 / CH341</td><td>Supported by library</td><td>Hardware validation pending</td></tr>
+            <tr><td>Prolific PL2303</td><td>Supported by library</td><td>Hardware validation pending</td></tr>
+            <tr><td>CDC-ACM compliant devices</td><td>Supported by library</td><td>Hardware validation pending</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">A compatible Android phone must support USB Host/OTG. Cables, power, voltage levels (true RS232 versus TTL), adapter wiring, baud rate, and ECU protocol still matter. Do not buy an adapter solely from a chipset name on this page.</p>
+    </div>
+  </section>
+
+  <section class="section-divider" id="android-microsquirt">
+    <div class="narrow">
+      <div class="section-label">// MicroSquirt / MS2/Extra</div>
+      <h2>What works today versus what Android is testing.</h2>
+      <p>GhostTune's <a href="/ghosttune-app.html">public iPhone/iPad application</a> is production-verified for <strong>MicroSquirt hardware running MS2/Extra 3.4.4</strong> through a compatible local WiFi-to-RS232 bridge. That is the published write-capable configuration.</p>
+      <p>The Android beta extends GhostTune's transport options, but it has not yet earned the same published production verification for ECU editing, write/burn safety, or all adapter combinations. In particular, the Android USB OTG pilot enforces a read-only command policy. Support for MS3, MS3Pro, Speeduino, rusEFI, or other controllers must not be assumed until individually qualified.</p>
+      <div class="card">
+        <h3>Before connecting an Android phone to an ECU</h3>
+        <ol class="android-beta-steps">
+          <li>Identify your ECU hardware and exact firmware version.</li>
+          <li>Check whether its serial interface is true RS232, TTL, or another electrical standard.</li>
+          <li>Confirm the adapter, pinout, baud rate, Bluetooth profile or USB chipset, and power needs.</li>
+          <li>Use only a beta build and workflow provided for your tested configuration; do not assume live write support.</li>
+        </ol>
+        <p><a href="/blog/microsquirt-wifi-vs-bluetooth-mobile-tuning.html">Compare MicroSquirt WiFi and Bluetooth connection considerations →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-divider android-beta-faq" id="android-faq">
+    <div class="narrow">
+      <div class="section-label">// Questions Android owners are asking</div>
+      <h2>GhostTune Android FAQ</h2>
+      <h3>Is there an Android MicroSquirt tuning app available to download?</h3>
+      <p>GhostTune for Android is in beta testing. There is no announced public Google Play release or verified production Android tuning configuration yet. The released GhostTune app is currently available for iPhone and iPad.</p>
+      <h3>Can I connect MicroSquirt to an Android phone over Bluetooth?</h3>
+      <p>Android Bluetooth Classic SPP and BLE UART paths have been added for beta testing. Whether your particular MicroSquirt serial adapter works will depend on its hardware, Bluetooth profile, and validation results. No universal Bluetooth adapter compatibility is claimed.</p>
+      <h3>Will a USB-C OTG cable and USB-to-RS232 adapter work?</h3>
+      <p>The Android USB Host serial pilot can enumerate supported driver families, ask for USB permission, and communicate through a serial port. It currently restricts ECU commands to a read-only safety policy. A correct cable and serial electrical interface are still required, and physical ECU/adaptor testing is pending.</p>
+      <h3>Is GhostTune the same as an Android OBD-II or ELM327 scan tool?</h3>
+      <p>No. GhostTune is designed for supported aftermarket engine-management ECU protocols, not generic ELM327 vehicle diagnostics. Bluetooth and USB support do not change that distinction.</p>
+      <h3>Do I need GhostBridge with GhostTune on Android?</h3>
+      <p>GhostBridge GB-01 is the verified WiFi hardware for the published iPhone/iPad MicroSquirt setup. Android SPP, BLE and USB OTG development aims to offer additional transport choices; no particular third-party adapter is yet advertised as verified for the Android beta.</p>
+      <h3>Can the Android beta change fuel or ignition tables?</h3>
+      <p>Do not assume production-ready Android write capability. The USB serial pilot is read-only by design, and write/burn features over other Android transports require independent validation before they are listed as supported.</p>
+    </div>
+  </section>
+
+  <section class="section-divider" id="android-updates">
+    <div class="narrow">
+      <div class="section-label">// Android release progress</div>
+      <h2>Get updates when GhostTune Android moves forward.</h2>
+      <p>Interested in an Android MicroSquirt app with Bluetooth or USB OTG? Subscribe for occasional Android development, compatibility, and public availability announcements. This is an updates list, <strong>not an Android beta access or download request</strong>.</p>
+      <form action="https://formspree.io/f/xqeveryb" aria-describedby="android-form-status" data-async-form="" method="POST">
+        <label for="android-update-email">Email address</label>
+        <input id="android-update-email" name="email" type="email" autocomplete="email" placeholder="your@email.com" required />
+        <input type="hidden" name="interest" value="GhostTune Android beta and release updates" />
+        <input type="hidden" name="_subject" value="GhostTune Android Updates" />
+        <input type="hidden" name="form_name" value="GhostTune Android Updates" />
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none" />
+        <div class="actions"><button class="button button-primary" type="submit">Get Android updates</button><a class="button button-secondary" href="/ghosttune-app.html">View released iOS app</a></div>
+        <p class="muted">Formspree processes your submission as described in our <a href="/privacy.html">Privacy Policy</a>. You can request removal anytime at support@cruxresolve.com.</p>
+      </form>
+      <p id="android-form-status" class="form-status" role="status" aria-live="polite"></p>
+      <p>Questions about a specific Android device, adapter or ECU? <a href="mailto:support@cruxresolve.com?subject=GhostTune%20Android%20compatibility">Email support@cruxresolve.com</a>.</p>
+      <p class="muted">GhostTune and GhostBridge are independent products. MicroSquirt and MegaSquirt are registered trademarks of Bowling &amp; Grippo; MS2/Extra refers to the open-source firmware project. Crux Resolve is not affiliated with or endorsed by these projects or trademark owners.</p>
+    </div>
+  </section>
+</main>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://cruxresolve.com/ghosttune-android.html#webpage",
+      "url": "https://cruxresolve.com/ghosttune-android.html",
+      "name": "GhostTune Android ECU App Beta | MicroSquirt, Bluetooth & USB OTG",
+      "description": "GhostTune for Android is in beta testing with WiFi, Bluetooth Classic SPP, BLE UART and USB OTG serial paths. Not a public Android release.",
+      "dateModified": "2026-10-23",
+      "about": ["Android MicroSquirt ECU connectivity", "Bluetooth SPP", "BLE UART", "USB OTG serial"],
+      "isPartOf": {"@id": "https://cruxresolve.com/#website"},
+      "publisher": {"@id": "https://cruxresolve.com/#organization"}
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Crux Resolve", "item": "https://cruxresolve.com/"},
+        {"@type": "ListItem", "position": 2, "name": "GhostTune", "item": "https://cruxresolve.com/ghosttune-app.html"},
+        {"@type": "ListItem", "position": 3, "name": "GhostTune Android beta", "item": "https://cruxresolve.com/ghosttune-android.html"}
+      ]
+    }
+  ]
+}
+</script>

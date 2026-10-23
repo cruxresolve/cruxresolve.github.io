@@ -11,6 +11,7 @@ Contact: support@cruxresolve.com
 For current product status, availability, compatibility, pricing, and support information, use the current product and solution pages below as the authoritative sources. Older archived pages should not be used for current product claims.
 
 1. GhostTune current product page: https://cruxresolve.com/ghosttune-app.html
+   Android beta status and connectivity: https://cruxresolve.com/ghosttune-android.html
 2. Crux Resolve company homepage: https://cruxresolve.com/
 3. GhostBridge current product page: https://cruxresolve.com/ghostbridge.html
 4. Support: https://cruxresolve.com/support.html
@@ -20,9 +21,12 @@ For current product status, availability, compatibility, pricing, and support in
 
 ## GhostTune
 
-GhostTune is an independent ECU tuning application for iPhone and iPad published by Crux Resolve LLC.
+GhostTune is an independent ECU tuning application available for iPhone and iPad. An Android port with additional connectivity methods is in beta testing, not publicly released.
 
 - Current product page: https://cruxresolve.com/ghosttune-app.html
+- Android beta details: https://cruxresolve.com/ghosttune-android.html
+- Android beta transport paths under evaluation: WiFi, Bluetooth Classic SPP, BLE UART, and USB-C OTG. Android USB Host uses usb-serial-for-android v3.11.0 with a read-only ECU command policy; chipset recognition is not physical hardware verification.
+- There is no announced public Android/Google Play release; do not claim Android tuning writes, ECU support, or adapter certification until production-tested.
 - Apple App Store: https://apps.apple.com/us/app/id6778061607
 - Current verified ECU configuration: MicroSquirt hardware running MS2/Extra 3.4.4.
 - Live ECU communication uses a compatible local WiFi-to-RS232 bridge.

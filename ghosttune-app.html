@@ -1,13 +1,14 @@
 ---
 layout: default
 title: "GhostTune — MicroSquirt & MS2/Extra ECU Tuning App for iPhone"
-description: "Tune a verified MicroSquirt ECU from iPhone or iPad over local WiFi. GhostTune is an independent EFI tuning app with VE, ignition, AFR, live data, diagnostics, backups, and guarded ECU writes."
+description: "GhostTune is available for iPhone/iPad MicroSquirt tuning via WiFi. Android beta is testing Bluetooth SPP, BLE UART and USB OTG serial connectivity. See platform status."
 canonical: https://cruxresolve.com/ghosttune-app.html
 current: ghosttune
 extra_css: /assets/css/ghosttune-video.css
 ---
 <main id="main-content">
   {% include ghosttune/part1.html %}
+  {% include ghosttune/android-beta.html %}
   {% include ghosttune/part2.html %}
   {% include ghosttune/part3.html %}
 </main>
@@ -120,7 +121,15 @@ extra_css: /assets/css/ghosttune-video.css
           "name": "Does GhostTune use Bluetooth or WiFi?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "GhostTune uses a local WiFi connection through a compatible WiFi-to-RS232 bridge for live ECU communication. GhostBridge v1.0 (GB-01) is Crux Resolve’s assembled bridge optimized and verified for this workflow."
+            "text": "The released iPhone/iPad version uses a verified local WiFi-to-RS232 connection. Android beta development includes Bluetooth Classic SPP, BLE UART, and USB OTG serial paths, but Android hardware and ECU operations are not yet production-qualified."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is GhostTune available for Android?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GhostTune for Android is in beta testing and is not a public Google Play release. WiFi, Bluetooth Classic SPP, BLE UART, and USB OTG serial connection methods are being evaluated. Current published production verification applies to the iPhone and iPad MicroSquirt / MS2/Extra 3.4.4 workflow."
           }
         },
         {
