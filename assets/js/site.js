@@ -160,17 +160,17 @@
         product: "GhostBridge GB-01",
         destination: "stripe_checkout",
         currency: "USD",
-        value: 89,
+        value: 50,
         ...context
       });
 
       track("begin_checkout", {
         currency: "USD",
-        value: 89,
+        value: 50,
         items: [{
           item_id: "ghostbridge",
           item_name: "GhostBridge",
-          price: 89,
+          price: 50,
           quantity: 1
         }],
         ...context
